@@ -1,0 +1,26 @@
+<mat-toolbar color="primary" class="navbar">
+  <div>
+    <mat-icon (click)="opened=!opened">apps</mat-icon>
+  </div>
+  <!--This is for Side Nav-->
+</mat-toolbar>
+
+<!-- Side Nav Bar -->
+<mat-sidenav-container class="sidenav">
+  <mat-sidenav mode="push" position="start" mode="side" [(opened)]="opened">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let menu of sideMenuItems">
+        <a matLine [routerLink]="[menu.ref]">{{menu.title}}</a>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-icon-button (click)="signOut()">
+          Sign out
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Main Content -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

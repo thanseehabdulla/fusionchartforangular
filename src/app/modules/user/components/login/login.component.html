@@ -1,0 +1,13 @@
+<div class="loginForm">
+    <form (ngSubmit)="onLogin()" #loginForm1="ngForm" [formGroup]="loginForm">
+        <mat-form-field floatLabel="auto">
+            <mat-label>User Code</mat-label>
+            <input matInput required type="text" formControlName="userCode">
+          </mat-form-field>
+          <mat-form-field floatLabel="auto">
+            <mat-label>Password</mat-label>
+            <input matInput required type="password" formControlName="password">
+          </mat-form-field>
+          <button type="submit" mat-raised-button color="primary">Login</button>
+    </form>
+</div>

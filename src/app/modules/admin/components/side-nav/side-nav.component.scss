@@ -1,0 +1,22 @@
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+    padding: 16px;
+}
+
+mat-sidenav {
+    background-color: rgb(189, 33, 105);
+    width: 22%;
+}
+
+.side-nav-items {
+    font-size: large;
+    font-weight: 400;
+    color: white;
+    list-style-type: none;
+    border-bottom: solid 1px black;
+    padding: 7px;
+
+}
