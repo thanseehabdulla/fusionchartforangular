@@ -9,8 +9,13 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatDialogModule
 } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const materials = [
   MatButtonModule,
@@ -22,7 +27,12 @@ const materials = [
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatDialogModule,FormsModule,
+  ReactiveFormsModule 
 ]
 
 @NgModule({

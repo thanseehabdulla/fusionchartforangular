@@ -13,11 +13,13 @@ import { environment } from '../environments/environment';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MaterialModule } from "./shared/material/material.module";
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmDialogComponent],
 })
 export class AppModule { }
