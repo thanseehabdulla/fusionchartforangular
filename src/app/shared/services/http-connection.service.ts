@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -5,10 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     providedIn: 'root'
 })
 export class HttpConnectionService {
-    url = '/api';
+    url = environment.apiUrl;
     headers = new HttpHeaders();
 
     constructor(private httpclient: HttpClient) {
+    }
+
+    post_login(path: string, payload?: any) {
+        return this.httpclient.post<any>(this.url + path, payload, {withCredentials: true});
     }
 
     get(path: string, payload?: any) {

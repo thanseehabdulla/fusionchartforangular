@@ -1,0 +1,27 @@
+<div *ngIf="filteredAgents">
+    <mat-form-field>
+        <input #searchBox matInput type="text" placeholder="Search here" (keyup)="search($event.target.value)">
+    </mat-form-field>
+    <mat-table class="mat-elevation-z8" [dataSource]="filteredAgents" matSort>
+        <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
+            <mat-header-cell *matHeaderCellDef>
+                <div mat-sort-header>{{displayColumns[i]}}</div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let agent">
+                <span *ngIf="column !=='status'">{{ agent[column]}}</span>
+                <button *ngIf="column ==='status'" mat-raised-button 
+                    [ngStyle]="{'backgroundColor': agent[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+                    (click)="toggleActivation(agent['pki_agent_code'], agent[column])">
+                    {{agent[column] === 'A' ? 'Active' : 'Inactive'}}
+                </button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+    </mat-table>
+    <mat-paginator  [length]="pageLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
+</div>
+<div *ngIf="!filteredAgents">
+<span>No data</span>
+</div>

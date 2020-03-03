@@ -1,3 +1,4 @@
+import { AuthGuard } from 'src/app/shared/services/auth.guard';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 // import { AdminComponent } from './components/admin/admin.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
@@ -12,11 +13,11 @@ const routes: Routes = [
     path: '', 
     component: SideNavComponent,
     children: [
-      { path: '', component: ManageUsersComponent },
-      { path: 'users', component: ManageUsersComponent },
-      { path: 'publications', component: ManagePublicationsComponent },
-      { path: 'location-report', component: InspectorLocationReportComponent },
-      { path: 'configurations', component: ConfigurationsComponent }
+      { path: '', component: ManageUsersComponent, canActivate: [AuthGuard] },
+      { path: 'users', component: ManageUsersComponent, canActivate: [AuthGuard] },
+      { path: 'publications', component: ManagePublicationsComponent, canActivate: [AuthGuard] },
+      { path: 'location-report', component: InspectorLocationReportComponent, canActivate: [AuthGuard] },
+      { path: 'configurations', component: ConfigurationsComponent, canActivate: [AuthGuard] }
     ] 
   }
 ];

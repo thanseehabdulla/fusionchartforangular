@@ -8,6 +8,8 @@ import { InspectorLocationReportComponent } from './components/inspector-locatio
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { PublicationMasterComponent } from './components/manage-publications/publication-master/publication-master.component';
 import { PublicationMasterDialog } from './components/manage-publications/publication-master-dialog/publication-master-dialog';
+import { ManageAgentsComponent } from './components/manage-users/manage-agents/manage-agents.component';
+import { ManageEmployeesComponent } from './components/manage-users/manage-employees/manage-employees.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { PublicationMasterDialog } from './components/manage-publications/public
     InspectorLocationReportComponent, 
     SideNavComponent,
     PublicationMasterComponent,
-    PublicationMasterDialog
+    PublicationMasterDialog,
+    ManageAgentsComponent, ManageEmployeesComponent
   ],
   imports: [
     SharedModule
