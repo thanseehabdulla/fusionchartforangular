@@ -10,11 +10,13 @@ import {
   MatInputModule,
   MatIconModule,
   MatToolbarModule,
+  MatDialogModule,
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
   MatSortModule
 } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const materials = [
   MatButtonModule,
@@ -27,6 +29,9 @@ const materials = [
   MatInputModule,
   MatIconModule,
   MatToolbarModule,
+  MatDialogModule,
+  FormsModule,
+  ReactiveFormsModule, 
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,

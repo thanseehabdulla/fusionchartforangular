@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MaterialModule } from "./shared/material/material.module";
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 
@@ -20,6 +21,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' })
   ],
+  entryComponents: [ConfirmDialogComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
