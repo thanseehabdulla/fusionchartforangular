@@ -7,12 +7,13 @@ import { NotifyService } from "src/app/shared/services/notify.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PublicationMasterDialog } from "../publication-master-dialog/publication-master-dialog";
 import { HelperService } from 'src/app/shared/services/helper.service';
+import { PublicationMasterService } from '../../../services/publication-master.service';
 
 export interface PublicationData {
-  publicationName: string;
-  publicationCode: string;
-  publisherName: string;
-  publicationType: string;
+  publication_name: string;
+  publication_code: string;
+  publisher_name: string;
+  publication_type: string;
   status:boolean
 }
 
@@ -23,10 +24,10 @@ export interface PublicationData {
 })
 export class PublicationMasterComponent implements OnInit {
   displayedColumns: string[] = [
-    "publicationName",
-    "publicationCode",
-    "publisherName",
-    "publicationType",
+    "publication_name",
+    "publication_code",
+    "publisher_name",
+    "publication_type",
     "status"
   ];
   dataSource: MatTableDataSource<PublicationData>;
@@ -41,79 +42,26 @@ export class PublicationMasterComponent implements OnInit {
     private http: HttpConnectionService,
     private notify: NotifyService,
     public dialog: MatDialog,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private publicationService: PublicationMasterService
   ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.publicationList);
   }
 
   ngOnInit() {
-    // this.http.get("/publication").subscribe(
-    //   (data:any) =>{
-    let data = [
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "1234",
-        publisherName: "Jiason",
-        publicationType: "Permanent"
+    this.publicationService.getPublications().subscribe(
+      publications => {
+        this.publicationList = publications;
+        this.dataSource = new MatTableDataSource(this.publicationList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "SDSD",
-        publisherName: "Shyan",
-        publicationType: "Permanent",
-        status:true
-      },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "SDSD",
-        publisherName: "Ram",
-        publicationType: "Permanent",
-        status:false
-      },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "FGFG",
-        publisherName: "Gdf",
-        publicationType: "Permanent",
-        status:true
-      },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "ETET",
-        publisherName: "Rghgsa",
-        publicationType: "Temporary"
-      },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "HHHH",
-        publisherName: "Jiason",
-        publicationType: "Temporary"
-      },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "GGJH",
-        publisherName: "Jiason",
-        publicationType: "Temporary"
-      },
-      {
-        publicationName: "Malayala manorama",
-        publicationCode: "GFGF",
-        publisherName: "Jiason",
-        publicationType: "Temporary"
+      error => {
+        this.notify.showError("error");
+        console.log(error);
       }
-    ];
-    this.publicationList = data;
-    this.dataSource = new MatTableDataSource(this.publicationList);
-    //   },
-    //   error => {
-    //     this.notify.showError("error");
-    //     console.log(error);
-    //   }
-    //  );
-
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    );
   }
 
   applyFilter(event: Event) {
@@ -130,13 +78,13 @@ export class PublicationMasterComponent implements OnInit {
       data["id"] = 1;
     } else {
       data = {
-        publicationName: "",
-        publicationCode: "",
-        publisherName: "",
-        publicationType: "",
-        status:true,
+        publication_name: "",
+        publication_code: "",
+        publisher_name: "",
+        publication_type: "",
+        status: true,
         id: 0
-      }
+      };
     }
     const dialogRef = this.dialog.open(PublicationMasterDialog, {
       width: "30%",
@@ -151,14 +99,18 @@ export class PublicationMasterComponent implements OnInit {
 
   confirmDialog(status): void {
     let message = "";
-    if(status){
-      message = "Inactive."
-    }else{
-      message = "Active."
+    if (status) {
+      message = "Inactive.";
+    } else {
+      message = "Active.";
     }
-    this.helperService.confirmDialog('You are about to change the Publication status to '+
-       message+' Are you sure you want to do this?', function (data:boolean){
-        console.log(data)
-    })
+    this.helperService.confirmDialog(
+      "You are about to change the Publication status to " +
+        message +
+        " Are you sure you want to do this?",
+      function(data: boolean) {
+        console.log(data);
+      }
+    );
   }
 }

@@ -4,24 +4,24 @@
         <div class="align_items">
             <div class="setDiv">
                 <label class="label-class ">Publication Name:<br><br>
-                    <input type="text" formControlName="publicationName" [(ngModel)]="publication.publicationName" required>
+                    <input type="text" formControlName="publication_name" [(ngModel)]="publication.publication_name" required>
                 </label>
             </div>
             <div class="setDiv">
                 <label class="label-class">Publication Code :<br><br>
-                    <input type="text" formControlName="publicationCode" [(ngModel)]="publication.publicationCode" required>
+                    <input type="text" formControlName="publication_code" [(ngModel)]="publication.publication_code" required>
                 </label>
             </div>
         </div>
         <div class="align_items">
             <div class="setDiv">
                 <label class="label-class">Publisher Name:<br><br>
-                    <input type="text" formControlName="publisherName" [(ngModel)]="publication.publisherName" required>
+                    <input type="text" formControlName="publisher_name" [(ngModel)]="publication.publisher_name" required>
                 </label>
             </div>
             <div class="setDiv">
                 <label class="label-class">Publication Status :<br><br>
-                    <select formControlName="publicationType" [(ngModel)]="publication.publicationType" required>
+                    <select formControlName="publication_type" [(ngModel)]="publication.publication_type" required>
                         <option *ngFor="let status of typeList">
                           {{ status.name }}
                         </option>

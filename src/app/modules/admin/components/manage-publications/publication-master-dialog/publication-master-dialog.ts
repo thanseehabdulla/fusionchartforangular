@@ -3,10 +3,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, Validators } from "@angular/forms";
 
 export interface DialogData {
-    publicationName: string;
-    publicationCode: string;
-    publisherName: string;
-    publicationType: string;
+    publication_name: string;
+    publication_code: string;
+    publisher_name: string;
+    publication_type: string;
     id: number;
     status:boolean
 }
@@ -19,10 +19,10 @@ export interface DialogData {
 export class PublicationMasterDialog {
     publication: DialogData;
     publicationDetailsForm = this.FB.group({
-        publicationName: ["", Validators.required],
-        publicationCode: ["", Validators.required],
-        publisherName: ["", Validators.required],
-        publicationType: [{}, Validators.required]
+        publication_name: ["", Validators.required],
+        publication_code: ["", Validators.required],
+        publisher_name: ["", Validators.required],
+        publication_type: [{}, Validators.required]
     });
 
   typeList = [{ name: "Permanent",code:"P" }, { name: "Temporary",code:"P" }];
@@ -37,10 +37,10 @@ export class PublicationMasterDialog {
     console.log("Passed data",this.data);
     if(this.data.id == 0){
         this.data = {
-            publicationName: "",
-            publicationCode: "",
-            publisherName: "",
-            publicationType: "Permanent",
+            publication_name: "",
+            publication_code: "",
+            publisher_name: "",
+            publication_type: "Permanent",
             id: 0,
             status:true
         }
