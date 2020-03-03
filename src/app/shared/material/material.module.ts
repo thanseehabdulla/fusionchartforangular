@@ -9,7 +9,11 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 } from "@angular/material";
 
 const materials = [
@@ -22,7 +26,11 @@ const materials = [
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 ]
 
 @NgModule({

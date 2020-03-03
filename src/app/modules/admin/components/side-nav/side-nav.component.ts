@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SideNavComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
   sideMenuItems = [
     {title:"Manage users", ref:"/admin/users" },
     {title:"Manage Publications", ref:"/admin/publications" },
@@ -18,7 +19,8 @@ export class SideNavComponent implements OnInit {
   ngOnInit() {
   }
 
-  signOut(){
+  onLogout(){
+    this.authService.logout();
     this.router.navigate(['/user/login']);
   }
 

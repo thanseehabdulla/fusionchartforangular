@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageUsersComponent implements OnInit {
 
-  constructor() { }
+  userTypes: string[];
+
+  constructor(private router: Router) { 
+    this.userTypes = ['Agent', 'Admin/Inspector'];
+   }
 
   ngOnInit() {
   }
-
 }

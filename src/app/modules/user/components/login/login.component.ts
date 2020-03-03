@@ -2,6 +2,7 @@ import { AuthService } from './../../../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) { 
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { 
     this.loginForm = fb.group({
       userCode: ['admin'],
       password: ['1234']
@@ -23,9 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    if(this.auth.isAdminLoggedIn(this.loginForm)) {
-      this.router.navigate(['/admin'])
-    }
-    
+        this.authService.login(this.loginForm.get('userCode').value,this.loginForm.get('password').value)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  this.router.navigate(['/admin/users']);
+              },
+              error => {
+                  console.log(error);
+              });
   }
 }
