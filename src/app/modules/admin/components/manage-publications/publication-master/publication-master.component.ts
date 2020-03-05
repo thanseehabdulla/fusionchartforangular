@@ -2,20 +2,12 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { HttpConnectionService } from "src/app/shared/services/http-connection.service";
 import { NotifyService } from "src/app/shared/services/notify.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PublicationMasterDialog } from "../publication-master-dialog/publication-master-dialog";
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { PublicationMasterService } from '../../../services/publication-master.service';
 import { Publication } from 'src/app/shared/models/publication';
-export interface PublicationData {
-  publication_name: string;
-  publication_code: string;
-  publisher_name: string;
-  publication_type: string;
-  status:boolean
-}
 
 @Component({
   selector: "app-publication-master",
@@ -23,23 +15,15 @@ export interface PublicationData {
   styleUrls: ["./publication-master.component.scss"]
 })
 export class PublicationMasterComponent implements OnInit {
-  displayedColumns: string[] = [
-    "publication_name",
-    "publication_code",
-    "publisher_name",
-    "publication_type",
-    "status"
-  ];
+  displayedColumns: string[] = ["publication_name","publication_code","publisher_name","publication_type","status"];
   statusMapper = {
     'A' : 'I',
     'I' : 'A'
   };
-  dataSource: MatTableDataSource<PublicationData>;
-  publication: PublicationData;
-
+  dataSource: MatTableDataSource<Publication>;
+  publication: Publication;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
   publicationList = [];
   initialValues = {
     publication_name: "",
@@ -49,13 +33,11 @@ export class PublicationMasterComponent implements OnInit {
     status: true
   }
   constructor(
-    private http: HttpConnectionService,
     private notify: NotifyService,
     private dialog: MatDialog,
     private helperService: HelperService,
     private publicationService: PublicationMasterService
   ) {
-    // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.publicationList);
   }
 
@@ -100,14 +82,13 @@ export class PublicationMasterComponent implements OnInit {
   }
 
   setDetails(publications:Publication[]){
-    this.publicationList = publications;
-    this.dataSource = new MatTableDataSource(this.publicationList);
+    this.publicationList      = publications;
+    this.dataSource           = new MatTableDataSource(this.publicationList);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort      = this.sort;
   }
 
   setError(error:string){
-    console.log(error);
     this.notify.showError(error);
   }
 

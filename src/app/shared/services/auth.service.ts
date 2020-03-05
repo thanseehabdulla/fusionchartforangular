@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   login(usercode: string, password: string) {
-      return this.httpService.post_login('/login', { usercode, password })
+      return this.httpService.post_login('/auth/login', { usercode, password })
           .pipe(map(response => {
               // store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('currentUser', JSON.stringify(response.payload));

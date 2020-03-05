@@ -54,4 +54,13 @@ export class PublicationMasterService {
       )
   }
 
+  mapPublication(publicationDetails: Object): Observable<any> {
+    return this.httpService.post(`/publication/map`,publicationDetails)
+      .pipe(
+        map(response => {
+          return response['payload'];
+        })
+      )
+  }
+
 }

@@ -10,6 +10,8 @@ import { PublicationMasterComponent } from './components/manage-publications/pub
 import { PublicationMasterDialog } from './components/manage-publications/publication-master-dialog/publication-master-dialog';
 import { ManageAgentsComponent } from './components/manage-users/manage-agents/manage-agents.component';
 import { ManageEmployeesComponent } from './components/manage-users/manage-employees/manage-employees.component';
+import { PublicationMappingComponent } from './components/manage-publications/publication-mapping/publication-mapping.component';
+import { PublicationMappingDialogComponent } from './components/manage-publications/publication-mapping-dialog/publication-mapping-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,11 @@ import { ManageEmployeesComponent } from './components/manage-users/manage-emplo
     SideNavComponent,
     PublicationMasterComponent,
     PublicationMasterDialog,
-    ManageAgentsComponent, ManageEmployeesComponent
+    ManageAgentsComponent, ManageEmployeesComponent, PublicationMappingComponent, PublicationMappingDialogComponent
   ],
   imports: [
     SharedModule
   ],
-  entryComponents: [PublicationMasterDialog],
+  entryComponents: [PublicationMasterDialog,PublicationMappingDialogComponent],
 })
 export class AdminModule { }

@@ -50,7 +50,7 @@ export class PublicationMasterDialog {
     this.publication = this.data;
   }
 
-  onNoClick(isChanged): void {
+  onCloseDialog(isChanged): void {
     if(this.publication.pki_publication_id)
       isChanged = true;
     this.dialogRef.close(isChanged);
@@ -69,7 +69,7 @@ export class PublicationMasterDialog {
   delete(){
     this.publicationService.deletePublication(this.publication.pki_publication_id)
     .subscribe(()=> {
-      this.onNoClick(true);
+      this.onCloseDialog(true);
     },error => {
       this.setError(error);
     }) 
@@ -82,19 +82,19 @@ export class PublicationMasterDialog {
 
   addPublication(){
     this.publicationService.addPublication(this.publication).subscribe((data)=> {
-      this.onNoClick(true);
+      this.onCloseDialog(true);
     },error => {
       this.setError(error);
-      this.onNoClick(false);
+      this.onCloseDialog(false);
     })
   }
 
   updatePublication(){
     this.publicationService.updatePublication(this.publication).subscribe((data)=> {
-      this.onNoClick(true);
+      this.onCloseDialog(true);
     },error => {
       this.setError(error);
-      this.onNoClick(true);
+      this.onCloseDialog(true);
     })
   }
 }

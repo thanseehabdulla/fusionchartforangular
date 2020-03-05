@@ -3,8 +3,8 @@
 </mat-form-field>
 
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
-        <caption>Publication List</caption><br>
+    <table mat-table [dataSource]="tableDataSource" matSort>
+        <caption>Temporary Publication List</caption><br>
         <!-- publication_name Column -->
         <ng-container matColumnDef="publication_name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publication_name"> Publication Name </th>
@@ -14,27 +14,27 @@
         <!-- publication_code Column -->
         <ng-container matColumnDef="publication_code">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publication_code"> Publication Code </th>
-            <td mat-cell *matCellDef="let row" (click)="openDialog(row)"> {{row.publication_code}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.publication_code}} </td>
         </ng-container>
 
         <!-- publisher_name Column -->
         <ng-container matColumnDef="publisher_name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publisher_name"> Publisher Name </th>
-            <td mat-cell *matCellDef="let row" (click)="openDialog(row)"> {{row.publisher_name}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.publisher_name}} </td>
         </ng-container>
 
         <!-- publication_type Column -->
         <ng-container matColumnDef="publication_type">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publication_type"> Type </th>
-            <td mat-cell *matCellDef="let row" (click)="openDialog(row)"> {{row.publication_type == 'T'?'Temporary':'Permanent'}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.publication_type == 'T'?'Temporary':'Permanent'}} </td>
         </ng-container>
 
-        <!-- Activate/Deactivate Column -->
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header id="sype"> Status </th>
-            <td mat-cell *matCellDef="let row" (click)="confirmDialog(row.pki_publication_id,row.status)" style="text-align:center;">
-                <button mat-raised-button [ngStyle]="{'backgroundColor': row.status == 'A' ? '#70ff17' : 'gainsboro' }">
-                    {{row.status == 'A'?'Active':'Inactive'}}
+        <!-- publication_type Column -->
+        <ng-container matColumnDef="map_to">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header id="map_to"> Map To </th>
+            <td mat-cell *matCellDef="let row">
+                <button (click)="openDialog(row)">
+                    <em class="material-icons">double_arrow</em>
                 </button>
             </td>
         </ng-container>
@@ -46,9 +46,4 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-</div>
-<div>
-    <button class="Plus_button" mat-fab (click)="openDialog(null)">
-        <mat-icon>add</mat-icon>
-    </button>
 </div>
