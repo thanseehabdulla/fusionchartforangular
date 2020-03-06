@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { 
     this.loginForm = fb.group({
-      userCode: ['admin'],
+      userCode: ['emp001'],
       password: ['1234']
     })
    }

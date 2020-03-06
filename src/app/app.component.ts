@@ -9,9 +9,6 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent {
   title = 'CirculationApp-Billing';
-  currentUser: User;
 
-  constructor(private authService: AuthService) {
-    this.authService.currentUser.subscribe(user => this.currentUser = user);
-  }
+  constructor(private authService: AuthService) { }
 }

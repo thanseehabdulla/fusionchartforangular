@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="navbar">
-  <div>
+  <div *ngIf="currentUser" class="nav"> 
     <mat-icon (click)="opened=!opened">apps</mat-icon>
+    <h4>{{currentUser.user.name}}</h4>
   </div>
-  <!--This is for Side Nav-->
 </mat-toolbar>
 
 <!-- Side Nav Bar -->

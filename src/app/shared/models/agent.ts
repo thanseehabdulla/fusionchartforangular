@@ -3,5 +3,5 @@ export interface Agent {
     name: string;
     place: string;
     mobile: string;
-    isActive: boolean; 
+    status: boolean; 
 }

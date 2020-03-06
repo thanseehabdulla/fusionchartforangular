@@ -14,7 +14,7 @@ export interface PublicationData {
   publication_code: string;
   publisher_name: string;
   publication_type: string;
-  status:boolean
+  status: boolean
 }
 
 @Component({
