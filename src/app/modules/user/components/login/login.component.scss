@@ -3,10 +3,20 @@
     // display: flex;
     // justify-content: center;
     border: solid 2px grey;
-    background-color: rgb(198, 246, 198);
+    background-color: smokewhite;
     position: absolute;
     top: 50%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    width:500px;
+    
+    form{
+        display: flex;
+        flex-flow: column;
+    }
+
+    button{
+        background:#1057E7 !important;
+    }
 }
