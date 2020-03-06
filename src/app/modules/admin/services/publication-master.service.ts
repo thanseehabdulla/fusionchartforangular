@@ -26,7 +26,7 @@ export class PublicationMasterService {
         })
       )
   }
-
+  
   addPublication(publicationDetails: Publication): Observable<any> {
     return this.httpService.post(`/publication`, publicationDetails)
       .pipe(

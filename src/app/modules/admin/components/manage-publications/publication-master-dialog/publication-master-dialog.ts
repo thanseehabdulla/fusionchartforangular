@@ -1,3 +1,4 @@
+import { catchError } from 'rxjs/operators';
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -18,22 +19,23 @@ export class PublicationMasterDialog {
     publisher_name    : ["", Validators.required],
     publication_type  : [{}, Validators.required]
   });
-  typeList    = [{ name: "Permanent",code:"P" }, { name: "Temporary",code:"T" }];
+
   initialData = {
     publication_name  : "",
     publication_code  : "",
     publisher_name    : "",
-    publication_type  : "Permanent",
+    publication_type  : "P",
     status            : 'A',
     fki_user_code     : "SAJNA",
     pki_publication_id: 0
   }
-  statusMapper = {
-    'Permanent' : 'P',
-    'Temporary' : 'T',
-    'T' : 'T',
-    'P' : 'P'
+
+  typeList = ["P","T"];
+  publicationTypeMapper = {
+    "P": "Permanent", 
+    "T": "Temporary"
   };
+  
   constructor(
     public dialogRef: MatDialogRef<PublicationMasterDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Publication,
@@ -57,8 +59,8 @@ export class PublicationMasterDialog {
   }
 
   save() {
-    this.publication['fki_user_code']     = "sajna";
-    this.publication['publication_type']  = this.statusMapper[this.publication.publication_type];
+    this.publication['fki_user_code']     = JSON.parse(localStorage.getItem('currentUser')).user.pki_user_code;
+    this.publication['publication_type']  = this.publication.publication_type;
     if(this.publication.pki_publication_id){
       this.updatePublication();
     }else{

@@ -29,7 +29,7 @@ export class PublicationMasterComponent implements OnInit {
     publication_name: "",
     publication_code: "",
     publisher_name: "",
-    publication_type: "",
+    publication_type: "P",
     status: true
   }
   constructor(
