@@ -14,7 +14,6 @@ export class ManageAgentsComponent implements OnInit {
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
   displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Activate'];
   pageLength: number;
-  searchBox: boolean = true;
   statusMapper = {
     'A' : 'I',
     'I' : 'A'
