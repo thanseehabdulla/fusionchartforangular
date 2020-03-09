@@ -27,7 +27,7 @@
                 <span *ngIf="column ==='pki_user_code'">{{employee[column]}}</span>
                 <span *ngIf="column ==='role_id'">{{RoleMapper[employee[column]]}}</span>
                 <button *ngIf="column ==='status'" mat-raised-button
-                    [ngStyle]="{'backgroundColor': employee[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+                    [ngStyle]="{'backgroundColor': employee[column] === 'A' ? '#0B8744' : '#D62D20' }"
                     (click)="toggleActivation(employee['pki_user_code'], employee[column])">
                     {{statusMapper[employee[column]]}}
                 </button>

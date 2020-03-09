@@ -4,7 +4,8 @@
     <div class="nav-bar">
       <div>
         <div class="nav-icon">
-          <mat-icon (click)="opened=!opened">apps</mat-icon>
+          <mat-icon *ngIf="!opened" (click)="opened=!opened">menu</mat-icon>
+          <mat-icon *ngIf="opened" (click)="opened=!opened">menu_open</mat-icon>
         </div>
       </div>
       <div class="nav-right">
