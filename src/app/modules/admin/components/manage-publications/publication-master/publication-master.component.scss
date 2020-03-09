@@ -17,16 +17,15 @@ th {
     margin: 10px;
 }
 
-button{
-    width:100px;
-    color:white;
+button {
+    width: 100px;
+    color: white;
 }
 
-.publication-master{
+.publication-master {
     display: flex;
     justify-content: space-between;
-    
-    .add{
+    .add {
         width: 48px;
         background: none;
         color: black;
@@ -34,4 +33,9 @@ button{
         height: 56px;
         border: 1px solid gray;
     }
+}
+
+.no-data {
+    display: flex;
+    justify-content: center;
 }

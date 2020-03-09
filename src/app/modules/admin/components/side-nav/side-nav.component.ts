@@ -14,6 +14,7 @@ export class SideNavComponent implements OnInit {
     {title:"Manage users", ref:"/admin/users" },
     {title:"Manage Publications", ref:"/admin/publications" },
     {title:"Report", ref:"/admin/location-report" },
+    {title:"Settings", ref:"/admin/configurations" },
   ]
   
   ngOnInit() {

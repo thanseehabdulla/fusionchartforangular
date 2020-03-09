@@ -1,1 +1,26 @@
-<p>configurations works!</p>
+<ul>
+    <li>
+        <mat-label class="label-heading">
+            Indent update percentage is : {{indentUpdatePercentage}}</mat-label>
+        <button mat-icon-button (click)="editPercentage()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <br>
+        <div class="align-items">
+            <div>
+                <mat-form-field *ngIf="isEdit" class="input-margin" appearance="outline">
+                    <mat-label>Indent update % :</mat-label>
+                    <input matInput type="number" [ngModel]="indentUpdatePercentage" required>
+                </mat-form-field>
+            </div>
+            <div *ngIf="isEdit" class="align-buttons">
+                <button mat-raised-button (click)="update()" color="primary">Update</button>
+                <button mat-icon-button (click)="cancel()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </li>
+
+</ul>

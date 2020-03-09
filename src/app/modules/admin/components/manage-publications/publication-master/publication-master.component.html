@@ -1,14 +1,14 @@
 <div class="publication-master">
-<div>
-<mat-form-field>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search here">
-</mat-form-field>
-</div>
-<div>
-    <button class="Plus_button add" mat-fab (click)="openDialog(null)">
+    <div>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search here">
+        </mat-form-field>
+    </div>
+    <div>
+        <button class="Plus_button add" mat-fab (click)="openDialog(null)">
         <mat-icon>add</mat-icon>
     </button>
-</div>
+    </div>
 </div>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -53,5 +53,8 @@
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <div class="no-data" *ngIf="!publicationList || publicationList.length < 1">
+        No data.
+    </div>
 
 </div>
