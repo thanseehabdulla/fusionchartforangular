@@ -1,3 +1,4 @@
+import { Message } from './../../../../../shared/models/meassage';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -36,7 +37,8 @@ export class PublicationMasterComponent implements OnInit {
     private notify: NotifyService,
     private dialog: MatDialog,
     private helperService: HelperService,
-    private publicationService: PublicationMasterService
+    private publicationService: PublicationMasterService,
+    private Message :Message
   ) {
     this.dataSource = new MatTableDataSource(this.publicationList);
   }
@@ -73,6 +75,7 @@ export class PublicationMasterComponent implements OnInit {
         this.publicationService.toggleActivation(publicationId, this.statusMapper[status])
           .subscribe(()=> {
             this.getPublication();
+            this.notify.showSuccess(this.Message.updatePublicationMsg);
           },error => {
             this.setError(error);
           }) 

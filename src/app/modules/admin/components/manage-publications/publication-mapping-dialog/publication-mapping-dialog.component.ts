@@ -1,3 +1,4 @@
+import { Message } from './../../../../../shared/models/meassage';
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { PublicationMasterService } from '../../../services/publication-master.service';
@@ -17,12 +18,12 @@ export class PublicationMappingDialogComponent {
     public dialogRef: MatDialogRef<PublicationMappingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public publication,
     public publicationService: PublicationMasterService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private Message:Message
     ) { }
 
   ngOnInit() {
     this.publication.permanentPublicationList.unshift(this.permanentOption);
-    console.log("Passed data",this.publication);
     this.selectedPublication = this.permanentOption;
   }
 
@@ -35,7 +36,7 @@ export class PublicationMappingDialogComponent {
       details['publication_map_id'] = this.selectedPublication.pki_publication_id
     }
     this.publicationService.mapPublication(details).subscribe((data)=> {
-      console.log(data)
+      this.notify.showSuccess(this.Message.mappPublicationMsg);
       this.onCloseDialog(true);
     },error => {
       this.setError(error);
