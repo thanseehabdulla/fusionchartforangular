@@ -1,3 +1,4 @@
+import { NotifyService } from './../../../../../shared/services/notify.service';
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
@@ -15,13 +16,17 @@ export class ManageAgentsComponent implements OnInit {
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
   displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Status'];
   pageLength: number;
-  statusMapper = {
+  statusChangeMapper = {
     'A': 'I',
     'I': 'A'
-  };
+  }
   statusMessageMapper = {
     'A': 'deactivate',
     'I': 'activate'
+  }
+  statusResultMapper = {
+    'I': 'activated',
+    'A': 'deactivated'
   }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -29,7 +34,8 @@ export class ManageAgentsComponent implements OnInit {
 
   constructor(
     private agentService: ManageAgentsService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private notifyService: NotifyService
   ) { }
 
   ngOnInit() {
@@ -40,7 +46,14 @@ export class ManageAgentsComponent implements OnInit {
       this.filteredAgents.paginator = this.paginator;
     });
   }
+
   search(searchTerm: string) {
+    this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
+      return agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
+              agent['name'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
+              agent['place'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
+              agent['mobile'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ;
+    };
     this.filteredAgents.filter = searchTerm;
   }
 
@@ -48,21 +61,18 @@ export class ManageAgentsComponent implements OnInit {
     let message = `Are you sure you want to ${this.statusMessageMapper[status]} the agent (Agent code: ${agentCode}) `
     this.helperService.confirmDialog(message, (isConfirmed) => {
       if (isConfirmed) {
-        this.agentService.toggleActivation(agentCode, this.statusMapper[status])
+        this.agentService.toggleActivation(agentCode, this.statusChangeMapper[status])
           .subscribe(
-            (data) => {
+            (data: any) => {
               this.agentService.getAgents().subscribe(
                 (agents) => this.filteredAgents.data = agents,
-                (error) => console.log(error)
-              )
+                (error) => this.notifyService.showError(error)
+              );
+              this.notifyService.showSuccess(`Agent(${agentCode}) is ${this.statusResultMapper[status]} successfully!`)
             },
-            (error) => console.log(error)
+            (error: Error) => this.notifyService.showError(error.message)
           )
       }
     })
-
-
   }
-
-
 }
