@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/shared/services/helper.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Agent } from 'src/app/shared/models/agent';
@@ -12,17 +13,24 @@ export class ManageAgentsComponent implements OnInit {
 
   filteredAgents: MatTableDataSource<Agent>;
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
-  displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Activate'];
+  displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Status'];
   pageLength: number;
   statusMapper = {
-    'A' : 'I',
-    'I' : 'A'
+    'A': 'I',
+    'I': 'A'
   };
+  statusMessageMapper = {
+    'A': 'deactivate',
+    'I': 'activate'
+  }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private agentService: ManageAgentsService) { }
+  constructor(
+    private agentService: ManageAgentsService,
+    private helperService: HelperService
+  ) { }
 
   ngOnInit() {
     this.agentService.getAgents().subscribe((agents) => {
@@ -37,13 +45,24 @@ export class ManageAgentsComponent implements OnInit {
   }
 
   toggleActivation(agentCode: string, status: string) {
-    this.agentService.toggleActivation(agentCode, this.statusMapper[status])
-      .subscribe((data)=> {
-        this.agentService.getAgents().subscribe((agents)=> {
-          this.filteredAgents.data = agents;
-        })
-      })   
+    let message = `Are you sure you want to ${this.statusMessageMapper[status]} the agent (Agent code: ${agentCode}) `
+    this.helperService.confirmDialog(message, (isConfirmed) => {
+      if (isConfirmed) {
+        this.agentService.toggleActivation(agentCode, this.statusMapper[status])
+          .subscribe(
+            (data) => {
+              this.agentService.getAgents().subscribe(
+                (agents) => this.filteredAgents.data = agents,
+                (error) => console.log(error)
+              )
+            },
+            (error) => console.log(error)
+          )
+      }
+    })
+
+
   }
 
-  
+
 }

@@ -1,35 +1,187 @@
-    <!-- <ng-container matColumnDef="code">
-    <mat-header-cell *matHeaderCellDef>Agent Code</mat-header-cell>
-    <mat-cell *matCellDef="let agent">{{agent.code}}</mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Agent Name</mat-header-cell>
-    <mat-cell *matCellDef="let agent">{{agent.name}}</mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="place">
-    <mat-header-cell *matHeaderCellDef>Place</mat-header-cell>
-    <mat-cell *matCellDef="let agent">{{agent.place}}</mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="mobile">
-    <mat-header-cell *matHeaderCellDef>Mobile Number</mat-header-cell>
-    <mat-cell *matCellDef="let agent">{{agent.mobile}}</mat-cell>
-    </ng-container> -->
+<div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="headerForm">
+        <mat-form-field class="padding-right">
+            <input matInput type="text" placeholder="Search here" formControlName="search"
+                (keyup)="search($event.target.value)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select #rolesDropDown [value]="0" formControlName="roles"
+                (selectionChange)="onSelectRole($event.value)">
+                <mat-option [value]="0">All</mat-option>
+                <mat-option *ngFor="let role of roles" [value]="role['pki_role_id']">
+                    {{RoleMapper[role['pki_role_id']]}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+    <button mat-icon-button (click)="openDialog()">
+        <mat-icon aria-label="add" color="primary">add</mat-icon>
+    </button>
+
+    <mat-table class="mat-elevation-z8" [dataSource]="filteredEmployees" matSort>
+        <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
+            <mat-header-cell *matHeaderCellDef>
+                <div mat-sort-header>{{displayColumns[i]}}</div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let employee">
+                <span *ngIf="column ==='pki_user_code'">{{employee[column]}}</span>
+                <span *ngIf="column ==='role_id'">{{RoleMapper[employee[column]]}}</span>
+                <button *ngIf="column ==='status'" mat-raised-button
+                    [ngStyle]="{'backgroundColor': employee[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+                    (click)="toggleActivation(employee['pki_user_code'], employee[column])">
+                    {{statusMapper[employee[column]]}}
+                </button>
+                <button *ngIf="column === 'action'" mat-icon-button (click)="openDialog(employee)">
+                    <mat-icon aria-label="edit">edit</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+    </mat-table>
+    <mat-paginator [length]="pageLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
+    <div *ngIf="!filteredEmployees">
+        <h4>No admins data available</h4>
+    </div>
+</div>
 
 
 
 
 
-<!-- <div>
-    <h4>Please select a user type</h4>
-    <mat-form-field>
-        <mat-label>User type </mat-label>
-        <mat-select>
-            <mat-option *ngFor="let userType of userTypes" [value]="userType" (select)="onSelectUserType()">
-                {{userType}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+<!-- Inspectors List -->
+<!-- <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Inspectors
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total count: {{inspectorPageLength}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+                <input #searchBoxInspector matInput type="text" placeholder="Search here"
+                    (keyup)="search($event.target.value)">
+            </mat-form-field>
+            <mat-table class="mat-elevation-z8" [dataSource]="filteredInspectors" matSort>
+                <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div mat-sort-header>{{displayColumns[i]}}</div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let inspector">
+                        <span *ngIf="column ==='pki_user_code'">{{inspector[column]}}</span>
+                        <button *ngIf="column ==='status'" mat-raised-button
+                            [ngStyle]="{'backgroundColor': inspector[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+                            (click)="toggleActivation(inspector['pki_user_code'], inspector[column])">
+                            {{inspector[column] === 'A' ? 'Active' : 'Inactive'}}
+                        </button>
+                        <span *ngIf="column ==='role_id'">{{RoleMapper[inspector[column]]}}</span>
+                        <button *ngIf="column === 'action'" mat-icon-button (click)="openEditDailog(inspector)">
+                            <mat-icon aria-label="edit">edit</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="inspectorPageLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                showFirstLastButtons>
+            </mat-paginator>
+
+            <div *ngIf="!filteredInspectors">
+                <h4>No inspectors data available</h4>
+            </div>
+            <mat-action-row>
+                <button mat-raised-button color="primary">Add</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+ -->
+
+<!-- <div> -->
+<!-- <mat-tab-group> -->
+<!-- Admin List -->
+<!-- <mat-tab label="Admins">
+            <mat-form-field>
+                <input #searchBoxAdmin matInput type="text" placeholder="Search here" (keyup)="search($event.target.value)">
+            </mat-form-field>
+            <mat-table class="mat-elevation-z8" [dataSource]="filteredAdmins" matSort>
+                <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div mat-sort-header>{{displayColumns[i]}}</div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let admin">
+                        <span *ngIf="column !=='status'">{{ admin[column]}}</span>
+                        <button *ngIf="column ==='status'" mat-raised-button
+                            [ngStyle]="{'backgroundColor': admin[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+                            (click)="toggleActivation(admin['pki_admin_code'], admin[column])">
+                            {{admin[column] === 'A' ? 'Active' : 'Inactive'}}
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="pageLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+            </mat-paginator>
+            
+            <div *ngIf="!filteredAdmins">
+                <h4>No admins data available</h4>
+            </div>
+        </mat-tab> -->
+
+<!-- Inspector List -->
+<!-- <mat-tab label="Inspectors">
+            <mat-form-field>
+                <input #searchBoxInspector matInput type="text" placeholder="Search here" (keyup)="search($event.target.value)">
+            </mat-form-field>
+            <mat-table class="mat-elevation-z8" [dataSource]="filteredInspectors" matSort>
+                <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div mat-sort-header>{{displayColumns[i]}}</div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let inspectors">
+                        <span *ngIf="column !=='status'">{{ inspectors[column]}}</span>
+                        <button *ngIf="column ==='status'" mat-raised-button
+                            [ngStyle]="{'backgroundColor': inspectors[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+                            (click)="toggleActivation(inspectors['pki_inspectors_code'], inspectors[column])">
+                            {{inspectors[column] === 'A' ? 'Active' : 'Inactive'}}
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="pageLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+            </mat-paginator>
+            
+            <div *ngIf="!filteredInspectors">
+                <h4>No inspectors data available</h4>
+            </div>
+        </mat-tab>
+      </mat-tab-group>
 </div> -->
+
+
+
+
+<!-- Dropdown approach -->
+<!-- <span *ngIf="column ==='pki_user_code'">{{ admin[column]}}</span>
+    <button *ngIf="column ==='status'" mat-raised-button
+        [ngStyle]="{'backgroundColor': admin[column] === 'A' ? '#70FF17' : 'gainsboro' }"
+        (click)="toggleActivation(admin['pki_user_code'], admin[column])">
+        {{admin[column] === 'A' ? 'Active' : 'Inactive'}}
+    </button>
+    <mat-select #rolesSelect *ngIf="column === 'pki_role_id'" [value]="1" placeholder="None" >
+        <mat-option *ngFor="let role of roles" [value]="role[column]">
+            {{RoleMapper[role[column]]}}
+        </mat-option>
+    </mat-select>
+    <button *ngIf="column === 'action'" mat-raised-button 
+        (click)="updateRole(admin.role_id, rolesSelect)">
+        Update Role
+    </button> -->
+
+<!-- Dailog approach -->

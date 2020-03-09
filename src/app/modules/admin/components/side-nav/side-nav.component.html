@@ -1,18 +1,19 @@
 <mat-toolbar color="primary" class="navbar">
-  <div class="nav-bar">
-    <div>
-      <div class="nav-icon">
-        <mat-icon (click)="opened=!opened">apps</mat-icon>
+  <div *ngIf="currentUser" class="nav"> 
+    
+    <div class="nav-bar">
+      <div>
+        <div class="nav-icon">
+          <mat-icon (click)="opened=!opened">apps</mat-icon>
+        </div>
       </div>
-      <div class="nav-title">DASHBOARD</div>
-    </div>
-    <div class="nav-right">
-      <div class="username">username</div>
-      <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png" width="50" alt="profile"/>
+      <div class="nav-right">
+        <div class="username"><h4>{{currentUser.user.name}}as</h4></div>
+        <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png" width="50" alt="profile"/>
+        </div>
       </div>
     </div>
   </div>
-  <!--This is for Side Nav-->
 </mat-toolbar>
 
 <!-- Side Nav Bar -->

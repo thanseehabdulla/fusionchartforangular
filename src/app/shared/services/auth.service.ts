@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
   constructor(private httpService: HttpConnectionService) {
@@ -33,7 +32,6 @@ export class AuthService {
 
   logout() {
       // remove user from local storage to log user out
-      localStorage.removeItem('currentUser');
-      this.currentUserSubject.next(null);
+      return this.httpService.post('/auth/logout')
   }
 }
