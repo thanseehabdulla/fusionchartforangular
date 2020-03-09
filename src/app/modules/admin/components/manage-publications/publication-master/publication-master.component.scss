@@ -16,3 +16,22 @@ th {
     float: right;
     margin: 10px;
 }
+
+button{
+    width:100px;
+    color:white;
+}
+
+.publication-master{
+    display: flex;
+    justify-content: space-between;
+    
+    .add{
+        width: 48px;
+        background: none;
+        color: black;
+        border-radius: 5px;
+        height: 56px;
+        border: 1px solid gray;
+    }
+}

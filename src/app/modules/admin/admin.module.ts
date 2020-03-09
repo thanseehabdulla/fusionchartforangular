@@ -11,6 +11,8 @@ import { PublicationMasterDialog } from './components/manage-publications/public
 import { ManageAgentsComponent } from './components/manage-users/manage-agents/manage-agents.component';
 import { ManageEmployeesComponent } from './components/manage-users/manage-employees/manage-employees.component';
 import { ManageEmployeesDailogComponent } from './components/manage-users/manage-employees/manage-employees-dailog/manage-employees-dailog.component';
+import { PublicationMappingComponent } from './components/manage-publications/publication-mapping/publication-mapping.component';
+import { PublicationMappingDialogComponent } from './components/manage-publications/publication-mapping-dialog/publication-mapping-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,12 @@ import { ManageEmployeesDailogComponent } from './components/manage-users/manage
     PublicationMasterDialog,
     ManageAgentsComponent, 
     ManageEmployeesComponent, 
-    ManageEmployeesDailogComponent
+    ManageEmployeesDailogComponent,
+    ManageAgentsComponent, ManageEmployeesComponent, PublicationMappingComponent, PublicationMappingDialogComponent
   ],
   imports: [
     SharedModule
   ],
-  entryComponents: [PublicationMasterDialog, ManageEmployeesDailogComponent],
+  entryComponents: [PublicationMasterDialog, ManageEmployeesDailogComponent,PublicationMappingDialogComponent]
 })
 export class AdminModule { }

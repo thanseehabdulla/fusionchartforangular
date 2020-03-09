@@ -1,1 +1,7 @@
-<app-publication-master></app-publication-master>
+<div>
+    <mat-tab-group (selectedTabChange)="onTabChange($event)">
+        <mat-tab label="Publication Master"></mat-tab>
+        <mat-tab label="Publication Mapping"></mat-tab>
+    </mat-tab-group>
+    <router-outlet></router-outlet>
+</div>
