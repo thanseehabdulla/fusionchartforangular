@@ -72,6 +72,7 @@ export class PublicationMasterComponent implements OnInit {
       if(data){
         this.publicationService.toggleActivation(publicationId, this.statusMapper[status])
           .subscribe(()=> {
+            this.notify.showSuccess("Publication status updated successfully");
             this.getPublication();
           },error => {
             this.setError(error);
