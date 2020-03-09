@@ -15,17 +15,17 @@ body {
 }
 
 .saveButton {
-    background-color: #1057E7;
+    background-color: #1976D2;
     color: white !important;
 }
 
 .cancelButton {
-    background-color: #FEA700;
+    background-color: #FC9A15;
     color: white !important;
 }
 
 .deleteButton {
-    background-color: #f35345;
+    background-color: #E63D39;
     color: white !important;
 }
 
@@ -38,4 +38,8 @@ body {
     border: 1px solid #80808038;
     border-radius: 5px;
     padding: 5px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 8px !important;
 }
