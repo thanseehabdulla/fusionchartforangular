@@ -1,6 +1,7 @@
 <mat-form-field>
     <input #searchBox matInput type="text" placeholder="Search here" (keyup)="search($event.target.value)">
 </mat-form-field>
+<div class="emp-caption">Agents List</div>
 <mat-table class="mat-elevation-z8" [dataSource]="filteredAgents" matSort>
     <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
         <mat-header-cell *matHeaderCellDef>

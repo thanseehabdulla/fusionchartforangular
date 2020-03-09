@@ -25,14 +25,18 @@ button {
 .publication-master {
     display: flex;
     justify-content: space-between;
+
+   
     
     mat-icon{ font-size: 45px;
         width: 41px;
         color: #1976D2;
+        cursor: pointer;
     }
 
     mat-icon:hover{ font-size: 45px;
         width: 41px;
+        cursor: pointer;
         color: rgb(16, 81, 146);
     }
 
@@ -42,4 +46,10 @@ button {
 .no-data {
     display: flex;
     justify-content: center;
+}
+
+tr:hover{
+    cursor: pointer;
+    background:#e7e7eb !important;
+    transform: scale(1.004) !important;
 }

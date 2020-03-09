@@ -18,11 +18,15 @@
         </form>
     </div>
     <div>
-            <mat-icon aria-label="add" (click)="openDialog()" color="primary">add_box</mat-icon>
+        <mat-icon aria-label="add" (click)="openDialog()" color="primary">add_box</mat-icon>
     </div>
 </div>
 
+<div class="emp-caption">Employee List</div>
+
+
 <mat-table class="mat-elevation-z8" [dataSource]="filteredEmployees" matSort>
+    
     <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
         <mat-header-cell *matHeaderCellDef>
             <div mat-sort-header>{{displayColumns[i]}}</div>
@@ -35,9 +39,9 @@
             (click)="toggleActivation(employee['pki_user_code'], employee[column])">
             {{statusMapper[employee[column]]}}
         </button>
-        <button *ngIf="column === 'action'" mat-icon-button (click)="openDialog(employee)">
-            <mat-icon aria-label="edit">edit</mat-icon>
-        </button>
+        <div class="edit-col" *ngIf="column === 'action'">
+            <mat-icon  (click)="openDialog(employee)" class="edit-icon" aria-label="edit">edit</mat-icon>
+        </div>
     </mat-cell>
 </ng-container>
 <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>

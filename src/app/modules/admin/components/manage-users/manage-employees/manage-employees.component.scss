@@ -30,4 +30,23 @@ button{
         width: 41px;
         color: rgb(16, 81, 146);
     }
+    
+}
+
+div.emp-caption{
+    background: #1976D2;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 10px;
+}
+
+div.edit-col{
+    display: flex;
+    width: 100%;
+    .edit-icon{
+        color: rgb(16, 81, 146);
+        cursor: pointer;
+    }
 }
