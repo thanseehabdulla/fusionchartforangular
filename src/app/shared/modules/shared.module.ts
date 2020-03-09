@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminRoutingModule } from './../../modules/admin/admin-routing.module';
-import { MaterialModule } from "../../shared/material/material.module";
+import { AdminRoutingModule } from '../../modules/admin/admin-routing.module';
+import { MaterialModule } from "../material/material.module";
 
 const sharedModules = [
   CommonModule,

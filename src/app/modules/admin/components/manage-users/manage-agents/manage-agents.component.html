@@ -1,6 +1,9 @@
+<!-- Search bar -->
 <mat-form-field>
     <input #searchBox matInput type="text" placeholder="Search here" (keyup)="search($event.target.value)">
 </mat-form-field>
+
+<!-- Agent Table -->
 <div class="emp-caption">Agents List</div>
 <mat-table class="mat-elevation-z8" [dataSource]="filteredAgents" matSort>
     <ng-container [matColumnDef]="column" *ngFor="let column of columns;let i = index">
@@ -19,9 +22,12 @@
     <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>
+
+<!-- Pagination -->
 <mat-paginator [length]="pageLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
 </mat-paginator>
 
+<!-- Data is not available -->
 <div *ngIf="!filteredAgents">
     <h4>No agents data available</h4>
 </div>

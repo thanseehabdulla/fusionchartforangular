@@ -7,9 +7,7 @@ import { AppNotificationConfig } from '../../config/common.config'
 })
 export class NotifyService {
 
-    constructor(
-        private toastrService: ToastrService
-    ) { }
+    constructor( private toastrService: ToastrService ) { }
 
     showSuccess(message: string, title: string = 'success') {
         this.toastrService.success(message, title, AppNotificationConfig);

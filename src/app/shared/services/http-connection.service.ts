@@ -9,11 +9,10 @@ export class HttpConnectionService {
     url = environment.apiUrl;
     headers = new HttpHeaders();
 
-    constructor(private httpclient: HttpClient) {
-    }
+    constructor(private httpclient: HttpClient) { }
 
     post_login(path: string, payload?: any) {
-        return this.httpclient.post<any>(this.url + path, payload, {withCredentials: true});
+        return this.httpclient.post<any>(this.url + path, payload, { withCredentials: true });
     }
 
     get(path: string, payload?: any) {

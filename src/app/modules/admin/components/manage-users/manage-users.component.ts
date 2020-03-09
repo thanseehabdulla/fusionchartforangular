@@ -7,13 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-users.component.scss']
 })
 export class ManageUsersComponent implements OnInit {
-
-  userTypes: string[];
-
   constructor(private router: Router) { 
-    this.userTypes = ['Agent', 'Admin/Inspector'];
    }
-
   ngOnInit() {
   }
 }
