@@ -35,7 +35,7 @@ export class PublicationMappingDialogComponent {
       details['publication_map_id'] = this.selectedPublication.pki_publication_id
     }
     this.publicationService.mapPublication(details).subscribe((data)=> {
-      console.log(data)
+      this.notify.showSuccess("Publication mapped successfully");
       this.onCloseDialog(true);
     },error => {
       this.setError(error);

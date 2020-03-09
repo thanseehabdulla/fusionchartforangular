@@ -72,6 +72,7 @@ export class PublicationMasterDialog {
     this.publicationService.deletePublication(this.publication.pki_publication_id)
     .subscribe(()=> {
       this.onCloseDialog(true);
+      this.notify.showSuccess("Publication deleted successfully");
     },error => {
       this.setError(error);
     }) 
@@ -85,6 +86,7 @@ export class PublicationMasterDialog {
   addPublication(){
     this.publicationService.addPublication(this.publication).subscribe((data)=> {
       this.onCloseDialog(true);
+      this.notify.showSuccess("Publication added successfully");
     },error => {
       this.setError(error);
       this.onCloseDialog(false);
@@ -94,6 +96,7 @@ export class PublicationMasterDialog {
   updatePublication(){
     this.publicationService.updatePublication(this.publication).subscribe((data)=> {
       this.onCloseDialog(true);
+      this.notify.showSuccess("Publication updated successfully");
     },error => {
       this.setError(error);
       this.onCloseDialog(true);
