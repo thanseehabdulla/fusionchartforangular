@@ -21,3 +21,10 @@ th {
     display: flex;
     justify-content: center;
 }
+
+.map-icon{
+    mat-icon{
+        color:#1976D2;
+        cursor:pointer;
+    }
+}
