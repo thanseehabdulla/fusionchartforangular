@@ -1,10 +1,11 @@
 import { PublicationMappingDialogComponent } from './../publication-mapping-dialog/publication-mapping-dialog.component';
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { NotifyService } from "src/app/shared/services/notify.service";
 import { MatDialog } from "@angular/material/dialog";
+import { PublicationMasterDialog } from "../publication-master-dialog/publication-master-dialog";
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { PublicationMasterService } from '../../../services/publication-master.service';
 import { Publication } from 'src/app/shared/models/publication';
@@ -49,9 +50,9 @@ export class PublicationMappingComponent implements OnInit {
   }
 
   setDetails(){
-    this.tableDataSource            = new MatTableDataSource(this.temporaryPublicationList);
-    this.tableDataSource.paginator  = this.paginator;
-    this.tableDataSource.sort       = this.sort;
+    this.tableDataSource = new MatTableDataSource(this.temporaryPublicationList);
+    this.tableDataSource.paginator = this.paginator;
+    this.tableDataSource.sort = this.sort;
   }
 
   setError(error:string){

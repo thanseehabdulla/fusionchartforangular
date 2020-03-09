@@ -1,4 +1,4 @@
-import { Message } from './../../../../../shared/models/meassage';
+import { catchError } from 'rxjs/operators';
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -26,7 +26,7 @@ export class PublicationMasterDialog {
     publisher_name    : "",
     publication_type  : "P",
     status            : 'A',
-    fki_user_code     : "",
+    fki_user_code     : "SAJNA",
     pki_publication_id: 0
   }
 
@@ -42,10 +42,10 @@ export class PublicationMasterDialog {
     private FB: FormBuilder,
     public publicationService: PublicationMasterService,
     private notify: NotifyService,
-    private Message: Message
   ) {}
 
   ngOnInit() {
+    console.log("Passed data",this.data);
     if(!this.data.pki_publication_id){
         this.data = this.initialData
     }
@@ -84,7 +84,6 @@ export class PublicationMasterDialog {
 
   addPublication(){
     this.publicationService.addPublication(this.publication).subscribe((data)=> {
-      this.notify.showSuccess(this.Message.addPublicationMsg);
       this.onCloseDialog(true);
     },error => {
       this.setError(error);
@@ -94,7 +93,6 @@ export class PublicationMasterDialog {
 
   updatePublication(){
     this.publicationService.updatePublication(this.publication).subscribe((data)=> {
-      this.notify.showSuccess(this.Message.updatePublicationMsg);
       this.onCloseDialog(true);
     },error => {
       this.setError(error);
