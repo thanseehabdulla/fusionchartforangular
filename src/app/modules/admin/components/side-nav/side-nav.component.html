@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="nav-right">
-        <div class="username"><h4>{{currentUser.user.name}}as</h4></div>
+        <div class="username"><h4>{{currentUser.user.username}}</h4></div>
         <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png" width="50" alt="profile"/>
         </div>
       </div>
@@ -21,11 +21,11 @@
 <mat-sidenav-container class="sidenav">
   <mat-sidenav mode="push" position="start" mode="side" [(opened)]="opened">
     <mat-nav-list>
-      <mat-list-item *ngFor="let menu of sideMenuItems">
-        <a matLine [routerLink]="[menu.ref]">{{menu.title}}</a>
+      <mat-list-item *ngFor="let menu of sideMenuItems" [routerLink]="[menu.ref]">
+        <a matLine>{{menu.title}}</a>
       </mat-list-item>
-      <mat-list-item>
-        <button mat-icon-button (click)="onLogout()">
+      <mat-list-item (click)="onLogout()">
+        <button mat-icon-button >
           Sign out
         </button>
       </mat-list-item>

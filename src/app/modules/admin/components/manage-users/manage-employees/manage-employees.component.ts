@@ -1,3 +1,4 @@
+import { NotifyService } from 'src/app/shared/services/notify.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Role } from './../../../../../shared/models/role';
 import { map } from 'rxjs/operators';
@@ -38,22 +39,28 @@ export class ManageEmployeesComponent implements OnInit {
     'A': 'deactivate',
     'I': 'activate'
   }
+  statusResultMapper = {
+    'I': 'activated',
+    'A': 'deactivated'
+  }
   RoleMapper = {
     0: 'All',
     1: 'Admin',
     2: 'Inspector'
   }
+
   constructor(
     private employeeService: ManageEmployeesService,
     private helperService: HelperService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notifyService: NotifyService
   ) {
     this.headerForm = this.fb.group({
       search: [''],
       roles: [0]
     })
-   }
+  }
 
   ngOnInit() {
     this.employeeService.getEmployees().subscribe(
@@ -64,13 +71,10 @@ export class ManageEmployeesComponent implements OnInit {
         this.filteredEmployees.sort = this.sort;
         this.filteredEmployees.paginator = this.paginator;
       },
-      (error: Error) => console.log(error)
-    );
-
+      (error: Error) => this.notifyService.showError(error.message));
     this.employeeService.getRoles().subscribe(
       (roles: Role[]) => this.roles = roles,
-      (error: Error) => console.log(error)
-    )
+      (error: Error) => this.notifyService.showError(error.message));
   }
 
   search(searchTerm: string) {
@@ -96,7 +100,7 @@ export class ManageEmployeesComponent implements OnInit {
       if (isConfirmed) {
         this.employeeService.toggleActivation(employeeCode, this.statusChangeMapper[status])
           .subscribe(
-            (data) => {
+            (data: any) => {
               this.employeeService.getEmployees().subscribe(
                 (employees: Employee[]) => {
                   this.allEmployees.data = employees;
@@ -108,11 +112,10 @@ export class ManageEmployeesComponent implements OnInit {
                   });
                   this.pageLength = this.filteredEmployees.data.length;
                 },
-                (error: Error) => console.log(error)
-              )
+                (error: Error) => this.notifyService.showError(error.message));
+              this.notifyService.showSuccess(`Employee(${employeeCode}) is ${this.statusResultMapper[status]} successfully!`);
             },
-            (error: Error) => console.log(error)
-          )
+            (error: Error) => this.notifyService.showError(error.message));
       }
     })
   }
@@ -124,13 +127,15 @@ export class ManageEmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(isChanged => {
       if (isChanged) {
-        this.employeeService.getEmployees().subscribe((employees) => {
-          this.allEmployees.data = employees;
-          this.filteredEmployees.data = employees;
-          this.pageLength = this.filteredEmployees.data.length;
-          this.headerForm.get('roles').setValue(0);
-          console.log(this.headerForm.get('roles').value)
-        })
+        this.employeeService.getEmployees().subscribe(
+          (employees) => {
+            this.allEmployees.data = employees;
+            this.filteredEmployees.data = employees;
+            this.pageLength = this.filteredEmployees.data.length;
+            this.headerForm.get('roles').setValue(0);
+          },
+          (error: Error) => this.notifyService.showError(error.message));
+        this.notifyService.showSuccess(`Role updated successfully for the employee(${employee['pki_user_code']})!`);
       }
     });
   }

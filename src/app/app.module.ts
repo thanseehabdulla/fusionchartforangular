@@ -33,7 +33,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
     MaterialModule,
     NgxUiLoaderModule.forRoot(AppLoaderConfig),
     ToastrModule.forRoot({
-        timeOut: 2000,
+        timeOut: 3000,
         positionClass: 'toast-bottom-right',
         progressAnimation: 'increasing',
     }),
