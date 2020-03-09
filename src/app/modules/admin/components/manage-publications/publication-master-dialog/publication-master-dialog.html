@@ -2,30 +2,32 @@
 <div mat-dialog-content>
     <form [formGroup]="publicationDetailsForm">
         <div class="align_items">
-            <mat-form-field appearance="outline">
+            <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Publication Name:</mat-label>
                 <input matInput placeholder="Publication name" type="text" formControlName="publication_name" [(ngModel)]="publication.publication_name" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Publication Code :</mat-label>
                 <input matInput placeholder="Publication code" type="text" formControlName="publication_code" [(ngModel)]="publication.publication_code" required>
             </mat-form-field>
         </div>
         <div class="align_items">
-            <mat-form-field appearance="outline">
-                <mat-label>Publisher Name:</mat-label>
+            <mat-form-field floatLabel="always" appearance="outline">
+                <mat-label >Publisher Name:</mat-label>
                 <input matInput placeholder="Publisher name" type="text" formControlName="publisher_name" [(ngModel)]="publication.publisher_name" required>
             </mat-form-field>
             <div>
+                <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Publication Type :</mat-label>
                 <mat-select formControlName="publication_type" [(ngModel)]="publication.publication_type" required>
                     <mat-option *ngFor="let status of typeList" [value]="status">
                         {{ publicationTypeMapper[status] }}
                     </mat-option>
                 </mat-select>
-            </div>
+            </mat-form-field>
         </div>
-    </form>
+    </div>
+</form>
 </div>
 <div mat-dialog-actions class="footer">
     <div *ngIf="publication.pki_publication_id">

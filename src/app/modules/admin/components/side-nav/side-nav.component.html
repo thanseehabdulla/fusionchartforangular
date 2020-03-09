@@ -1,29 +1,31 @@
 <mat-toolbar color="primary" class="navbar">
-  <div class="nav-bar">
-    <div>
-      <div class="nav-icon">
-        <mat-icon (click)="opened=!opened">apps</mat-icon>
+  <div *ngIf="currentUser" class="nav"> 
+    
+    <div class="nav-bar">
+      <div>
+        <div class="nav-icon">
+          <mat-icon *ngIf="!opened" (click)="opened=!opened">menu</mat-icon>
+          <mat-icon *ngIf="opened" (click)="opened=!opened">menu_open</mat-icon>
+        </div>
       </div>
-      <div class="nav-title">DASHBOARD</div>
-    </div>
-    <div class="nav-right">
-      <div class="username">username</div>
-      <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png" width="50" alt="profile"/>
+      <div class="nav-right">
+        <div class="username"><h4>{{currentUser.user.username}}</h4></div>
+        <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png" width="50" alt="profile"/>
+        </div>
       </div>
     </div>
   </div>
-  <!--This is for Side Nav-->
 </mat-toolbar>
 
 <!-- Side Nav Bar -->
 <mat-sidenav-container class="sidenav">
   <mat-sidenav mode="push" position="start" mode="side" [(opened)]="opened">
     <mat-nav-list>
-      <mat-list-item *ngFor="let menu of sideMenuItems">
-        <a matLine [routerLink]="[menu.ref]">{{menu.title}}</a>
+      <mat-list-item *ngFor="let menu of sideMenuItems" [routerLink]="[menu.ref]">
+        <a matLine>{{menu.title}}</a>
       </mat-list-item>
-      <mat-list-item>
-        <button mat-icon-button (click)="onLogout()">
+      <mat-list-item (click)="onLogout()">
+        <button mat-icon-button >
           Sign out
         </button>
       </mat-list-item>

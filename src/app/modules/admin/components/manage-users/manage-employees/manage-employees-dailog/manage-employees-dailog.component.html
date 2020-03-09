@@ -1,0 +1,36 @@
+<form (ngSubmit)="onUpdateRole()" #employeeForm="ngForm" [formGroup]="employeeUpdateForm">
+    <h1 mat-dialog-title>Employee Details</h1>
+    <div mat-dialog-content>
+        <div>
+            <mat-form-field floatLabel="always" appearance="outline">
+                <mat-label>Employee Code</mat-label>
+                <input matInput formControlName="employeeCode"
+                    (blur)="getEmployeeDetails($event.target.value)">
+            </mat-form-field>
+            <mat-form-field floatLabel="always" appearance="outline">
+                <mat-label>Status</mat-label>
+                <input matInput
+                [value]="data.employee? statusMapper[data.employee.status]: 'Active'" 
+                disabled>
+            </mat-form-field>
+        </div>
+        <div *ngIf="employeeInfo">
+            <mat-form-field floatLabel="always" appearance="outline"
+                *ngFor="let column of employeeInfoColumns">
+                <mat-label> {{column | titlecase }}</mat-label>
+                <input matInput [value]="employeeInfo[column]" disabled>
+            </mat-form-field>
+        </div>
+        <div class="align-roles">
+            <mat-select class="mat-select-overide" placeholder="Roles" formControlName="role" >
+                <mat-option *ngFor="let role of data.roles" [value]="role['pki_role_id']">
+                    {{RoleMapper[role['pki_role_id']]}}
+                </mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div mat-dialog-actions class="footer">
+            <button mat-raised-button class="saveButton" type="submit">Save</button>
+            <button mat-raised-button class="cancelButton" type="button" (click)="onCloseDialog(false)">Cancel</button>
+    </div>
+</form>

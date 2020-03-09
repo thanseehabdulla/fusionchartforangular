@@ -39,20 +39,20 @@ a.mat-line{
 }
 
 .mat-toolbar.mat-primary {
-    background: #1057E7 !important;
+    background: #1976D2 !important;
 }
 
 .mat-nav-list .mat-list-item:hover {
-    background: #1057E7;
+    background: #1976D2;
     color: white;
     border-radius: 10px;
     
 }
 
-mat-icon:hover{
-    transform: rotate(45deg);
-    animation:spin 4s linear infinite;
-}
+// mat-icon:hover{
+//     transform: rotate(80deg);
+//     animation:spin 4s linear infinite;
+// }
 
 .nav-bar{
     display: flex;
@@ -60,13 +60,27 @@ mat-icon:hover{
     width:100%;
     .nav-icon{
         padding-top:8px;
-        }
+        margin-top: 5px;
+        cursor: pointer;
+    }
     .nav-title{
         padding-left: 20px;
     }
-
+    
     .img-profile{
         margin-top: 10px;
+        width: 40px;
+    }
+    
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .material-icons {
+        font-size: 35px;
     }
 
     .nav-right{

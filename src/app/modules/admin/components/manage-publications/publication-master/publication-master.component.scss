@@ -25,17 +25,31 @@ button {
 .publication-master {
     display: flex;
     justify-content: space-between;
-    .add {
-        width: 48px;
-        background: none;
-        color: black;
-        border-radius: 5px;
-        height: 56px;
-        border: 1px solid gray;
+
+   
+    
+    mat-icon{ font-size: 45px;
+        width: 41px;
+        color: #1976D2;
+        cursor: pointer;
     }
+
+    mat-icon:hover{ font-size: 45px;
+        width: 41px;
+        cursor: pointer;
+        color: rgb(16, 81, 146);
+    }
+
+
 }
 
 .no-data {
     display: flex;
     justify-content: center;
+}
+
+tr:hover{
+    cursor: pointer;
+    background:#e7e7eb !important;
+    transform: scale(1.004) !important;
 }
