@@ -9,7 +9,7 @@
         <mat-cell *matCellDef="let agent">
             <span *ngIf="column !=='status'">{{ agent[column]}}</span>
             <button *ngIf="column ==='status'" mat-raised-button
-                [ngStyle]="{'backgroundColor': agent[column] === 'A' ? '#0B8744' : '#D62D20' }"
+                [ngStyle]="{'backgroundColor': agent[column] === 'A' ? '#0B8744' : '#F44336' }"
                 (click)="toggleActivation(agent['pki_agent_code'], agent[column])">
                 {{agent[column] === 'A' ? 'Active' : 'Inactive'}}
             </button>

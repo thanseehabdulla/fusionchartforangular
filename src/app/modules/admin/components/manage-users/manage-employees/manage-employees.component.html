@@ -18,9 +18,7 @@
         </form>
     </div>
     <div>
-        <button mat-icon-button (click)="openDialog()">
-            <mat-icon aria-label="add" color="primary">add_box</mat-icon>
-        </button>
+            <mat-icon aria-label="add" (click)="openDialog()" color="primary">add_box</mat-icon>
     </div>
 </div>
 
@@ -33,7 +31,7 @@
             <span *ngIf="column ==='pki_user_code'">{{employee[column]}}</span>
             <span *ngIf="column ==='role_id'">{{RoleMapper[employee[column]]}}</span>
             <button *ngIf="column ==='status'" mat-raised-button
-            [ngStyle]="{'backgroundColor': employee[column] === 'A' ? '#0B8744' : '#D62D20' }"
+            [ngStyle]="{'backgroundColor': employee[column] === 'A' ? '#0B8744' : '#F44336' }"
             (click)="toggleActivation(employee['pki_user_code'], employee[column])">
             {{statusMapper[employee[column]]}}
         </button>
