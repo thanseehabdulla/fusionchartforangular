@@ -34,6 +34,7 @@ export class AuthService {
   // Logout from the application
   logout() {
       // Remove user from local storage to log user out
+      localStorage.removeItem('currentUser');
       return this.httpService.post('/auth/logout')
   }
 }
