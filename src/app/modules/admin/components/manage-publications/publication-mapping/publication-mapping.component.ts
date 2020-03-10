@@ -37,6 +37,19 @@ export class PublicationMappingComponent implements OnInit {
     this.getPublication();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.tableDataSource.filterPredicate = (publication: Publication, filterValue: string) => {
+      return publication['publication_name'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publication_code'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publisher_name'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publication_type'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ;
+    };
+    this.tableDataSource.filter = filterValue.trim().toLowerCase();
+    if (this.tableDataSource.paginator) {
+      this.tableDataSource.paginator.firstPage();
+    }
+  }
   getPublication(){
     this.publicationService.getPublications().subscribe( (publications:Publication[]) => {
       this.fullPublicationList      =  publications;

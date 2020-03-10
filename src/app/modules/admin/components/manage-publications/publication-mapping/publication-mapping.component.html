@@ -1,5 +1,5 @@
 <mat-form-field class="searchBar">
-    <input  matInput (keyup)="applyFilter($event)" placeholder="Search here">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search here">
 </mat-form-field>
 
 <div class="mat-elevation-z8">
@@ -10,25 +10,25 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publication_name"> Publication Name </th>
             <td mat-cell *matCellDef="let row" (click)="openDialog(row)"> {{row.publication_name}} </td>
         </ng-container>
-        
+
         <!-- publication_code Column -->
         <ng-container matColumnDef="publication_code">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publication_code"> Publication Code </th>
             <td mat-cell *matCellDef="let row"> {{row.publication_code}} </td>
         </ng-container>
-        
+
         <!-- publisher_name Column -->
         <ng-container matColumnDef="publisher_name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publisher_name"> Publisher Name </th>
             <td mat-cell *matCellDef="let row"> {{row.publisher_name}} </td>
         </ng-container>
-        
+
         <!-- publication_type Column -->
         <ng-container matColumnDef="publication_type">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="publication_type"> Type </th>
             <td mat-cell *matCellDef="let row"> {{row.publication_type == 'T'?'Temporary':'Permanent'}} </td>
         </ng-container>
-        
+
         <!-- publication_type Column -->
         <ng-container matColumnDef="map_to">
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="map_to"> Map To </th>
@@ -38,13 +38,13 @@
                 </div>
             </td>
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;">
         </tr>
     </table>
-    
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
     <div class="no-data" *ngIf="!temporaryPublicationList || temporaryPublicationList.length < 1">
         No data.
     </div>

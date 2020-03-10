@@ -55,6 +55,12 @@ export class PublicationMasterComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filterPredicate = (publication: Publication, filterValue: string) => {
+      return publication['publication_name'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publication_code'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publisher_name'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publication_type'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ;
+    };
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
