@@ -7,14 +7,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { PublicationMasterDialog } from "../publication-master-dialog/publication-master-dialog";
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { PublicationMasterService } from '../../../services/publication-master.service';
-
-export interface PublicationData {
-  publication_name: string;
-  publication_code: string;
-  publisher_name: string;
-  publication_type: string;
-  status: boolean
-}
 import { Publication } from 'src/app/shared/models/publication';
 
 @Component({
