@@ -16,6 +16,7 @@ export class ManageAgentsComponent implements OnInit {
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
   displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Status'];
   pageLength: number;
+  
   statusChangeMapper = {
     'A': 'I',
     'I': 'A'
@@ -39,6 +40,7 @@ export class ManageAgentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Initiate data table with agents details and set pagination and sorting
     this.agentService.getAgents().subscribe((agents) => {
       this.filteredAgents = new MatTableDataSource(agents);
       this.pageLength = agents.length;
@@ -47,6 +49,7 @@ export class ManageAgentsComponent implements OnInit {
     });
   }
 
+  // Filter agents by agent code, name, place and mobile number
   search(searchTerm: string) {
     this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
       return agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
@@ -55,8 +58,10 @@ export class ManageAgentsComponent implements OnInit {
               agent['mobile'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ;
     };
     this.filteredAgents.filter = searchTerm;
+    this.filteredAgents.paginator.firstPage();
   }
 
+  // Activate or deactivate an agent
   toggleActivation(agentCode: string, status: string) {
     let message = `Are you sure you want to ${this.statusMessageMapper[status]} the agent (Agent code: ${agentCode}) `
     this.helperService.confirmDialog(message, (isConfirmed) => {

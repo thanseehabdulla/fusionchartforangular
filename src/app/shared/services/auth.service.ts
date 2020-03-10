@@ -20,18 +20,20 @@ export class AuthService {
       return this.currentUserSubject.value;
   }
 
+  // Login to the application
   login(usercode: string, password: string) {
       return this.httpService.post_login('/auth/login', { usercode, password })
           .pipe(map(response => {
-              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              // Store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('currentUser', JSON.stringify(response.payload));
               this.currentUserSubject.next(response.payload);
               return response.payload;
           }));
   }
 
+  // Logout from the application
   logout() {
-      // remove user from local storage to log user out
+      // Remove user from local storage to log user out
       return this.httpService.post('/auth/logout')
   }
 }

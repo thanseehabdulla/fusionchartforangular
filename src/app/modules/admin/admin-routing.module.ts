@@ -1,6 +1,5 @@
 import { AuthGuard } from 'src/app/shared/services/auth.guard';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-// import { AdminComponent } from './components/admin/admin.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
 import { InspectorLocationReportComponent } from './components/inspector-location-report/inspector-location-report.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';

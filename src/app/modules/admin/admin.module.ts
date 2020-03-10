@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from './../../shared/shared/shared.module';
 
+import { SharedModule } from './../../shared/modules/shared.module';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ManagePublicationsComponent } from './components/manage-publications/manage-publications.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';

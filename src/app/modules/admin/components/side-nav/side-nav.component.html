@@ -1,6 +1,5 @@
 <mat-toolbar color="primary" class="navbar">
-  <div *ngIf="currentUser" class="nav"> 
-    
+  <div *ngIf="currentUser" class="nav">
     <div class="nav-bar">
       <div>
         <div class="nav-icon">
@@ -9,8 +8,11 @@
         </div>
       </div>
       <div class="nav-right">
-        <div class="username"><h4>{{currentUser.user.username}}</h4></div>
-        <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png" width="50" alt="profile"/>
+        <div class="username">
+          <h4>{{currentUser.user.username}}</h4>
+        </div>
+        <div><img class="img-profile" src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey.png"
+            width="50" alt="profile" />
         </div>
       </div>
     </div>
@@ -25,14 +27,15 @@
         <a matLine>{{menu.title}}</a>
       </mat-list-item>
       <mat-list-item (click)="onLogout()">
-        <button mat-icon-button >
+        <button mat-icon-button>
           Sign out
         </button>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
+
+  <!-- Main Content -->
   <mat-sidenav-content>
-    <!-- Main Content -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -62,3 +62,16 @@ caption{
     text-transform: capitalize;
     padding: 10px;
 }
+
+th, mat-header-row{
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    color: #333 !important;
+    background: #8080800f !important;
+
+    mat-header-cell{
+        font-size: 14px !important;
+        color: #333 !important;
+    }
+}

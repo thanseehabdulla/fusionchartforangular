@@ -13,6 +13,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 
 export class ManageEmployeesDailogComponent implements OnInit {
+
   employeeInfo: EmployeeInfo;
   employeeUpdateForm: FormGroup;
   employeeInfoColumns: string[] = ['name', 'place', 'designation'];
@@ -33,25 +34,31 @@ export class ManageEmployeesDailogComponent implements OnInit {
     private fb: FormBuilder,
     private employeeService: ManageEmployeesService,
     private notifyService: NotifyService,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    if (this.data.employee)
+    if (this.data.employee) {
+      // "Edit" form to change role
       this.employeeUpdateForm = this.fb.group({
         employeeCode: [{ value: this.data.employee.pki_user_code, disabled: true }],
         role: [this.data.employee.role_id]
       });
-    else
+    }
+    else {
+      // "Add" form to assign new role
       this.employeeUpdateForm = this.fb.group({
         employeeCode: [{ value: '', disabled: false }, Validators.required],
         role: ['', Validators.required]
       });
+    }
   }
 
   ngOnInit() {
+    // Fetch employee details of an employee
     if (this.data.employee)
       this.getEmployeeDetails(this.data.employee.pki_user_code);
   }
 
+  // Update role of an employee
   onUpdateRole() {
     if (this.data.employee) {
       if (this.data.employee.role_id !== this.employeeUpdateForm.get('role').value) {
@@ -69,12 +76,14 @@ export class ManageEmployeesDailogComponent implements OnInit {
     }
   }
 
+  // Fetch employee details of an employee
   getEmployeeDetails(empCode: string) {
     this.employeeService.getEmployee(empCode).subscribe(
       (employeeInfo: EmployeeInfo) => this.employeeInfo = employeeInfo,
       (error: Error) => this.notifyService.showError(error.message));
   }
 
+  // Close dialog
   onCloseDialog(isChange: boolean) {
     this.dialogRef.close(isChange);
   }

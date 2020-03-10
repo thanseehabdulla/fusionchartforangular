@@ -11,6 +11,7 @@ export class ManageAgentsService {
 
   constructor(private httpService: HttpConnectionService) { }
 
+  // GET: get all Agents
   getAgents(): Observable<Agent[]> {
     return this.httpService.get('/agent')
       .pipe(map(response => {
@@ -18,6 +19,7 @@ export class ManageAgentsService {
       }))
   }
 
+  // PATCH: Activate or Deactivate an agent
   toggleActivation(agentCode: string, status: string): Observable<any> {
     return this.httpService.patch(`/agent/activation/${agentCode}`, { status: status })
       .pipe(
