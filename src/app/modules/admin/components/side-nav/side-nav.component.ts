@@ -1,6 +1,5 @@
 import { User } from './../../../../shared/models/user';
 import { AuthService } from './../../../../shared/services/auth.service';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -15,8 +14,11 @@ export class SideNavComponent implements OnInit {
     { title: "Manage users", ref: "/admin/users" },
     { title: "Manage Publications", ref: "/admin/publications" },
     { title: "Report", ref: "/admin/location-report" },
+    { title: "Change Password", ref: "/user/change-password" },
   ];
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private authService: AuthService
+    ) { }
 
 
   ngOnInit() {
@@ -24,14 +26,6 @@ export class SideNavComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logout().subscribe(
-      (data) => {
-        localStorage.removeItem('currentUser');
-        this.authService.currentUserSubject.next(null);
-        this.router.navigate(['/user/login']);
-      },
-      (error) => console.log(error)
-    );
+    this.authService.logout();
   }
-
 }

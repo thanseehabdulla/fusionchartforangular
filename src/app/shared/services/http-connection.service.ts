@@ -11,7 +11,7 @@ export class HttpConnectionService {
 
     constructor(private httpclient: HttpClient) { }
 
-    post_login(path: string, payload?: any) {
+    post_auth(path: string, payload?: any) {
         return this.httpclient.post<any>(this.url + path, payload, { withCredentials: true });
     }
 

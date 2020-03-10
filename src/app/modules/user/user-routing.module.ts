@@ -1,3 +1,4 @@
+import { AuthGuard } from 'src/app/shared/services/auth.guard';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -10,8 +11,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'changepassword', component: ChangePasswordComponent },
-  { path: 'forgotpassword', component: ForgotPasswordComponent },
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
 ];
 
 @NgModule({

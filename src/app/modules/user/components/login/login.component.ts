@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
     private notifyService: NotifyService) {
     // Login Form
     this.loginForm = fb.group({
-      userCode: ['emp001'],
-      password: ['1234']
+      userCode: [''],
+      password: ['']
     })
   }
   
