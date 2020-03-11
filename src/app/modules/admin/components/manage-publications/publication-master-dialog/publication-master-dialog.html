@@ -13,21 +13,21 @@
         </div>
         <div class="align_items">
             <mat-form-field floatLabel="always" appearance="outline">
-                <mat-label >Publisher Name:</mat-label>
+                <mat-label>Publisher Name:</mat-label>
                 <input matInput placeholder="Publisher name" type="text" formControlName="publisher_name" [(ngModel)]="publication.publisher_name" required>
             </mat-form-field>
             <div>
                 <mat-form-field floatLabel="always" appearance="outline">
-                <mat-label>Publication Type :</mat-label>
-                <mat-select formControlName="publication_type" [(ngModel)]="publication.publication_type" required>
-                    <mat-option *ngFor="let status of typeList" [value]="status">
-                        {{ publicationTypeMapper[status] }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                    <mat-label>Publication Type :</mat-label>
+                    <mat-select formControlName="publication_type" [(ngModel)]="publication.publication_type" required>
+                        <mat-option *ngFor="let status of typeList" [value]="status">
+                            {{ publicationTypeMapper[status] }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 </div>
 <div mat-dialog-actions class="footer">
     <div *ngIf="publication.pki_publication_id">

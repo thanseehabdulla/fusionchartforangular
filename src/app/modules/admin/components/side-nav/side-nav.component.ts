@@ -13,8 +13,9 @@ export class SideNavComponent implements OnInit {
   sideMenuItems = [
     { title: "Manage users", ref: "/admin/users" },
     { title: "Manage Publications", ref: "/admin/publications" },
-    { title: "Report", ref: "/admin/location-report" },
     { title: "Change Password", ref: "/user/change-password" },
+    { title: "Report", ref: "/admin/location-report" },   
+    { title:"Settings", ref:"/admin/configurations" }
   ];
   constructor(
     private authService: AuthService

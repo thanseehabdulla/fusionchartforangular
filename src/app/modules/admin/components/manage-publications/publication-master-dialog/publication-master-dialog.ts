@@ -1,4 +1,3 @@
-import { catchError } from 'rxjs/operators';
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -25,8 +24,8 @@ export class PublicationMasterDialog {
     publication_code  : "",
     publisher_name    : "",
     publication_type  : "P",
-    status            : 'A',
-    fki_user_code     : "SAJNA",
+    status            : "A",
+    fki_user_code     : "",
     pki_publication_id: 0
   }
 
@@ -45,7 +44,6 @@ export class PublicationMasterDialog {
   ) {}
 
   ngOnInit() {
-    console.log("Passed data",this.data);
     if(!this.data.pki_publication_id){
         this.data = this.initialData
     }

@@ -7,14 +7,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { PublicationMasterDialog } from "../publication-master-dialog/publication-master-dialog";
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { PublicationMasterService } from '../../../services/publication-master.service';
-
-export interface PublicationData {
-  publication_name: string;
-  publication_code: string;
-  publisher_name: string;
-  publication_type: string;
-  status: boolean
-}
 import { Publication } from 'src/app/shared/models/publication';
 
 @Component({
@@ -55,6 +47,12 @@ export class PublicationMasterComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filterPredicate = (publication: Publication, filterValue: string) => {
+      return publication['publication_name'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publication_code'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publisher_name'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ||
+      publication['publication_type'].trim().toLowerCase().indexOf(filterValue.trim().toLowerCase())> -1 ;
+    };
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();

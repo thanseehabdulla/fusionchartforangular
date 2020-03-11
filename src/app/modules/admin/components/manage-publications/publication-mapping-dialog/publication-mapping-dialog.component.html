@@ -1,14 +1,14 @@
 <h1 mat-dialog-title>Map Publication</h1>
 <div mat-dialog-content>
     <div class="setDiv">
-        <label>Map To :<br><br>
-            <mat-select class="select-class" [(ngModel)]="selectedPublication">
-                <mat-option *ngFor="let selectedPublication of publication.permanentPublicationList" 
-                [value]="selectedPublication">
+        <mat-form-field floatLabel="always" appearance="outline">
+            <mat-label>Map To :</mat-label>
+            <mat-select class="" [(ngModel)]="selectedPublication">
+                <mat-option *ngFor="let selectedPublication of publication.permanentPublicationList" [value]="selectedPublication">
                     {{ selectedPublication.publication_name }}
                 </mat-option>
             </mat-select>
-        </label>
+        </mat-form-field>
     </div>
 </div>
 <div mat-dialog-actions class="footer">
