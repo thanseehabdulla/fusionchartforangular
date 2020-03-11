@@ -72,12 +72,10 @@ export class AuthService {
             }))
     }
 
-
-
     /*-------FORGOT PASSWORD--------*/
     // GET: Verify usercode and get user details
     verifyUserCode(usercode: string): Observable<any> {
-        return this.httpService.get(`/employee/${usercode}`)
+        return this.httpService.get(`/auth/verifycode/${usercode}`)
             .pipe(map(response => {
                 return response['payload'].employee;
             }));
@@ -85,15 +83,15 @@ export class AuthService {
 
     // POST: Verify OTP
     verifyOTP(otp): Observable<any> {
-        return this.httpService.post_auth(`/auth/otp`, {otp})
-        .pipe(map(response => {
-            return response['payload'];
-        }))
+        return this.httpService.post_auth(`/auth/otp`, { otp })
+            .pipe(map(response => {
+                return response['payload'];
+            }))
     }
 
     // POST: Change password
     forgotPassword(usercode: string, newPassword: string, confirmPassword: string) {
-        return this.httpService.post_auth('/auth/forgotpassword', {usercode, newPassword, confirmPassword})
+        return this.httpService.post_auth('/auth/forgotpassword', { usercode, newPassword, confirmPassword })
             .pipe(map(response => {
                 return response['payload'];
             }))

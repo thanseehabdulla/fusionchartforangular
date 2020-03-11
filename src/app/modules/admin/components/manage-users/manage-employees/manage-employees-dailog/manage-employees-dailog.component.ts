@@ -18,7 +18,6 @@ export class ManageEmployeesDailogComponent implements OnInit {
   employeeInfo: EmployeeInfo;
   employeeUpdateForm: FormGroup;
   employeeInfoColumns: string[] = ['name', 'place', 'designation'];
-  employeeInfoDisplayColumns: string[] = ['Name', 'Place', 'Designation'];
 
   statusMapper = {
     'A': 'Active',

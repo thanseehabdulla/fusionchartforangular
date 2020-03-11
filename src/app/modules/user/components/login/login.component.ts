@@ -43,8 +43,6 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.authService.login(this.loginForm.get('usercode').value, this.loginForm.get('password').value)
       .pipe(first())
-      .subscribe(
-        (data: any) => this.router.navigate(['/admin/users']),
-        (error: Error) => this.notifyService.showError(error.message))
+      .subscribe((data: any) => this.router.navigate(['/admin/users']))
   }
 }

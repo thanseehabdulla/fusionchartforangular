@@ -21,10 +21,10 @@
                 <input matInput [value]="employeeInfo[column]" disabled>
             </mat-form-field>
         </div>
-        <div class="align-roles">
-            <mat-form-field>
-                <mat-select class="mat-select-overide" placeholder="Roles" formControlName="role"
-                    [errorStateMatcher]="matcher">
+        <div>
+            <mat-form-field floatLabel="always" appearance="outline">
+                <mat-label>Roles :</mat-label>
+                <mat-select formControlName="role" [errorStateMatcher]="matcher">
                     <mat-option *ngFor="let role of data.roles" [value]="role['pki_role_id']">
                         {{RoleMapper[role['pki_role_id']]}}
                     </mat-option>

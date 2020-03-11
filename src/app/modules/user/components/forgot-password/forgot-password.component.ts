@@ -5,7 +5,7 @@ import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { CustomValidators } from "src/app/shared/validators/CustomValidators";
+import { confirmPasswordValidator } from "src/app/shared/validators/CustomValidators";
 
 @Component({
   selector: 'app-forgot-password',
@@ -21,6 +21,8 @@ export class ForgotPasswordComponent implements OnInit {
   isUserExists: boolean;
   isOtpVerified: boolean;
   userInfo: User;
+  userInfoColumns: string[] = ['name', 'place', 'designation'];
+  userVerificationButtonText = 'Verify Code'
 
   matcher = new MyErrorStateMatcher();
   validationMessages = {
@@ -49,30 +51,35 @@ export class ForgotPasswordComponent implements OnInit {
     this.resetPasswordForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
-    }, { validator: CustomValidators.confirmPassword })
+    }, { validator: confirmPasswordValidator })
   }
 
   ngOnInit() {
-    this.isUserExists = true;
-    this.isOtpVerified = true;
+    this.isUserExists = false;
+    this.isOtpVerified = false;
   }
 
   verifyUser() {
     this.authService.verifyUserCode(this.userVerificationForm.get('usercode').value)
       .subscribe(
         (data) => {
-          this.isUserExists = data.success;
-          this.userInfo = data.user
+          this.isUserExists = true;
+          this.userInfo = data;
+          this.userVerificationButtonText = 'Next';
+          this.userVerificationForm.get('usercode').disable();
         },
-        (error: Error) => this.notifyService.showError(error.message)
+        (error: Error) => {
+          this.isUserExists = false;
+          this.userVerificationButtonText = 'Verify Code';
+        }
       )
   }
 
   verifyOTP() {
     this.authService.verifyOTP(this.otpVerificationForm.get('otp').value)
       .subscribe(
-        (data) => this.isOtpVerified = data.success,
-        (error: Error) => this.notifyService.showError(error.message)
+        (data) => this.isOtpVerified = true,
+        (error: Error) => this.isOtpVerified = false
       )
   }
 

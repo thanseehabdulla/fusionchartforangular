@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
+import { confirmPasswordValidator } from 'src/app/shared/validators/CustomValidators';
 
 @Component({
   selector: 'app-change-password',
@@ -30,7 +31,8 @@ export class ChangePasswordComponent implements OnInit {
       'minlength': 'Password must have minimum of 8 characters!'
     },
     'confirmPassword': {
-      'required': 'Password is required!'
+      'required': 'Password is required!',
+      'passwordMismatch': 'Password mismatch!'
     }
   }
   constructor(
@@ -49,7 +51,7 @@ export class ChangePasswordComponent implements OnInit {
     this.resetPasswordForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
-    })
+    }, {validator: confirmPasswordValidator})
   }
 
   ngOnInit() {
@@ -62,8 +64,12 @@ export class ChangePasswordComponent implements OnInit {
       this.currentPasswordForm.get('usercode').value,
       this.currentPasswordForm.get('currentPassword').value)
       .subscribe(
-        (data) => this.isUserExists = data.success,
-        (error: Error) => this.notifyService.showError(error.message)
+        (data) => {
+          this.isUserExists = data.success;
+        },
+        (error: Error) => {
+          this.notifyService.showError(error.message);
+        }
       )
   }
 
