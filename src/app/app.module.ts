@@ -21,7 +21,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    ConfirmDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

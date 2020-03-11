@@ -1,7 +1,8 @@
+import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { NotifyService } from 'src/app/shared/services/notify.service';
-import { EmployeeInfo } from './../../../../../../shared/models/employee-info';
+import { EmployeeInfo } from 'src/app/shared/models/employee-info';
 import { Validators } from '@angular/forms';
-import { ManageEmployeesService } from './../../../../services/manage-employees.service';
+import { ManageEmployeesService } from 'src/app/modules/admin/services/manage-employees.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -27,6 +28,16 @@ export class ManageEmployeesDailogComponent implements OnInit {
     0: 'All',
     1: 'Admin',
     2: 'Inspector'
+  }
+
+  matcher = new MyErrorStateMatcher();
+  validationMessages = {
+    'employeeCode': {
+      'required': 'Employee Code is required!'
+    },
+    'role': {
+      'required': 'Role must be selected!'
+    }
   }
 
   constructor(

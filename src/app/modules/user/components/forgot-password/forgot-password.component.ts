@@ -1,9 +1,11 @@
-import { User } from './../../../../shared/models/user';
+import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
+import { User } from 'src/app/shared/models/user';
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { CustomValidators } from "src/app/shared/validators/CustomValidators";
 
 @Component({
   selector: 'app-forgot-password',
@@ -20,6 +22,23 @@ export class ForgotPasswordComponent implements OnInit {
   isOtpVerified: boolean;
   userInfo: User;
 
+  matcher = new MyErrorStateMatcher();
+  validationMessages = {
+    'usercode': {
+      'required': 'Employee Code is required!'
+    },
+    'otp': {
+      'required': 'OTP is required!'
+    },
+    'newPassword': {
+      'required': 'Password is required!',
+      'minlength': 'Password must have minimum of 8 characters!'
+    },
+    'confirmPassword': {
+      'required': 'Password is required!'
+    }
+  }
+
   constructor(
     private authService: AuthService,
     private notifyService: NotifyService,
@@ -28,14 +47,14 @@ export class ForgotPasswordComponent implements OnInit {
     this.userVerificationForm = this.fb.group({ usercode: ['', Validators.required] });
     this.otpVerificationForm = this.fb.group({ otp: ['', Validators.required] });
     this.resetPasswordForm = this.fb.group({
-      newPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
-    })
+    }, { validator: CustomValidators.confirmPassword })
   }
 
   ngOnInit() {
-    this.isUserExists = false;
-    this.isOtpVerified = false;
+    this.isUserExists = true;
+    this.isOtpVerified = true;
   }
 
   verifyUser() {

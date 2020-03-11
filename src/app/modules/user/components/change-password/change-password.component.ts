@@ -1,3 +1,4 @@
+import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -14,9 +15,24 @@ export class ChangePasswordComponent implements OnInit {
 
   currentPasswordForm: FormGroup;
   resetPasswordForm: FormGroup;
-
   isUserExists: boolean;
 
+  matcher = new MyErrorStateMatcher();
+  validationMessages = {
+    'usercode': {
+      'required': 'Employee Code is required!'
+    },
+    'currentPassword': {
+      'required': 'Password is required!'
+    },
+    'newPassword': {
+      'required': 'Password is required!',
+      'minlength': 'Password must have minimum of 8 characters!'
+    },
+    'confirmPassword': {
+      'required': 'Password is required!'
+    }
+  }
   constructor(
     private authService: AuthService,
     private notifyService: NotifyService,
@@ -31,7 +47,7 @@ export class ChangePasswordComponent implements OnInit {
 
     // Reset Password Form
     this.resetPasswordForm = this.fb.group({
-      newPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
     })
   }
