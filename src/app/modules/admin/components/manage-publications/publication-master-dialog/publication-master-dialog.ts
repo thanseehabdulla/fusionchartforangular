@@ -55,7 +55,7 @@ export class PublicationMasterDialog {
   ) {}
 
   ngOnInit() {
-    this.publication = this.data;
+    this.publication = this.data.publication;
   }
 
   onCloseDialog(isChanged): void {
@@ -69,12 +69,14 @@ export class PublicationMasterDialog {
     this.publication['publication_type']  = this.publication.publication_type;
     
     let isExistArray = _.filter(this.data.publicationList,(x)=> { 
-      if(x.publication_name == this.publication.publication_name || x.publication_code == this.publication.publication_code){
+      if((x.pki_publication_id != this.publication.pki_publication_id) && 
+        (x.publication_name == this.publication.publication_name || x.publication_code == this.publication.publication_code)
+      ){
         return x;
       }
     });
     if(Object.keys(isExistArray).length>0){
-      this.notify.showError("Publication with same publication name exist");
+      this.notify.showError("Publication with same publication name or code exist");
       return;
     }
     if(this.publication.pki_publication_id){

@@ -25,14 +25,7 @@ export class PublicationMasterComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   publicationList = [];
-  initialValues = {
-    publication_name  : "",
-    publication_code  : "",
-    publisher_name    : "",
-    publication_type  : "P",
-    status            : "A",
-    fki_user_code     : ""
-  }
+  
   constructor(
     private notify: NotifyService,
     private dialog: MatDialog,
@@ -61,12 +54,15 @@ export class PublicationMasterComponent implements OnInit {
   }
 
   openDialog(data:object): void {
+    let details = {};
     if(!data){
-      data = this.initialValues;
+      details['publication'] = { publication_name  : "", publication_code  : "", publisher_name    : "",
+                                 publication_type  : "P", status            : "A", fki_user_code     : "" };
+    }else{
+      details['publication'] = data;
     }
-    data['publicationList'] = this.publicationList;
-    console.log(data)
-    const dialogRef = this.dialog.open(PublicationMasterDialog, { width: "30%",data: data});
+    details['publicationList'] = this.publicationList;
+    const dialogRef = this.dialog.open(PublicationMasterDialog, { width: "30%",data: details});
     dialogRef.afterClosed().subscribe(isChanged => {
      if(isChanged){
       this.getPublication();

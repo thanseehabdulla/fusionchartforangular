@@ -22,7 +22,6 @@ export class PublicationMappingDialogComponent {
 
   ngOnInit() {
     this.publication.permanentPublicationList.unshift(this.permanentOption);
-    console.log("Passed data",this.publication);
     this.selectedPublication = this.permanentOption;
   }
 
