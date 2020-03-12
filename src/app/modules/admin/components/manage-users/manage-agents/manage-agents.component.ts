@@ -16,7 +16,7 @@ export class ManageAgentsComponent implements OnInit {
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
   displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Status'];
   pageLength: number;
-  
+
   statusChangeMapper = {
     'A': 'I',
     'I': 'A'
@@ -52,10 +52,10 @@ export class ManageAgentsComponent implements OnInit {
   // Filter agents by agent code, name, place and mobile number
   search(searchTerm: string) {
     this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
-      return agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
-              agent['name'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
-              agent['place'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ||
-              agent['mobile'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase())> -1 ;
+      return agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1 ||
+        agent['name'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1 ||
+        agent['place'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1 ||
+        agent['mobile'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1;
     };
     this.filteredAgents.filter = searchTerm;
     this.filteredAgents.paginator.firstPage();
@@ -70,12 +70,10 @@ export class ManageAgentsComponent implements OnInit {
           .subscribe(
             (data: any) => {
               this.agentService.getAgents().subscribe(
-                (agents) => this.filteredAgents.data = agents,
-                (error) => this.notifyService.showError(error)
+                (agents) => this.filteredAgents.data = agents
               );
               this.notifyService.showSuccess(`Agent(${agentCode}) is ${this.statusResultMapper[status]} successfully!`)
-            },
-            (error: Error) => this.notifyService.showError(error.message)
+            }
           )
       }
     })

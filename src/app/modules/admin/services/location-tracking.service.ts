@@ -1,3 +1,4 @@
+import { apis } from 'src/app/config/api.config';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpConnectionService } from 'src/app/shared/services/http-connection.service';
@@ -11,7 +12,7 @@ export class LocationTrackingService {
   constructor(private httpService: HttpConnectionService) { }
 
   getLocationTrackingList(): Observable<any> {
-    return this.httpService.get('/report')
+    return this.httpService.get(apis.inspector_location.report)
       .pipe(map(response => {
         return response['payload'].report;
       }))

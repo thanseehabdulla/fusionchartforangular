@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./manage-employees.component.scss']
 })
 export class ManageEmployeesComponent implements OnInit {
-  
+
   allEmployees: MatTableDataSource<Employee>;
   filteredEmployees: MatTableDataSource<Employee>;
   pageLength: number;
@@ -72,13 +72,10 @@ export class ManageEmployeesComponent implements OnInit {
         this.pageLength = this.filteredEmployees.data.length;
         this.filteredEmployees.sort = this.sort;
         this.filteredEmployees.paginator = this.paginator;
-      },
-      (error: Error) => this.notifyService.showError(error.message));
+      });
 
     // Initialize roles
-    this.employeeService.getRoles().subscribe(
-      (roles: Role[]) => this.roles = roles,
-      (error: Error) => this.notifyService.showError(error.message));
+    this.employeeService.getRoles().subscribe((roles: Role[]) => this.roles = roles);
   }
 
   // Filter employees by employee code
@@ -119,11 +116,9 @@ export class ManageEmployeesComponent implements OnInit {
                       return employee;
                   });
                   this.pageLength = this.filteredEmployees.data.length;
-                },
-                (error: Error) => this.notifyService.showError(error.message));
+                });
               this.notifyService.showSuccess(`Employee(${employeeCode}) is ${this.statusResultMapper[status]} successfully!`);
-            },
-            (error: Error) => this.notifyService.showError(error.message));
+            });
       }
     })
   }
@@ -133,18 +128,16 @@ export class ManageEmployeesComponent implements OnInit {
     const dialogRef = this.dialog.open(ManageEmployeesDailogComponent,
       { width: "40%", data: { employee: employee, roles: this.roles } }
     );
-    dialogRef.afterClosed().subscribe(isChanged => {
-      if (isChanged) {
+    dialogRef.afterClosed().subscribe(response => {
+      if (response.isChange) {
         this.employeeService.getEmployees().subscribe(
           (employees) => {
             this.allEmployees.data = employees;
             this.filteredEmployees.data = employees;
             this.pageLength = this.filteredEmployees.data.length;
             this.headerForm.get('roles').setValue(0);
-          },
-          (error: Error) => this.notifyService.showError(error.message)
-        );
-        this.notifyService.showSuccess(`Role updated successfully for the employee(${employee['pki_user_code']})!`);
+          });
+        this.notifyService.showSuccess(`Role updated successfully for the employee(${response.empCode})!`);
       }
     });
   }

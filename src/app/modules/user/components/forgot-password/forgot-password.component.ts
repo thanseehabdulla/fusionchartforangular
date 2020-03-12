@@ -27,14 +27,17 @@ export class ForgotPasswordComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   validationMessages = {
     'usercode': {
-      'required': 'Employee Code is required!'
+      'required': 'Employee Code is required!',
+      'maxlength': 'Employee Code should not exceed 20 characters!'
     },
     'otp': {
-      'required': 'OTP is required!'
+      'required': 'OTP is required!',
+      'maxlength': 'OTP should not exceed 8 characters!'
     },
     'newPassword': {
       'required': 'Password is required!',
-      'minlength': 'Password must have minimum of 8 characters!'
+      'minlength': 'Password must have minimum of 8 characters!',
+      'maxlength': 'Password should not exceed 20 characters!'
     },
     'confirmPassword': {
       'required': 'Password is required!'
@@ -46,10 +49,10 @@ export class ForgotPasswordComponent implements OnInit {
     private notifyService: NotifyService,
     private fb: FormBuilder
   ) {
-    this.userVerificationForm = this.fb.group({ usercode: ['', Validators.required] });
-    this.otpVerificationForm = this.fb.group({ otp: ['', Validators.required] });
+    this.userVerificationForm = this.fb.group({ usercode: ['', [Validators.required, Validators.maxLength(20)]] });
+    this.otpVerificationForm = this.fb.group({ otp: ['', [Validators.required, Validators.maxLength(8)]] });
     this.resetPasswordForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required]
     }, { validator: confirmPasswordValidator })
   }
@@ -92,9 +95,7 @@ export class ForgotPasswordComponent implements OnInit {
         (data) => {
           this.notifyService.showSuccess("Password is changed successfully! Please login to the application");
           this.authService.logout();
-        },
-        (error: Error) => this.notifyService.showError(error.message)
-      )
+        });
   }
 
 }

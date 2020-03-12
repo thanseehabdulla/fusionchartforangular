@@ -3,4 +3,5 @@ export interface EmployeeInfo {
     name: string,
     place: string,
     designation: string,
+    role_id: number
 }
