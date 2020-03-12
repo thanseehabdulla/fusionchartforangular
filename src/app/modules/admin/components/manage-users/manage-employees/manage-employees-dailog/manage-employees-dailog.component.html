@@ -9,6 +9,9 @@
                 <mat-error *ngIf="employeeUpdateForm.get('employeeCode').hasError('required')">
                     {{validationMessages.employeeCode.required}}
                 </mat-error>
+                <mat-error *ngIf="employeeUpdateForm.get('employeeCode').hasError('maxlength')">
+                    {{validationMessages.employeeCode.maxlength}}
+                </mat-error>
             </mat-form-field>
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Status</mat-label>
@@ -21,7 +24,7 @@
                 <input matInput [value]="employeeInfo[column]" disabled>
             </mat-form-field>
         </div>
-        <div>
+        <div *ngIf="employeeInfo">
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Roles :</mat-label>
                 <mat-select formControlName="role" [errorStateMatcher]="matcher">
@@ -36,7 +39,8 @@
         </div>
     </div>
     <div mat-dialog-actions class="footer">
-        <button mat-raised-button class="saveButton" type="submit">Save</button>
+        <button mat-raised-button class="saveButton" type="submit"
+        [disabled]= "employeeUpdateForm.invalid || !employeeInfo">Save</button>
         <button mat-raised-button class="cancelButton" type="button" (click)="onCloseDialog(false)">Cancel</button>
     </div>
 </form>
