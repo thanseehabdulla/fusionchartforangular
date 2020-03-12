@@ -21,14 +21,17 @@ export class ChangePasswordComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   validationMessages = {
     'usercode': {
-      'required': 'Employee Code is required!'
+      'required': 'Employee Code is required!',
+      'maxlength': 'Employee Code should not exceed 20 characters!'
     },
     'currentPassword': {
-      'required': 'Password is required!'
+      'required': 'Password is required!',
+      'maxlength': 'Password should not exceed 20 characters!'
     },
     'newPassword': {
       'required': 'Password is required!',
-      'minlength': 'Password must have minimum of 8 characters!'
+      'minlength': 'Password must have minimum of 8 characters!',
+      'maxlength': 'Password should not exceed 20 characters!'
     },
     'confirmPassword': {
       'required': 'Password is required!',
@@ -43,15 +46,15 @@ export class ChangePasswordComponent implements OnInit {
   ) {
     // Current Password Form
     this.currentPasswordForm = this.fb.group({
-      usercode: ['', Validators.required],
-      currentPassword: ['', Validators.required]
+      usercode: ['', [Validators.required, Validators.maxLength(20)]],
+      currentPassword: ['', [Validators.required, Validators.maxLength(20)]]
     });
 
     // Reset Password Form
     this.resetPasswordForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required]
-    }, {validator: confirmPasswordValidator})
+    }, { validator: confirmPasswordValidator })
   }
 
   ngOnInit() {
@@ -63,14 +66,7 @@ export class ChangePasswordComponent implements OnInit {
     this.authService.verifyUserCodeAndPassword(
       this.currentPasswordForm.get('usercode').value,
       this.currentPasswordForm.get('currentPassword').value)
-      .subscribe(
-        (data) => {
-          this.isUserExists = data.success;
-        },
-        (error: Error) => {
-          this.notifyService.showError(error.message);
-        }
-      )
+      .subscribe((data) => this.isUserExists = data.success);
   }
 
   // Reset password
@@ -80,13 +76,10 @@ export class ChangePasswordComponent implements OnInit {
       this.currentPasswordForm.get('currentPassword').value,
       this.resetPasswordForm.get('newPassword').value,
       this.resetPasswordForm.get('confirmPassword').value)
-      .subscribe(
-        (data) => {
-          this.notifyService.showSuccess("Password is changed successfully! Please login to the application");
-          this.authService.logout();
-        },
-        (error: Error) => this.notifyService.showError(error.message)
-      )
+      .subscribe((data) => {
+        this.notifyService.showSuccess("Password is changed successfully! Please login to the application");
+        this.authService.logout();
+      });
   }
 
 }

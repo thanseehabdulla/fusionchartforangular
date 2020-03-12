@@ -18,10 +18,13 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   validationMessages = {
     'usercode': {
-      'required': 'Employee Code is required!'
+      'required': 'Employee Code is required!',
+      'maxlength': 'Employee Code should not exceed 20 characters!'
     },
     'password': {
-      'required': 'Password is required!'
+      'required': 'Password is required!',
+      'maxlength': 'Password must be less than 20 characters!'
+
     }
   }
 
@@ -32,8 +35,8 @@ export class LoginComponent implements OnInit {
     private notifyService: NotifyService) {
     // Login Form
     this.loginForm = this.fb.group({
-      usercode: ['', Validators.required],
-      password: ['', Validators.required]
+      usercode: ['', [Validators.required, Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.maxLength(20)]]
     })
   }
 

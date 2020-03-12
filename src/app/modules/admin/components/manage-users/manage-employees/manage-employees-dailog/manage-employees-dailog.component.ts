@@ -32,7 +32,8 @@ export class ManageEmployeesDailogComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   validationMessages = {
     'employeeCode': {
-      'required': 'Employee Code is required!'
+      'required': 'Employee Code is required!',
+      'maxlength': 'Employee Code should not exceed 20 characters!'
     },
     'role': {
       'required': 'Role must be selected!'
@@ -56,7 +57,7 @@ export class ManageEmployeesDailogComponent implements OnInit {
     else {
       // "Add" form to assign new role
       this.employeeUpdateForm = this.fb.group({
-        employeeCode: [{ value: '', disabled: false }, Validators.required],
+        employeeCode: [{ value: '', disabled: false }, [Validators.required, Validators.maxLength(20)]],
         role: ['', Validators.required]
       });
     }
@@ -70,31 +71,38 @@ export class ManageEmployeesDailogComponent implements OnInit {
 
   // Update role of an employee
   onUpdateRole() {
-    if (this.data.employee) {
-      if (this.data.employee.role_id !== this.employeeUpdateForm.get('role').value) {
-        this.employeeService.changeRole(this.data.employee.pki_user_code, +this.employeeUpdateForm.get('role').value).subscribe(
-          (data: any) => this.onCloseDialog(true),
-          (error: Error) => this.notifyService.showError(error.message));
+    if (this.employeeInfo.role_id !== this.employeeUpdateForm.get('role').value) {
+      if (this.data.employee) {
+        this.employeeService.changeRole(this.data.employee.pki_user_code, +this.employeeUpdateForm.get('role').value)
+          .subscribe((data: any) => this.onCloseDialog(true));
       }
-      else
-        this.notifyService.showInfo(`Please select a different role. The employee is already an ${this.RoleMapper[this.data.employee.role_id]}`);
+      else {
+        this.employeeService.assignRole(this.employeeUpdateForm.get('employeeCode').value, +this.employeeUpdateForm.get('role').value)
+          .subscribe((data: any) => this.onCloseDialog(true));
+      }
     }
-    else {
-      this.employeeService.assignRole(this.employeeUpdateForm.get('employeeCode').value, +this.employeeUpdateForm.get('role').value).subscribe(
-        (data: any) => this.onCloseDialog(true),
-        (error: Error) => this.notifyService.showError(error.message));
-    }
+    else
+      this.notifyService.showInfo(`Please select a different role. The employee is already an ${this.RoleMapper[this.employeeInfo.role_id]}`);
   }
 
   // Fetch employee details of an employee
   getEmployeeDetails(empCode: string) {
-    this.employeeService.getEmployee(empCode).subscribe(
-      (employeeInfo: EmployeeInfo) => this.employeeInfo = employeeInfo,
-      (error: Error) => this.notifyService.showError(error.message));
+    if(empCode) {
+      this.employeeService.getEmployee(empCode)
+      .subscribe(
+        (employeeInfo: EmployeeInfo) => {
+          this.employeeInfo = employeeInfo;
+          this.employeeUpdateForm.get('role').setValue(this.employeeInfo.role_id);
+        },
+        (error) => {
+          this.employeeInfo = null;
+        }
+      );
+    }
   }
 
   // Close dialog
   onCloseDialog(isChange: boolean) {
-    this.dialogRef.close(isChange);
+      this.dialogRef.close({empCode: this.employeeInfo? this.employeeInfo['pki_user_code']: '', isChange: isChange});
   }
 }

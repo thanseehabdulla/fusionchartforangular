@@ -1,3 +1,4 @@
+import { apis } from 'src/app/config/api.config';
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { HttpConnectionService } from './http-connection.service';
 import { Injectable } from '@angular/core';
@@ -28,7 +29,7 @@ export class AuthService {
 
     // POST: Login to the application
     login(usercode: string, password: string): Observable<any> {
-        return this.httpService.post_auth('/auth/login', { usercode, password })
+        return this.httpService.post_auth(apis.auth.login, { usercode, password })
             .pipe(map(response => {
                 // Store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(response.payload));
@@ -40,7 +41,7 @@ export class AuthService {
     // POST: Logout from the application
     logout() {
         // Remove user from local storage to log user out
-        this.httpService.post('/auth/logout').subscribe(
+        this.httpService.post(apis.auth.logout).subscribe(
             (data: any) => {
                 if (localStorage.getItem('currentUser'))
                     localStorage.removeItem('currentUser');
@@ -55,7 +56,7 @@ export class AuthService {
     /*-------CHANGE PASSWORD--------*/
     // POST: Verify usercode and current password
     verifyUserCodeAndPassword(usercode: string, password: string): Observable<any> {
-        return this.httpService.post_auth('/auth/verify', { usercode, password })
+        return this.httpService.post_auth(apis.auth.verify_user, { usercode, password })
             .pipe(map(response => {
                 return response['payload'];
             }));
@@ -64,7 +65,7 @@ export class AuthService {
     // POST: Change password
     changePassword(usercode: string, currentPassword: string, newPassword: string, confirmPassword: string): Observable<any> {
         return this.httpService.post_auth(
-            '/auth/changepassword',
+            apis.auth.change_password,
             { usercode, currentPassword, newPassword, confirmPassword }
         )
             .pipe(map(response => {
@@ -75,7 +76,7 @@ export class AuthService {
     /*-------FORGOT PASSWORD--------*/
     // GET: Verify usercode and get user details
     verifyUserCode(usercode: string): Observable<any> {
-        return this.httpService.get(`/auth/verifycode/${usercode}`)
+        return this.httpService.get(`${apis.auth.verify_user_code}/${usercode}`)
             .pipe(map(response => {
                 return response['payload'].employee;
             }));
@@ -83,7 +84,7 @@ export class AuthService {
 
     // POST: Verify OTP
     verifyOTP(otp): Observable<any> {
-        return this.httpService.post_auth(`/auth/otp`, { otp })
+        return this.httpService.post_auth(apis.auth.verify_otp, { otp })
             .pipe(map(response => {
                 return response['payload'];
             }))
@@ -91,7 +92,7 @@ export class AuthService {
 
     // POST: Change password
     forgotPassword(usercode: string, newPassword: string, confirmPassword: string) {
-        return this.httpService.post_auth('/auth/forgotpassword', { usercode, newPassword, confirmPassword })
+        return this.httpService.post_auth(apis.auth.forgotpassword, { usercode, newPassword, confirmPassword })
             .pipe(map(response => {
                 return response['payload'];
             }))

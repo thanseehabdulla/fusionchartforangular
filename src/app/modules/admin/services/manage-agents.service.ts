@@ -1,5 +1,6 @@
+import { apis } from 'src/app/config/api.config';
 import { map } from 'rxjs/operators';
-import { HttpConnectionService } from './../../../shared/services/http-connection.service';
+import { HttpConnectionService } from 'src/app/shared/services/http-connection.service';
 import { Injectable } from '@angular/core';
 import { Agent } from 'src/app/shared/models/agent';
 import { Observable, of } from 'rxjs';
@@ -13,7 +14,7 @@ export class ManageAgentsService {
 
   // GET: get all Agents
   getAgents(): Observable<Agent[]> {
-    return this.httpService.get('/agent')
+    return this.httpService.get(apis.agents.agents)
       .pipe(map(response => {
         return response['payload'].agents;
       }))
@@ -21,7 +22,7 @@ export class ManageAgentsService {
 
   // PATCH: Activate or Deactivate an agent
   toggleActivation(agentCode: string, status: string): Observable<any> {
-    return this.httpService.patch(`/agent/activation/${agentCode}`, { status: status })
+    return this.httpService.patch(`${apis.agents.activate_agent}/${agentCode}`, { status: status })
       .pipe(
         map(response => {
           return response['payload'];
