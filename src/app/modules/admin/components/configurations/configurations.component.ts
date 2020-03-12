@@ -52,7 +52,7 @@ export class ConfigurationsComponent implements OnInit {
   }
 
   setError(error:string){
-    this.notify.showError(error);
+    console.log(error);
   }
 
 }

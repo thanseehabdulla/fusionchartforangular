@@ -70,7 +70,6 @@ export class PublicationMappingComponent implements OnInit {
 
   setError(error:string){
     console.log(error);
-    this.notify.showError(error);
   }
 
   openDialog(data:object): void {

@@ -4,17 +4,44 @@
         <div class="align_items">
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Publication Name:</mat-label>
-                <input matInput placeholder="Publication name" type="text" formControlName="publication_name" [(ngModel)]="publication.publication_name" required>
+                <input matInput placeholder="Publication name" type="text" formControlName="publication_name" [(ngModel)]="publication.publication_name" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="publicationDetailsForm.get('publication_name').hasError('required')">
+                    {{validationMessages.publicationName.required}}
+                </mat-error>
+                <mat-error *ngIf="publicationDetailsForm.get('publication_name').hasError('minlength')">
+                    {{validationMessages.publicationName.minlength}}
+                </mat-error>
+                <mat-error *ngIf="publicationDetailsForm.get('publication_name').hasError('maxlength')">
+                    {{validationMessages.publicationName.maxlength}}
+                </mat-error>
             </mat-form-field>
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Publication Code :</mat-label>
-                <input matInput placeholder="Publication code" type="text" formControlName="publication_code" [(ngModel)]="publication.publication_code" required>
+                <input matInput placeholder="Publication code" type="text" formControlName="publication_code" [(ngModel)]="publication.publication_code" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="publicationDetailsForm.get('publication_code').hasError('required')">
+                    {{validationMessages.publicationCode.required}}
+                </mat-error>
+                <mat-error *ngIf="publicationDetailsForm.get('publication_code').hasError('minlength')">
+                    {{validationMessages.publicationCode.minlength}}
+                </mat-error>
+                <mat-error *ngIf="publicationDetailsForm.get('publication_code').hasError('maxlength')">
+                    {{validationMessages.publicationCode.maxlength}}
+                </mat-error>
             </mat-form-field>
         </div>
         <div class="align_items">
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Publisher Name:</mat-label>
-                <input matInput placeholder="Publisher name" type="text" formControlName="publisher_name" [(ngModel)]="publication.publisher_name" required>
+                <input matInput placeholder="Publisher name" type="text" formControlName="publisher_name" [(ngModel)]="publication.publisher_name" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="publicationDetailsForm.get('publisher_name').hasError('required')">
+                    {{validationMessages.publisherName.required}}
+                </mat-error>
+                <mat-error *ngIf="publicationDetailsForm.get('publisher_name').hasError('minlength')">
+                    {{validationMessages.publisherName.minlength}}
+                </mat-error>
+                <mat-error *ngIf="publicationDetailsForm.get('publisher_name').hasError('maxlength')">
+                    {{validationMessages.publisherName.maxlength}}
+                </mat-error>
             </mat-form-field>
             <div>
                 <mat-form-field floatLabel="always" appearance="outline">

@@ -26,11 +26,12 @@ export class PublicationMasterComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   publicationList = [];
   initialValues = {
-    publication_name: "",
-    publication_code: "",
-    publisher_name: "",
-    publication_type: "P",
-    status: true
+    publication_name  : "",
+    publication_code  : "",
+    publisher_name    : "",
+    publication_type  : "P",
+    status            : "A",
+    fki_user_code     : ""
   }
   constructor(
     private notify: NotifyService,
@@ -63,6 +64,8 @@ export class PublicationMasterComponent implements OnInit {
     if(!data){
       data = this.initialValues;
     }
+    data['publicationList'] = this.publicationList;
+    console.log(data)
     const dialogRef = this.dialog.open(PublicationMasterDialog, { width: "30%",data: data});
     dialogRef.afterClosed().subscribe(isChanged => {
      if(isChanged){
@@ -96,7 +99,7 @@ export class PublicationMasterComponent implements OnInit {
   }
 
   setError(error:string){
-    this.notify.showError(error);
+    console.log(error);
   }
 
   getPublication(){

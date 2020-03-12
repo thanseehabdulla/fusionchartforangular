@@ -6,7 +6,6 @@ import { MatTableDataSource } from "@angular/material/table";
 import { NotifyService } from "src/app/shared/services/notify.service";
 import * as _ from 'lodash';
 import { Location } from 'src/app/shared/models/location';
-import { __assign } from 'tslib';
 
 @Component({
   selector: 'app-inspector-location-report',
@@ -63,7 +62,7 @@ export class InspectorLocationReportComponent implements OnInit {
   }
 
   setError(error:string){
-    this.notify.showError(error);
+    console.log(error);
   }
 
   applyFilter(event: Event) {

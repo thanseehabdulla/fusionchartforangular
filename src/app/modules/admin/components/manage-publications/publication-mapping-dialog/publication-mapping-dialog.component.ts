@@ -48,6 +48,5 @@ export class PublicationMappingDialogComponent {
   }
   setError(error:string){
     console.log(error);
-    this.notify.showError(error);
   }
 }
