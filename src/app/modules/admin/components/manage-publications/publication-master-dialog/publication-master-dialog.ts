@@ -32,17 +32,17 @@ export class PublicationMasterDialog {
     'publicationName': {
       'required': 'Publication name is required!',
       'minlength' : 'Publication code must have minimum of 2 characters!',
-      'maxlength' : 'Publication code must have maximum of 8 characters!',
+      'maxlength' : 'Publication code should not exceed 8 characters!',
     },
     'publicationCode': {
       'required': 'Publication code is required!',
       'minlength' : 'Publication code must have minimum of 2 characters!',
-      'maxlength' : 'Publication code must have maximum of 8 characters!',
+      'maxlength' : 'Publication code should not exceed 8 characters!',
     },
     'publisherName': {
       'required': 'Publisher name is required!',
       'minlength' : 'Publication code must have minimum of 2 characters!',
-      'maxlength' : 'Publication code must have maximum of 8 characters!',
+      'maxlength' : 'Publication code should not exceed 8 characters!',
     }
   }
   
