@@ -1,3 +1,5 @@
+//Page to list the temporary publication list
+
 import { PublicationMappingDialogComponent } from './../publication-mapping-dialog/publication-mapping-dialog.component';
 import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
@@ -37,6 +39,7 @@ export class PublicationMappingComponent implements OnInit {
     this.getPublication();
   }
 
+  //filter
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.tableDataSource.filterPredicate = (publication: Publication, filterValue: string) => {
@@ -50,6 +53,8 @@ export class PublicationMappingComponent implements OnInit {
       this.tableDataSource.paginator.firstPage();
     }
   }
+
+  //get publication list(temporary)
   getPublication(){
     this.publicationService.getPublications().subscribe( (publications:Publication[]) => {
       this.fullPublicationList      =  publications;
@@ -62,16 +67,22 @@ export class PublicationMappingComponent implements OnInit {
     })
   }
 
+
+  //set details to mat table
   setDetails(){
     this.tableDataSource = new MatTableDataSource(this.temporaryPublicationList);
     this.tableDataSource.paginator = this.paginator;
     this.tableDataSource.sort = this.sort;
   }
 
+
+  //set error in common function
   setError(error:string){
     console.log(error);
   }
 
+
+  //open pop up function
   openDialog(data:object): void {
     data['permanentPublicationList'] =  this.fullPublicationList.filter(function(publication) {
       return publication.publication_type == 'P';

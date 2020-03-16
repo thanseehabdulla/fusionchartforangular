@@ -1,7 +1,9 @@
+//publication master pop up to edit/delete/add publication
+
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, Validators, FormControl } from "@angular/forms";
 import { PublicationMasterService } from '../../../services/publication-master.service';
 import { Publication } from 'src/app/shared/models/publication';
 import { NotifyService } from 'src/app/shared/services/notify.service';
@@ -15,9 +17,9 @@ import * as _ from 'lodash';
 export class PublicationMasterDialog {
   publication: Publication;
   publicationDetailsForm = this.FB.group({
-    publication_name  : ["",[ Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
-    publication_code  : ["",[ Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
-    publisher_name    : ["",[ Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
+    publication_name  : ["",[ Validators.required, this.noWhitespaceValidator, Validators.minLength(2), Validators.maxLength(255)]],
+    publication_code  : ["",[ Validators.required, this.noWhitespaceValidator, Validators.minLength(2), Validators.maxLength(255)]],
+    publisher_name    : ["",[ Validators.required, this.noWhitespaceValidator, Validators.minLength(2), Validators.maxLength(255)]],
     publication_type  : [{}, Validators.required]
   });
 
@@ -30,19 +32,22 @@ export class PublicationMasterDialog {
   matcher = new MyErrorStateMatcher();
   validationMessages = {
     'publicationName': {
-      'required': 'Publication name is required!',
-      'minlength' : 'Publication code must have minimum of 2 characters!',
-      'maxlength' : 'Publication code should not exceed 8 characters!',
+      'required'  : 'Publication name is required!',
+      'minlength' : 'Publication name must have minimum of 2 characters!',
+      'maxlength' : 'Publication name should not exceed 8 characters!',
+      'whitespace': 'Publication name should not have only white spaces!'
     },
     'publicationCode': {
-      'required': 'Publication code is required!',
+      'required'  : 'Publication code is required!',
       'minlength' : 'Publication code must have minimum of 2 characters!',
       'maxlength' : 'Publication code should not exceed 8 characters!',
+      'whitespace': 'Publication code should not have only white spaces!'
     },
     'publisherName': {
-      'required': 'Publisher name is required!',
-      'minlength' : 'Publication code must have minimum of 2 characters!',
-      'maxlength' : 'Publication code should not exceed 8 characters!',
+      'required'  : 'Publisher name is required!',
+      'minlength' : 'Publisher name must have minimum of 2 characters!',
+      'maxlength' : 'Publisher name should not exceed 8 characters!',
+      'whitespace': 'Publisher name should not have only white spaces!'
     }
   }
   
@@ -58,12 +63,24 @@ export class PublicationMasterDialog {
     this.publication = this.data.publication;
   }
 
+
+  //white space validator
+  noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
+
+
+  //close dialog pop up
   onCloseDialog(isChanged): void {
     if(this.publication.pki_publication_id)
       isChanged = true;
     this.dialogRef.close(isChanged);
   }
 
+
+  //save functionality
   save() {
     this.publication['fki_user_code']     = JSON.parse(localStorage.getItem('currentUser')).user.pki_user_code;
     this.publication['publication_type']  = this.publication.publication_type;
@@ -86,6 +103,8 @@ export class PublicationMasterDialog {
     }
   }
 
+
+  //delete publication
   delete(){
     this.publicationService.deletePublication(this.publication.pki_publication_id)
     .subscribe(()=> {
@@ -96,10 +115,12 @@ export class PublicationMasterDialog {
     }) 
   }
 
+  //set error in common function
   setError(error:string){
     console.log(error);
   }
 
+  //add publication
   addPublication(){
     this.publicationService.addPublication(this.publication).subscribe((data)=> {
       this.onCloseDialog(true);
@@ -110,6 +131,7 @@ export class PublicationMasterDialog {
     })
   }
 
+  //update publication
   updatePublication(){
     this.publicationService.updatePublication(this.publication).subscribe((data)=> {
       this.onCloseDialog(true);

@@ -1,3 +1,5 @@
+//Service class for publication management
+
 import { apis } from 'src/app/config/api.config';
 import { Injectable } from '@angular/core';
 import { HttpConnectionService } from 'src/app/shared/services/http-connection.service';
@@ -12,6 +14,8 @@ export class PublicationMasterService {
 
   constructor(private httpService: HttpConnectionService) { }
 
+
+  //get publications
   getPublications(): Observable<Publication[]> {
     return this.httpService.get(apis.publications.publications)
       .pipe(map(response => {
@@ -19,6 +23,7 @@ export class PublicationMasterService {
       }))
   }
 
+  //active/deactive publication
   toggleActivation(publicationCode: string, status: string): Observable<any> {
     return this.httpService.patch(`${apis.publications.activate_publication}/${publicationCode}`, { status: status })
       .pipe(
@@ -28,6 +33,8 @@ export class PublicationMasterService {
       )
   }
   
+
+  //add new publication
   addPublication(publicationDetails: Publication): Observable<any> {
     return this.httpService.post(apis.publications.publications, publicationDetails)
       .pipe(
@@ -37,6 +44,8 @@ export class PublicationMasterService {
       )
   }
 
+
+  //delete publication
   deletePublication(publicationId: number): Observable<any> {
     return this.httpService.delete(`${apis.publications.publications}/${publicationId}`)
       .pipe(
@@ -46,6 +55,8 @@ export class PublicationMasterService {
       )
   }
 
+
+  //update publication
   updatePublication(publicationDetails: Publication): Observable<any> {
     return this.httpService.put(`${apis.publications.publications}/${publicationDetails.pki_publication_id}`,publicationDetails)
       .pipe(
@@ -55,6 +66,8 @@ export class PublicationMasterService {
       )
   }
 
+
+  //publication mapping
   mapPublication(publicationDetails: Object): Observable<any> {
     return this.httpService.post(apis.publications.map_publication, publicationDetails)
       .pipe(
