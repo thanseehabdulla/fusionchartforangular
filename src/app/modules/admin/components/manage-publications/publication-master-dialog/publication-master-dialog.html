@@ -16,7 +16,8 @@
                     && !(publicationDetailsForm.get('publication_name').hasError('whitespace'))">
                     {{validationMessages.publicationName.maxlength}}
                 </mat-error>
-                <mat-error *ngIf="publicationDetailsForm.get('publication_name').hasError('whitespace')">
+                <mat-error *ngIf="publicationDetailsForm.get('publication_name').hasError('whitespace')
+                    && !(publicationDetailsForm.get('publication_name').hasError('required'))">
                     {{validationMessages.publicationName.whitespace}}
                 </mat-error>
             </mat-form-field>
@@ -34,7 +35,8 @@
                     && !(publicationDetailsForm.get('publication_code').hasError('whitespace'))">
                     {{validationMessages.publicationCode.maxlength}}
                 </mat-error>
-                <mat-error *ngIf="publicationDetailsForm.get('publication_code').hasError('whitespace')">
+                <mat-error *ngIf="publicationDetailsForm.get('publication_code').hasError('whitespace')
+                    && !(publicationDetailsForm.get('publication_code').hasError('required'))">
                     {{validationMessages.publicationCode.whitespace}}
                 </mat-error>
             </mat-form-field>
@@ -54,7 +56,8 @@
                     && !(publicationDetailsForm.get('publisher_name').hasError('whitespace'))">
                     {{validationMessages.publisherName.maxlength}}
                 </mat-error>
-                <mat-error *ngIf="publicationDetailsForm.get('publisher_name').hasError('whitespace')">
+                <mat-error *ngIf="publicationDetailsForm.get('publisher_name').hasError('whitespace')
+                    && !(publicationDetailsForm.get('publisher_name').hasError('required'))">
                     {{validationMessages.publisherName.whitespace}}
                 </mat-error>
             </mat-form-field>

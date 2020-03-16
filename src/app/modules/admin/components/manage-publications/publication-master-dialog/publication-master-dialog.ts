@@ -34,19 +34,19 @@ export class PublicationMasterDialog {
     'publicationName': {
       'required'  : 'Publication name is required!',
       'minlength' : 'Publication name must have minimum of 2 characters!',
-      'maxlength' : 'Publication name should not exceed 8 characters!',
+      'maxlength' : 'Publication name should not exceed 255 characters!',
       'whitespace': 'Publication name should not have only white spaces!'
     },
     'publicationCode': {
       'required'  : 'Publication code is required!',
       'minlength' : 'Publication code must have minimum of 2 characters!',
-      'maxlength' : 'Publication code should not exceed 8 characters!',
+      'maxlength' : 'Publication code should not exceed 255 characters!',
       'whitespace': 'Publication code should not have only white spaces!'
     },
     'publisherName': {
       'required'  : 'Publisher name is required!',
       'minlength' : 'Publisher name must have minimum of 2 characters!',
-      'maxlength' : 'Publisher name should not exceed 8 characters!',
+      'maxlength' : 'Publisher name should not exceed 255 characters!',
       'whitespace': 'Publisher name should not have only white spaces!'
     }
   }
@@ -84,7 +84,11 @@ export class PublicationMasterDialog {
   save() {
     this.publication['fki_user_code']     = JSON.parse(localStorage.getItem('currentUser')).user.pki_user_code;
     this.publication['publication_type']  = this.publication.publication_type;
-    
+    this.trimData();
+    if(!(this.validateFileds() ) ){
+      return;
+    }
+
     let isExistArray = _.filter(this.data.publicationList,(x)=> { 
       if((x.pki_publication_id != this.publication.pki_publication_id) && 
         (x.publication_name == this.publication.publication_name || x.publication_code == this.publication.publication_code)
@@ -140,5 +144,26 @@ export class PublicationMasterDialog {
       this.setError(error);
       this.onCloseDialog(true);
     })
+  }
+
+  //trimData
+  trimData(){
+    this.publication.publication_code = this.publication.publication_code.trim();
+    this.publication.publication_name = this.publication.publication_name.trim();
+    this.publication.publisher_name = this.publication.publisher_name.trim();
+  }
+
+  //validateFileds
+  validateFileds(){
+    if(this.publication.publication_name.length <2){
+      return false;
+    }
+    if(this.publication.publisher_name.length <2){
+      return false;
+    }
+    if(this.publication.publisher_name.length <2){
+      return false;
+    }
+    return true;
   }
 }
