@@ -1,15 +1,21 @@
 table {
     width: 100%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    width: 25%;
+    overflow: hidden;
+    width: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
 }
 
 .mat-form-field {
     font-size: 14px;
     width: 100%;
-}
-
-td,
-th {
-    width: 25%;
 }
 
 .Plus_button {
@@ -25,22 +31,18 @@ button {
 .publication-master {
     display: flex;
     justify-content: space-between;
-
-   
-    
-    mat-icon{ font-size: 45px;
+    mat-icon {
+        font-size: 45px;
         width: 41px;
         color: #1976D2;
         cursor: pointer;
     }
-
-    mat-icon:hover{ font-size: 45px;
+    mat-icon:hover {
+        font-size: 45px;
         width: 41px;
         cursor: pointer;
         color: rgb(16, 81, 146);
     }
-
-
 }
 
 .no-data {
@@ -48,8 +50,8 @@ button {
     justify-content: center;
 }
 
-tr:hover{
+tr:hover {
     cursor: pointer;
-    background:#e7e7eb !important;
+    background: #e7e7eb !important;
     transform: scale(1.004) !important;
 }

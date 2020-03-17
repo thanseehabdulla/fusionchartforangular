@@ -1,26 +1,48 @@
 <ul>
     <li>
         <mat-label class="label-heading">
-            Indent update percentage is : {{indentUpdatePercentage}}</mat-label>
-        <button mat-icon-button (click)="editPercentage()">
+            Indent increase percentage is : {{indentIncreasePercentage}}</mat-label>
+        <button mat-icon-button (click)="editPercentage('indentIncrease')">
             <mat-icon>edit</mat-icon>
         </button>
         <br>
-        <div class="align-items">
+        <div class="align-items" id="indentIncrease">
             <div>
-                <mat-form-field *ngIf="isEdit" class="input-margin" appearance="outline">
+                <mat-form-field class="input-margin" appearance="outline">
                     <mat-label>Indent update % :</mat-label>
-                    <input matInput type="number" [ngModel]="indentUpdatePercentage" required>
+                    <input #indentIncreasePercentageField matInput type="number" [ngModel]="indentIncreasePercentage" required>
                 </mat-form-field>
             </div>
-            <div *ngIf="isEdit" class="align-buttons">
-                <button mat-raised-button (click)="update()" color="primary">Update</button>
-                <button mat-icon-button (click)="cancel()">
+            <div class="align-buttons">
+                <button mat-raised-button (click)="update('indentIncrease', indentIncreasePercentageField)" color="primary">Update</button>
+                <button mat-icon-button (click)="cancel('indentIncrease')">
                     <mat-icon>cancel</mat-icon>
                 </button>
             </div>
         </div>
 
     </li>
+    <li>
+        <mat-label class="label-heading">
+            Indent decrease percentage is : {{indentDecreasePercentage}}</mat-label>
+        <button mat-icon-button (click)="editPercentage('indentDecrease')">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <br>
+        <div class="align-items" id="indentDecrease">
+            <div>
+                <mat-form-field class="input-margin" appearance="outline">
+                    <mat-label>Indent decrease % :</mat-label>
+                    <input #indentDecreasePercentageField matInput type="number" [ngModel]="indentDecreasePercentage" required>
+                </mat-form-field>
+            </div>
+            <div class="align-buttons">
+                <button mat-raised-button (click)="update('indentDecrease', indentDecreasePercentageField)" color="primary">Update</button>
+                <button mat-icon-button (click)="cancel('indentDecrease')">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+        </div>
 
+    </li>
 </ul>

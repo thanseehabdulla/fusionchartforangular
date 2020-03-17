@@ -1,3 +1,5 @@
+//page to diaplay location tracking report
+
 import { LocationTrackingService } from './../../services/location-tracking.service';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
@@ -35,6 +37,7 @@ export class InspectorLocationReportComponent implements OnInit {
     this.getLocationTrackingList();
   }
 
+  //get Location Tracking List
   getLocationTrackingList(){
     this.locationTrackingService.getLocationTrackingList().subscribe( (location) => {
       this.locationDetails = location;
@@ -48,6 +51,7 @@ export class InspectorLocationReportComponent implements OnInit {
     });
   }
 
+  //set Details to mat table
   setDetails(){
     let location = _.pickBy(this.locationDetails,(x,i) => { 
       if(x.empcode == this.selectedInspector.empCode) 
@@ -61,10 +65,12 @@ export class InspectorLocationReportComponent implements OnInit {
     this.dataSource.sort      = this.sort;
   }
 
+  //set Error in common
   setError(error:string){
     console.log(error);
   }
 
+  // filter
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -1,3 +1,5 @@
+//service class for location tracking report
+
 import { apis } from 'src/app/config/api.config';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -11,6 +13,8 @@ export class LocationTrackingService {
 
   constructor(private httpService: HttpConnectionService) { }
 
+
+  //get location tracking details
   getLocationTrackingList(): Observable<any> {
     return this.httpService.get(apis.inspector_location.report)
       .pipe(map(response => {

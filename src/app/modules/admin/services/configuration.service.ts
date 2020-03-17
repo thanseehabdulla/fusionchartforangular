@@ -1,3 +1,5 @@
+//service class for cofigurations
+
 import { apis } from 'src/app/config/api.config';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -11,14 +13,18 @@ export class ConfigurationService {
 
   constructor(private httpService: HttpConnectionService) { }
   
-  getIndentUpdatipnPercentage(): Observable<number> {
-    return this.httpService.get(apis.configurations.indent_update_percentage)
+
+  //get indent updation %
+  getIndents(): Observable<any> {
+    return this.httpService.get(apis.configurations.get_indents)
       .pipe(map(response => {
-        return response['payload'].indentUpdatePercentage;
+        return response['payload'].indent;
     }))
   }
-  updateIndentUpdatipnPercentage(percentage): Observable<any> {
-    return this.httpService.put(apis.publications.publications, percentage)
+
+  //update indent updation %
+  saveIndent(indentDetails): Observable<any> {
+    return this.httpService.post(apis.configurations.get_indents, indentDetails)
       .pipe(
         map(response => {
           return response['payload'];

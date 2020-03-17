@@ -1,3 +1,5 @@
+//page to display publication master list data
+
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -39,6 +41,7 @@ export class PublicationMasterComponent implements OnInit {
     this.getPublication();
   }
 
+  //filter
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filterPredicate = (publication: Publication, filterValue: string) => {
@@ -53,6 +56,7 @@ export class PublicationMasterComponent implements OnInit {
     }
   }
 
+  //open dialog
   openDialog(data:object): void {
     let details = {};
     if(!data){
@@ -70,6 +74,7 @@ export class PublicationMasterComponent implements OnInit {
     });
   }
 
+  //confirmation pop up
   confirmDialog(publicationId: string, status: string): void {
     let message = status ? "Inactive." : "Active.";
     message     = "You are about to change the Publication status to " +message + " Are you sure you want to do this?";
@@ -87,6 +92,8 @@ export class PublicationMasterComponent implements OnInit {
     );
   }
 
+
+  //set deatils to mat table
   setDetails(publications:Publication[]){
     this.publicationList      = publications;
     this.dataSource           = new MatTableDataSource(this.publicationList);
@@ -94,10 +101,13 @@ export class PublicationMasterComponent implements OnInit {
     this.dataSource.sort      = this.sort;
   }
 
+  //set error in common
   setError(error:string){
     console.log(error);
   }
 
+
+  //get publication list
   getPublication(){
     this.publicationService.getPublications().subscribe( (publications:Publication[]) => {
       this.setDetails(publications);

@@ -1,3 +1,5 @@
+//Model to map the temporary publications to others/permanent
+
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { PublicationMasterService } from '../../../services/publication-master.service';
@@ -25,6 +27,8 @@ export class PublicationMappingDialogComponent {
     this.selectedPublication = this.permanentOption;
   }
 
+
+  //save mapping
   save() {
     let details = {
       publication_type    : this.selectedPublication.pki_publication_id? 'M' : 'P',
@@ -42,9 +46,12 @@ export class PublicationMappingDialogComponent {
     })
   }
 
+  //close pop up
   onCloseDialog(isChanged): void {
     this.dialogRef.close(isChanged);
   }
+
+  //set error details
   setError(error:string){
     console.log(error);
   }

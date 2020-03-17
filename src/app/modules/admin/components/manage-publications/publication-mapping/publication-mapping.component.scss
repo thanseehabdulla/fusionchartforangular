@@ -1,15 +1,21 @@
 table {
     width: 100%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    width: 25%;
+    overflow: hidden;
+    width: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
 }
 
 .mat-form-field {
     font-size: 14px;
     width: 100%;
-}
-
-td,
-th {
-    width: 25%;
 }
 
 .Plus_button {
@@ -22,13 +28,13 @@ th {
     justify-content: center;
 }
 
-.map-icon{
-    mat-icon{
-        color:#1976D2;
-        cursor:pointer;
+.map-icon {
+    mat-icon {
+        color: #1976D2;
+        cursor: pointer;
     }
 }
 
-.searchBar{
+.searchBar {
     width: 180px;
 }
