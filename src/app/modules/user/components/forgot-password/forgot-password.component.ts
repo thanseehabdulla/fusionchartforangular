@@ -1,12 +1,13 @@
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { User } from 'src/app/shared/models/user';
 import { NotifyService } from 'src/app/shared/services/notify.service';
-import { Validators } from '@angular/forms';
+import { Validators, FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { confirmPasswordValidator } from "src/app/shared/validators/CustomValidators";
 import { MatStepper } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,6 +16,7 @@ import { MatStepper } from '@angular/material';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  @ViewChild('stepper', { static: true }) stepper: MatStepper;
   userVerificationForm: FormGroup;
   otpVerificationForm: FormGroup;
   resetPasswordForm: FormGroup;
@@ -23,7 +25,6 @@ export class ForgotPasswordComponent implements OnInit {
   isOtpVerified: boolean;
   userInfo: User;
   userInfoColumns: string[] = ['name', 'place', 'designation'];
-  userVerificationButtonText = 'Verify Code'
 
   matcher = new MyErrorStateMatcher();
   validationMessages = {
@@ -37,7 +38,7 @@ export class ForgotPasswordComponent implements OnInit {
     },
     'newPassword': {
       'required': 'Password is required!',
-      'minlength': 'Password must have minimum of 8 characters!',
+      'minlength': 'Password must have minimum of 6 characters!',
       'maxlength': 'Password should not exceed 20 characters!'
     },
     'confirmPassword': {
@@ -49,14 +50,15 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private notifyService: NotifyService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     // User verification form
-    this.userVerificationForm = this.fb.group({ 
-      usercode: ['', [Validators.required, Validators.maxLength(20)]] 
+    this.userVerificationForm = this.fb.group({
+      usercode: ['', [Validators.required, Validators.maxLength(20)]]
     });
     // OTP verification form
-    this.otpVerificationForm = this.fb.group({ otp: ['', [Validators.required, Validators.maxLength(8)]] });
+    this.otpVerificationForm = this.fb.group({ otp: ['', [Validators.required, Validators.maxLength(6)]] });
     // Reset password form
     this.resetPasswordForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
@@ -76,31 +78,20 @@ export class ForgotPasswordComponent implements OnInit {
         (data: any) => {
           this.isUserExists = true;
           this.userInfo = data;
-          this.userVerificationButtonText = 'Next';
           this.userVerificationForm.get('usercode').disable();
         },
         (error: Error) => {
           this.isUserExists = false;
-          this.userVerificationButtonText = 'Verify Code';
         }
       )
   }
 
   // Generate OTP
-  generateOTP(stepper: MatStepper) {
-    if (this.userVerificationButtonText === 'Next') {
-      this.authService.generateOTP(this.userVerificationForm.get('usercode').value.trim()).subscribe(
-        (data) => {
-          this.isUserExists = true;
-          this.notifyService.showSuccess("OTP sent successfully!")
-        },
-        (error) => {
-          console.log(stepper);
-          this.isUserExists = false;
-          stepper.previous();
-        }
-      );
-    }
+  generateOTP() {
+    this.authService.generateOTP(this.userVerificationForm.get('usercode').value.trim()).subscribe(
+      (data) => this.notifyService.showSuccess("OTP sent successfully!"),
+      (error) => this.stepper.previous()
+    );
   }
 
   // Validate OTP
@@ -109,8 +100,14 @@ export class ForgotPasswordComponent implements OnInit {
       this.userVerificationForm.get('usercode').value.trim(),
       this.otpVerificationForm.get('otp').value.trim())
       .subscribe(
-        (data: any) => this.isOtpVerified = true,
-        (error: Error) => this.isOtpVerified = false
+        (data: any) => {
+          this.isOtpVerified = true;
+          this.otpVerificationForm.get('otp').disable();
+          this.notifyService.showSuccess("OTP matched successfully!");
+        },
+        (error: Error) => {
+          this.isOtpVerified = false;
+        }
       )
   }
 

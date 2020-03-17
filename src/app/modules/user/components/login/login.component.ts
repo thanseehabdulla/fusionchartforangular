@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService,
-    private notifyService: NotifyService) {
+    private authService: AuthService) {
     // Login Form
     this.loginForm = this.fb.group({
       usercode: ['', [Validators.required, Validators.maxLength(20)]],
