@@ -15,16 +15,16 @@ export class ConfigurationService {
   
 
   //get indent updation %
-  getIndentUpdatipnPercentage(): Observable<number> {
-    return this.httpService.get(apis.configurations.indent_update_percentage)
+  getIndents(): Observable<any> {
+    return this.httpService.get(apis.configurations.get_indents)
       .pipe(map(response => {
-        return response['payload'].indentUpdatePercentage;
+        return response['payload'].indent;
     }))
   }
 
   //update indent updation %
-  updateIndentUpdatipnPercentage(percentage): Observable<any> {
-    return this.httpService.put(apis.publications.publications, percentage)
+  saveIndent(indentDetails): Observable<any> {
+    return this.httpService.post(apis.configurations.get_indents, indentDetails)
       .pipe(
         map(response => {
           return response['payload'];

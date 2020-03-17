@@ -1,9 +1,10 @@
+import { FormControl } from '@angular/forms';
 //page to set application configuration
 
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ConfigurationService } from '../../services/configuration.service';
 import { NotifyService } from 'src/app/shared/services/notify.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-configurations',
@@ -12,49 +13,70 @@ import { NotifyService } from 'src/app/shared/services/notify.service';
 })
 export class ConfigurationsComponent implements OnInit {
 
-  indentUpdatePercentage:number;
-  isEdit:boolean;
-
+  indentIncreasePercentage:number;
+  indentDecreasePercentage:number;
+  indentTypeMapper = {
+    "indentIncrease": "I", 
+    "indentDecrease": "D"
+  };
   constructor(
     private configurationService:ConfigurationService,
     private notify: NotifyService
   ) { }
 
   ngOnInit() {
-    this.getIndentUpdatipnPercentage();
+    this.setDiv();
+    this.getIndents();
   }
 
   //get Indent Updatipn Percentage
-  getIndentUpdatipnPercentage(){
-    // this.configurationService.getIndentUpdatipnPercentage().subscribe((percentage:number) => {
-      this.indentUpdatePercentage = 12;
-    // },(error:any) => { 
-    //   this.setError(error);
-    // })
+  getIndents(){
+    this.configurationService.getIndents().subscribe((data) => {
+      let indentIncreasePercentage = _.pickBy(data,(x,i) => { 
+        if(x.indent_type == 'I') 
+        return x; 
+      });
+      let indentDecreasePercentage = _.pickBy(data,(x,i) => { 
+        if(x.indent_type == 'D') 
+        return x; 
+      });
+      this.indentIncreasePercentage = indentIncreasePercentage[Object.keys(indentIncreasePercentage)[0]].indent;
+      this.indentDecreasePercentage = indentDecreasePercentage[Object.keys(indentDecreasePercentage)[0]].indent;
+    },(error:any) => { 
+      this.setError(error);
+    })
+  }
+
+  //set all li to hide
+  setDiv(){
+    document.getElementById('indentIncrease').style.display = 'none';
+    document.getElementById('indentDecrease').style.display = 'none';
   }
 
   //edit Percentage
-  editPercentage(){
-    this.isEdit = true;
+  editPercentage(id:string){
+    document.getElementById(id).style.display = 'flex';
   }
 
   //cancel pop up
-  cancel(){
-    this.isEdit = false;
+  cancel(id:string){
+    document.getElementById(id).style.display = 'none';
   }
 
   //update % value
-  update(){
+  update(id:string, percentage: FormControl){
     let data = {
-      "percentage" : this.indentUpdatePercentage
+      "indent" : percentage.value,
+      "indent_type" : this.indentTypeMapper[id],
+      "fki_user_code" : JSON.parse(localStorage.getItem('currentUser')).user.pki_user_code
     }
+    this.configurationService.saveIndent(data).subscribe((percentage:number) => {
+      this.getIndents();
+    },(error:any) => { 
+      this.setError(error);
+    });
 
-  // this.configurationService.updateIndentUpdatipnPercentage(data).subscribe((percentage:number) => {
-    this.indentUpdatePercentage = 18;
-  // },(error:any) => { 
-  //   this.setError(error);
-  // })
-    this.cancel();
+    this.cancel(id);
   }
 
   //common function to set error

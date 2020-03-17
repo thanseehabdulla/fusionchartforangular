@@ -31,7 +31,7 @@ export const apis= {
         report: baseUrl+ '/report',
     },
     configurations: {
-        indent_update_percentage: baseUrl+ '/indentUpdatePercentage',
+        get_indents: baseUrl+ '/indent',
     },
     common: {
     }
