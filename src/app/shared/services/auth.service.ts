@@ -82,9 +82,17 @@ export class AuthService {
             }));
     }
 
+    // POST: Generate OTP
+    generateOTP(usercode: string) {
+        return this.httpService.post(apis.auth.generate_otp, {fki_user_code: usercode})
+            .pipe(map(response => {
+                return response['payload'];
+            }))
+    }
+
     // POST: Verify OTP
-    verifyOTP(otp): Observable<any> {
-        return this.httpService.post_auth(apis.auth.verify_otp, { otp })
+    verifyOTP(usercode: string, otp: string): Observable<any> {
+        return this.httpService.post(apis.auth.verify_otp, { fki_user_code: usercode, otp: otp })
             .pipe(map(response => {
                 return response['payload'];
             }))

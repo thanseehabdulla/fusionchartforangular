@@ -1,11 +1,12 @@
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { EmployeeInfo } from 'src/app/shared/models/employee-info';
-import { Validators } from '@angular/forms';
+import { Validators, FormControl } from '@angular/forms';
 import { ManageEmployeesService } from 'src/app/modules/admin/services/manage-employees.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
+import { noWhitespaceValidator } from 'src/app/shared/validators/CustomValidators';
 
 @Component({
   selector: 'app-manage-employees-dailog',
@@ -18,6 +19,7 @@ export class ManageEmployeesDailogComponent implements OnInit {
   employeeInfo: EmployeeInfo;
   employeeUpdateForm: FormGroup;
   employeeInfoColumns: string[] = ['name', 'place', 'designation'];
+  isEdit: boolean = true;
 
   statusMapper = {
     'A': 'Active',
@@ -71,13 +73,17 @@ export class ManageEmployeesDailogComponent implements OnInit {
 
   // Update role of an employee
   onUpdateRole() {
-    if (this.employeeInfo.role_id !== this.employeeUpdateForm.get('role').value) {
-      if (this.data.employee) {
-        this.employeeService.changeRole(this.data.employee.pki_user_code, +this.employeeUpdateForm.get('role').value)
+    if (this.employeeInfo.role_id !== this.employeeUpdateForm.get('role').value.trim()) {
+      if (this.isEdit === true) {
+        this.employeeService.changeRole(
+          this.employeeUpdateForm.get('employeeCode').value.trim(),
+          +this.employeeUpdateForm.get('role').value.trim())
           .subscribe((data: any) => this.onCloseDialog(true));
       }
       else {
-        this.employeeService.assignRole(this.employeeUpdateForm.get('employeeCode').value, +this.employeeUpdateForm.get('role').value)
+        this.employeeService.assignRole(
+          this.employeeUpdateForm.get('employeeCode').value.trim(), 
+          +this.employeeUpdateForm.get('role').value.trim())
           .subscribe((data: any) => this.onCloseDialog(true));
       }
     }
@@ -87,22 +93,26 @@ export class ManageEmployeesDailogComponent implements OnInit {
 
   // Fetch employee details of an employee
   getEmployeeDetails(empCode: string) {
-    if(empCode) {
+    if (empCode) {
       this.employeeService.getEmployee(empCode)
-      .subscribe(
-        (employeeInfo: EmployeeInfo) => {
-          this.employeeInfo = employeeInfo;
-          this.employeeUpdateForm.get('role').setValue(this.employeeInfo.role_id);
-        },
-        (error) => {
-          this.employeeInfo = null;
-        }
-      );
+        .subscribe(
+          (employeeInfo: EmployeeInfo) => {
+            this.employeeInfo = employeeInfo;
+            this.employeeUpdateForm.get('role').setValue(this.employeeInfo.role_id);
+            if (this.employeeInfo.role_id)
+              this.isEdit = true;
+            else
+              this.isEdit = false;
+          },
+          (error) => {
+            this.employeeInfo = null;
+          }
+        );
     }
   }
 
   // Close dialog
   onCloseDialog(isChange: boolean) {
-      this.dialogRef.close({empCode: this.employeeInfo? this.employeeInfo['pki_user_code']: '', isChange: isChange});
+    this.dialogRef.close({ empCode: this.employeeInfo ? this.employeeInfo['pki_user_code'] : '', isChange: isChange });
   }
 }

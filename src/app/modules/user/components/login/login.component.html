@@ -2,7 +2,7 @@
   <form (ngSubmit)="onLogin()" #loginForm1="ngForm" [formGroup]="loginForm">
     <mat-form-field floatLabel="auto">
       <mat-label>User Code</mat-label>
-      <input matInput type="text" formControlName="usercode" [errorStateMatcher]="matcher">
+      <input matInput type="text" formControlName="usercode" noWhiteSpace [errorStateMatcher]="matcher" required>
       <mat-error *ngIf="loginForm.get('usercode').hasError('required')">
         {{validationMessages.usercode.required}}
       </mat-error>
@@ -12,7 +12,7 @@
     </mat-form-field>
     <mat-form-field floatLabel="auto">
       <mat-label>Password</mat-label>
-      <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+      <input matInput type="password" formControlName="password" noWhiteSpace [errorStateMatcher]="matcher" required>
       <mat-error *ngIf="loginForm.get('password').hasError('required')">
         {{validationMessages.password.required}}
       </mat-error>

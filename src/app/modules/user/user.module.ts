@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
+import { NgModule } from '@angular/core';
+
+import { SharedModule } from './../../shared/modules/shared.module';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
@@ -16,11 +16,10 @@ import { MaterialModule } from "../../shared/material/material.module";
     ChangePasswordComponent,
   ],
   imports: [
-    CommonModule,
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    SharedModule
   ]
 })
 export class UserModule { }

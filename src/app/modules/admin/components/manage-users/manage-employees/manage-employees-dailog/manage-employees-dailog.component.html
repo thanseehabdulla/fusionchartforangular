@@ -5,17 +5,18 @@
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Employee Code</mat-label>
                 <input matInput formControlName="employeeCode" (blur)="getEmployeeDetails($event.target.value)"
-                    [errorStateMatcher]="matcher">
+                    [errorStateMatcher]="matcher" required noWhiteSpace>
                 <mat-error *ngIf="employeeUpdateForm.get('employeeCode').hasError('required')">
                     {{validationMessages.employeeCode.required}}
                 </mat-error>
-                <mat-error *ngIf="employeeUpdateForm.get('employeeCode').hasError('maxlength')">
+                <mat-error *ngIf="employeeUpdateForm.get('employeeCode').hasError('maxlength') && 
+                !employeeUpdateForm.get('employeeCode').hasError('whiteSpace')">
                     {{validationMessages.employeeCode.maxlength}}
                 </mat-error>
             </mat-form-field>
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Status</mat-label>
-                <input matInput [value]="data.employee? statusMapper[data.employee.status]: 'Active'" disabled>
+                <input matInput [value]="employeeInfo? statusMapper[employeeInfo.status]: 'Active'" disabled>
             </mat-form-field>
         </div>
         <div *ngIf="employeeInfo">
@@ -27,7 +28,7 @@
         <div *ngIf="employeeInfo">
             <mat-form-field floatLabel="always" appearance="outline">
                 <mat-label>Roles :</mat-label>
-                <mat-select formControlName="role" [errorStateMatcher]="matcher">
+                <mat-select formControlName="role" [errorStateMatcher]="matcher" required>
                     <mat-option *ngFor="let role of data.roles" [value]="role['pki_role_id']">
                         {{RoleMapper[role['pki_role_id']]}}
                     </mat-option>
@@ -40,7 +41,7 @@
     </div>
     <div mat-dialog-actions class="footer">
         <button mat-raised-button class="saveButton" type="submit"
-        [disabled]= "employeeUpdateForm.invalid || !employeeInfo">Save</button>
+            [disabled]="employeeUpdateForm.invalid || !employeeInfo">Save</button>
         <button mat-raised-button class="cancelButton" type="button" (click)="onCloseDialog(false)">Cancel</button>
     </div>
 </form>

@@ -1,3 +1,4 @@
+import { AdminRoutingModule } from './admin-routing.module';
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from './../../shared/modules/shared.module';
@@ -29,6 +30,7 @@ import { PublicationMappingDialogComponent } from './components/manage-publicati
     ManageAgentsComponent, ManageEmployeesComponent, PublicationMappingComponent, PublicationMappingDialogComponent
   ],
   imports: [
+    AdminRoutingModule,
     SharedModule
   ],
   entryComponents: [PublicationMasterDialog, ManageEmployeesDailogComponent,PublicationMappingDialogComponent]

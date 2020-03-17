@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { confirmPasswordValidator } from "src/app/shared/validators/CustomValidators";
+import { MatStepper } from '@angular/material';
 
 @Component({
   selector: 'app-forgot-password',
@@ -40,7 +41,8 @@ export class ForgotPasswordComponent implements OnInit {
       'maxlength': 'Password should not exceed 20 characters!'
     },
     'confirmPassword': {
-      'required': 'Password is required!'
+      'required': 'Password is required!',
+      'passwordMismatch': 'Password mismatch!'
     }
   }
 
@@ -49,8 +51,13 @@ export class ForgotPasswordComponent implements OnInit {
     private notifyService: NotifyService,
     private fb: FormBuilder
   ) {
-    this.userVerificationForm = this.fb.group({ usercode: ['', [Validators.required, Validators.maxLength(20)]] });
+    // User verification form
+    this.userVerificationForm = this.fb.group({ 
+      usercode: ['', [Validators.required, Validators.maxLength(20)]] 
+    });
+    // OTP verification form
     this.otpVerificationForm = this.fb.group({ otp: ['', [Validators.required, Validators.maxLength(8)]] });
+    // Reset password form
     this.resetPasswordForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required]
@@ -62,10 +69,11 @@ export class ForgotPasswordComponent implements OnInit {
     this.isOtpVerified = false;
   }
 
+  // Verify user code
   verifyUser() {
-    this.authService.verifyUserCode(this.userVerificationForm.get('usercode').value)
+    this.authService.verifyUserCode(this.userVerificationForm.get('usercode').value.trim())
       .subscribe(
-        (data) => {
+        (data: any) => {
           this.isUserExists = true;
           this.userInfo = data;
           this.userVerificationButtonText = 'Next';
@@ -78,24 +86,44 @@ export class ForgotPasswordComponent implements OnInit {
       )
   }
 
+  // Generate OTP
+  generateOTP(stepper: MatStepper) {
+    if (this.userVerificationButtonText === 'Next') {
+      this.authService.generateOTP(this.userVerificationForm.get('usercode').value.trim()).subscribe(
+        (data) => {
+          this.isUserExists = true;
+          this.notifyService.showSuccess("OTP sent successfully!")
+        },
+        (error) => {
+          console.log(stepper);
+          this.isUserExists = false;
+          stepper.previous();
+        }
+      );
+    }
+  }
+
+  // Validate OTP
   verifyOTP() {
-    this.authService.verifyOTP(this.otpVerificationForm.get('otp').value)
+    this.authService.verifyOTP(
+      this.userVerificationForm.get('usercode').value.trim(),
+      this.otpVerificationForm.get('otp').value.trim())
       .subscribe(
-        (data) => this.isOtpVerified = true,
+        (data: any) => this.isOtpVerified = true,
         (error: Error) => this.isOtpVerified = false
       )
   }
 
+  // Reset password
   forgotPassword() {
     this.authService.forgotPassword(
-      this.userVerificationForm.get('usercode').value,
-      this.resetPasswordForm.get('newPassword').value,
-      this.resetPasswordForm.get('confirmPassword').value)
+      this.userVerificationForm.get('usercode').value.trim(),
+      this.resetPasswordForm.get('newPassword').value.trim(),
+      this.resetPasswordForm.get('confirmPassword').value.trim())
       .subscribe(
-        (data) => {
+        (data: any) => {
           this.notifyService.showSuccess("Password is changed successfully! Please login to the application");
           this.authService.logout();
         });
   }
-
 }

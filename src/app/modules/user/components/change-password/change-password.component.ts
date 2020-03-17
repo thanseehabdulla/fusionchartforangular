@@ -64,18 +64,18 @@ export class ChangePasswordComponent implements OnInit {
   // Verify the usercode and current password
   verifyUser() {
     this.authService.verifyUserCodeAndPassword(
-      this.currentPasswordForm.get('usercode').value,
-      this.currentPasswordForm.get('currentPassword').value)
+      this.currentPasswordForm.get('usercode').value.trim(),
+      this.currentPasswordForm.get('currentPassword').value.trim())
       .subscribe((data) => this.isUserExists = data.success);
   }
 
   // Reset password
   changePassword() {
     this.authService.changePassword(
-      this.currentPasswordForm.get('usercode').value,
-      this.currentPasswordForm.get('currentPassword').value,
-      this.resetPasswordForm.get('newPassword').value,
-      this.resetPasswordForm.get('confirmPassword').value)
+      this.currentPasswordForm.get('usercode').value.trim(),
+      this.currentPasswordForm.get('currentPassword').value.trim(),
+      this.resetPasswordForm.get('newPassword').value.trim(),
+      this.resetPasswordForm.get('confirmPassword').value.trim())
       .subscribe((data) => {
         this.notifyService.showSuccess("Password is changed successfully! Please login to the application");
         this.authService.logout();

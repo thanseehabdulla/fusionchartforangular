@@ -9,7 +9,8 @@ export const apis= {
         verify_user_code: baseUrl+ '/auth/verifycode',
         change_password: baseUrl+ '/auth/changepassword',
         forgotpassword: baseUrl+ '/auth/forgotpassword',
-        verify_otp: baseUrl+ '/auth/otp',
+        generate_otp: baseUrl+ '/auth/generate',
+        verify_otp: baseUrl+ '/auth/validate'
     },
     agents: {
         agents: baseUrl+ '/agent',
