@@ -11,11 +11,11 @@ import { Component, OnInit } from '@angular/core';
 export class SideNavComponent implements OnInit {
   currentUser: User;
   sideMenuItems = [
-    { title: "Manage users", ref: "/admin/users" },
+    { title: "Manage Users", ref: "/admin/users" },
     { title: "Manage Publications", ref: "/admin/publications" },
-    { title: "Change Password", ref: "/user/change-password" },
-    { title: "Report", ref: "/admin/location-report" },   
-    { title:"Settings", ref:"/admin/configurations" }
+    { title: "Inspector Location Report", ref: "/admin/location-report" },   
+    { title:"Settings", ref:"/admin/configurations" },
+    { title: "Change Password", ref: "/user/change-password" }
   ];
   constructor(
     private authService: AuthService

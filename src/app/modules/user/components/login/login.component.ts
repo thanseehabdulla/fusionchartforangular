@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     'password': {
       'required': 'Password is required!',
       'maxlength': 'Password must be less than 20 characters!'
-
     }
   }
 
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   // Login to the application
   onLogin() {
-    this.authService.login(this.loginForm.get('usercode').value, this.loginForm.get('password').value)
+    this.authService.login(this.loginForm.get('usercode').value.trim(), this.loginForm.get('password').value.trim())
       .pipe(first())
       .subscribe((data: any) => this.router.navigate(['/admin/users']))
   }
