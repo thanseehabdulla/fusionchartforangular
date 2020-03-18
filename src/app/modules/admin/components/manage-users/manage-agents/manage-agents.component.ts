@@ -1,3 +1,5 @@
+// page to manage agent details
+
 import { NotifyService } from './../../../../../shared/services/notify.service';
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { Component, OnInit, ViewChild } from '@angular/core';

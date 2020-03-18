@@ -1,3 +1,5 @@
+// interceptor to handle error in all http requests and responses
+
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';

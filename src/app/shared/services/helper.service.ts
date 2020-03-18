@@ -1,3 +1,5 @@
+// service to add common functions
+
 import { Injectable } from '@angular/core';
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material';

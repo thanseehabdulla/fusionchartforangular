@@ -1,3 +1,5 @@
+// service to manage admin/inspector details
+
 import { apis } from 'src/app/config/api.config';
 import { EmployeeInfo } from './../../../shared/models/employee-info';
 import { Role } from './../../../shared/models/role';

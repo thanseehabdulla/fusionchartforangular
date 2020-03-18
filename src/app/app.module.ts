@@ -1,3 +1,5 @@
+// Root module
+
 import { AppLoaderConfig } from './config/common.config';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

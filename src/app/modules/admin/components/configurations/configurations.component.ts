@@ -1,6 +1,5 @@
-import { FormControl } from '@angular/forms';
 //page to set application configuration
-
+import { FormControl } from '@angular/forms';
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ConfigurationService } from '../../services/configuration.service';
 import { NotifyService } from 'src/app/shared/services/notify.service';

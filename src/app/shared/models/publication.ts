@@ -1,3 +1,5 @@
+// interface to represent publication
+
 export interface Publication {
   publication_name: string;
   publication_code: string;

@@ -1,3 +1,5 @@
+// interceptor to handle JWT authentication in all http requests and responses
+
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';

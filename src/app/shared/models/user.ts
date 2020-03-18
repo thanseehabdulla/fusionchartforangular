@@ -1,4 +1,4 @@
-import { Timestamp } from 'rxjs';
+// interface to represent user
 
 export interface User {
     success: string,

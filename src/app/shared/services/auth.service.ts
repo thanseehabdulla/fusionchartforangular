@@ -1,3 +1,5 @@
+// service to handle authentication
+
 import { apis } from 'src/app/config/api.config';
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { HttpConnectionService } from './http-connection.service';

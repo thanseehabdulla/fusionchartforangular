@@ -1,3 +1,5 @@
+// directive to prevent white space in text boxes
+
 import { Directive, ElementRef, HostListener } from '@angular/core';
 import { NgControl } from '@angular/forms';
 

@@ -1,3 +1,5 @@
+// page to manage admin/inspector details
+
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Role } from './../../../../../shared/models/role';

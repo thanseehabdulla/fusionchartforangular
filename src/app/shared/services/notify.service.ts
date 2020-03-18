@@ -1,3 +1,5 @@
+// service to handle notifications (toastr service)
+
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppNotificationConfig } from '../../config/common.config'

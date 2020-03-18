@@ -1,3 +1,5 @@
+// service to handle http requests
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 

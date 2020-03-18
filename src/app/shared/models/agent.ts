@@ -1,3 +1,5 @@
+// interface to represent agent
+
 export interface Agent {
     code: string;
     name: string;

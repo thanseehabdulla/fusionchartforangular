@@ -1,3 +1,5 @@
+// interface to represent employee detailed info
+
 export interface EmployeeInfo {
     code: string,
     name: string,

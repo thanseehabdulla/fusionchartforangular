@@ -1,3 +1,5 @@
+// Class to handle custom validators
+
 import { AbstractControl } from '@angular/forms';
 
 export function confirmPasswordValidator(group: AbstractControl): { [key: string]: any } | null {
