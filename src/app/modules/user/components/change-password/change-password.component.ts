@@ -24,7 +24,8 @@ export class ChangePasswordComponent implements OnInit {
   validationMessages = {
     'usercode': {
       'required': 'Employee Code is required!',
-      'maxlength': 'Employee Code should not exceed 20 characters!'
+      'maxlength': 'Employee Code should not exceed 20 characters!',
+      'pattern': 'Only alphabets and numbers are allowed!'
     },
     'currentPassword': {
       'required': 'Password is required!',
@@ -48,7 +49,7 @@ export class ChangePasswordComponent implements OnInit {
   ) {
     // Current Password Form
     this.currentPasswordForm = this.fb.group({
-      usercode: ['', [Validators.required, Validators.maxLength(20)]],
+      usercode: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]],
       currentPassword: ['', [Validators.required, Validators.maxLength(20)]]
     });
 

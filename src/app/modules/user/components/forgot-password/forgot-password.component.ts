@@ -32,11 +32,13 @@ export class ForgotPasswordComponent implements OnInit {
   validationMessages = {
     'usercode': {
       'required': 'Employee Code is required!',
-      'maxlength': 'Employee Code should not exceed 20 characters!'
+      'maxlength': 'Employee Code should not exceed 20 characters!',
+      'pattern': 'Only alphabets and numbers are allowed!'
     },
     'otp': {
       'required': 'OTP is required!',
-      'maxlength': 'OTP should not exceed 8 characters!'
+      'maxlength': 'OTP should not exceed 8 characters!',
+      'pattern': 'Only numbers are allowed!'
     },
     'newPassword': {
       'required': 'Password is required!',
@@ -57,10 +59,10 @@ export class ForgotPasswordComponent implements OnInit {
   ) {
     // User verification form
     this.userVerificationForm = this.fb.group({
-      usercode: ['', [Validators.required, Validators.maxLength(20)]]
+      usercode: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]]
     });
     // OTP verification form
-    this.otpVerificationForm = this.fb.group({ otp: ['', [Validators.required, Validators.maxLength(6)]] });
+    this.otpVerificationForm = this.fb.group({ otp: ['', [Validators.required, Validators.maxLength(6), Validators.pattern('[0-9]*')]] });
     // Reset password form
     this.resetPasswordForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],

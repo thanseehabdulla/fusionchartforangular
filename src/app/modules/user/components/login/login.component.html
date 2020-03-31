@@ -12,7 +12,6 @@
       <mat-error *ngIf="loginForm.get('usercode').hasError('maxlength') && !loginForm.get('usercode').hasError('pattern')">
         {{validationMessages.usercode.maxlength}}
       </mat-error>
-
     </mat-form-field>
     <mat-form-field floatLabel="auto">
       <mat-label>Password</mat-label>

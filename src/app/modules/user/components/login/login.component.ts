@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService) {
     // Login Form
     this.loginForm = this.fb.group({
-      usercode: ['', [Validators.required, Validators.maxLength(20)], Validators.pattern('[^a-zA-Z0-9]')],
+      usercode: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')]],
       password: ['', [Validators.required, Validators.maxLength(20)]]
     })
   }
