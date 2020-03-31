@@ -103,11 +103,15 @@ export class ManageEmployeesComponent implements OnInit {
   // Activate or deactivate an employee
   toggleActivation(employeeCode: string, status: string) {
     let message = `Are you sure you want to ${this.statusMessageMapper[status]} the employee (Employee code: ${employeeCode}) `
+    // Confirmation dialog for activation/deactivation
     this.helperService.confirmDialog(message, (isConfirmed) => {
+      // If user confirmed to activate / deactivate
       if (isConfirmed) {
         this.employeeService.toggleActivation(employeeCode, this.statusChangeMapper[status])
           .subscribe(
+            // Successfullly activated / deactivated
             (data: any) => {
+              // Refresh employees data in the table and reset other fields in the form
               this.employeeService.getEmployees().subscribe(
                 (employees: Employee[]) => {
                   this.allEmployees.data = employees;
@@ -127,10 +131,13 @@ export class ManageEmployeesComponent implements OnInit {
 
   // Open Add/Edit dialog
   openDialog(employee?: Employee): void {
+    // Set dialog dimension and data
     const dialogRef = this.dialog.open(ManageEmployeesDailogComponent,
       { width: "40%", data: { employee: employee, roles: this.roles } }
     );
+    // After closing the dialog
     dialogRef.afterClosed().subscribe(response => {
+      // If the data is updated, then refresh the employees details in the table and reset other fields in the page
       if (response.isChange) {
         this.employeeService.getEmployees().subscribe(
           (employees) => {

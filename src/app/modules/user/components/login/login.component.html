@@ -6,9 +6,13 @@
       <mat-error *ngIf="loginForm.get('usercode').hasError('required')">
         {{validationMessages.usercode.required}}
       </mat-error>
-      <mat-error *ngIf="loginForm.get('usercode').hasError('maxlength')">
+      <mat-error *ngIf="loginForm.get('usercode').hasError('pattern')">
+        {{validationMessages.usercode.pattern}}
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('usercode').hasError('maxlength') && !loginForm.get('usercode').hasError('pattern')">
         {{validationMessages.usercode.maxlength}}
       </mat-error>
+
     </mat-form-field>
     <mat-form-field floatLabel="auto">
       <mat-label>Password</mat-label>

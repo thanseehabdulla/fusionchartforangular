@@ -1,4 +1,4 @@
-// page to handle login
+// Page to handle login
 
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { Validators } from '@angular/forms';
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   validationMessages = {
     'usercode': {
       'required': 'Employee Code is required!',
-      'maxlength': 'Employee Code should not exceed 20 characters!'
+      'maxlength': 'Employee Code should not exceed 20 characters!',
+      'pattern': 'Only alphabets and numbers are allowed!'
     },
     'password': {
       'required': 'Password is required!',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService) {
     // Login Form
     this.loginForm = this.fb.group({
-      usercode: ['', [Validators.required, Validators.maxLength(20)]],
+      usercode: ['', [Validators.required, Validators.maxLength(20)], Validators.pattern('[^a-zA-Z0-9]')],
       password: ['', [Validators.required, Validators.maxLength(20)]]
     })
   }
@@ -44,7 +45,10 @@ export class LoginComponent implements OnInit {
 
   // Login to the application
   onLogin() {
-    this.authService.login(this.loginForm.get('usercode').value.trim(), this.loginForm.get('password').value.trim())
+    this.authService.login(
+      this.loginForm.get('usercode').value.trim(),
+      this.loginForm.get('password').value.trim()
+    )
       .pipe(first())
       .subscribe((data: any) => this.router.navigate(['/admin/users']))
   }

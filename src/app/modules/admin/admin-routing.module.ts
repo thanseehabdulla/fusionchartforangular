@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin.component';
 import { AuthGuard } from 'src/app/shared/services/auth.guard';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
@@ -10,17 +11,17 @@ import { PublicationMappingComponent } from './components/manage-publications/pu
 import { PublicationMasterComponent } from './components/manage-publications/publication-master/publication-master.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
-    component: SideNavComponent,
+  {
+    path: '',
+    component: AdminComponent,
     children: [
-      { path: '', component: ManageUsersComponent, canActivate: [AuthGuard] },
+      { path: '', redirectTo: 'users', pathMatch: "full" },
       { path: 'users', component: ManageUsersComponent, canActivate: [AuthGuard] },
-      { 
-        path: 'publications', 
-        component: ManagePublicationsComponent, 
-        children: [ 
-          { path: '', redirectTo:'master', pathMatch:"full" },
+      {
+        path: 'publications',
+        component: ManagePublicationsComponent,
+        children: [
+          { path: '', redirectTo: 'master', pathMatch: "full" },
           { path: 'master', component: PublicationMasterComponent, canActivate: [AuthGuard] },
           { path: 'mapping', component: PublicationMappingComponent, canActivate: [AuthGuard] }
         ],
@@ -28,7 +29,7 @@ const routes: Routes = [
       },
       { path: 'location-report', component: InspectorLocationReportComponent, canActivate: [AuthGuard] },
       { path: 'configurations', component: ConfigurationsComponent, canActivate: [AuthGuard] }
-    ] 
+    ]
   }
 ];
 

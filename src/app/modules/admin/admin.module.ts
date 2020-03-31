@@ -14,25 +14,34 @@ import { ManageEmployeesComponent } from './components/manage-users/manage-emplo
 import { ManageEmployeesDailogComponent } from './components/manage-users/manage-employees/manage-employees-dailog/manage-employees-dailog.component';
 import { PublicationMappingComponent } from './components/manage-publications/publication-mapping/publication-mapping.component';
 import { PublicationMappingDialogComponent } from './components/manage-publications/publication-mapping-dialog/publication-mapping-dialog.component';
+import { AdminComponent } from './admin.component';
 
 @NgModule({
   declarations: [
-    ManageUsersComponent, 
-    ManagePublicationsComponent, 
-    ConfigurationsComponent, 
-    InspectorLocationReportComponent, 
+    ManageUsersComponent,
+    ManagePublicationsComponent,
+    ConfigurationsComponent,
+    InspectorLocationReportComponent,
     SideNavComponent,
     PublicationMasterComponent,
     PublicationMasterDialog,
-    ManageAgentsComponent, 
-    ManageEmployeesComponent, 
+    ManageAgentsComponent,
+    ManageEmployeesComponent,
     ManageEmployeesDailogComponent,
-    ManageAgentsComponent, ManageEmployeesComponent, PublicationMappingComponent, PublicationMappingDialogComponent
+    ManageAgentsComponent,
+    ManageEmployeesComponent,
+    PublicationMappingComponent,
+    PublicationMappingDialogComponent,
+    AdminComponent
   ],
   imports: [
     AdminRoutingModule,
     SharedModule
   ],
-  entryComponents: [PublicationMasterDialog, ManageEmployeesDailogComponent,PublicationMappingDialogComponent]
+  entryComponents: [
+    PublicationMasterDialog,
+    ManageEmployeesDailogComponent,
+    PublicationMappingDialogComponent
+  ]
 })
 export class AdminModule { }
