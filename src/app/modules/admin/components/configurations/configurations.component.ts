@@ -14,6 +14,9 @@ export class ConfigurationsComponent implements OnInit {
 
   indentIncreasePercentage: number;
   indentDecreasePercentage: number;
+  isEditIndentIncrease: boolean = false;
+  isEditIndentDecrease: boolean = false;
+
   indentTypeMapper = {
     "indentIncrease": "I",
     "indentDecrease": "D"
@@ -46,26 +49,13 @@ export class ConfigurationsComponent implements OnInit {
         if (indentDecreasePercentage) {
           this.indentDecreasePercentage = indentDecreasePercentage[Object.keys(indentDecreasePercentage)[0]].indent;
         }
-      },
-      (error: any) => {
-        this.setError(error);
-      })
+      });
   }
 
   //set all li to hide
   setDiv() {
     document.getElementById('indentIncrease').style.display = 'none';
     document.getElementById('indentDecrease').style.display = 'none';
-  }
-
-  //edit Percentage
-  editPercentage(id: string) {
-    document.getElementById(id).style.display = 'flex';
-  }
-
-  //cancel pop up
-  cancel(id: string) {
-    document.getElementById(id).style.display = 'none';
   }
 
   //update % value
@@ -77,16 +67,7 @@ export class ConfigurationsComponent implements OnInit {
     }
     this.configurationService.saveIndent(data).subscribe((percentage: number) => {
       this.getIndents();
-    }, (error: any) => {
-      this.setError(error);
+      data.indent_type === 'I' ? this.isEditIndentIncrease = false : this.isEditIndentDecrease = false;
     });
-
-    this.cancel(id);
   }
-
-  //common function to set error
-  setError(error: string) {
-    console.log(error);
-  }
-
 }
