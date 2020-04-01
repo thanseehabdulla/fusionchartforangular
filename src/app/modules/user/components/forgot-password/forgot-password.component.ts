@@ -1,4 +1,4 @@
-// page to handle forgot password
+// Page to handle forgot password
 
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { User } from 'src/app/shared/models/user';

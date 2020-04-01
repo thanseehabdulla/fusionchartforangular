@@ -1,4 +1,4 @@
-//page to set application configuration
+//Page to set application configuration
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ConfigurationService } from '../../services/configuration.service';

@@ -1,4 +1,4 @@
-// page to manage agent details
+// Page to manage agent details
 
 import { NotifyService } from './../../../../../shared/services/notify.service';
 import { HelperService } from 'src/app/shared/services/helper.service';
@@ -17,6 +17,7 @@ export class ManageAgentsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
+  allAgents: MatTableDataSource<Agent> = new MatTableDataSource([]);
   filteredAgents: MatTableDataSource<Agent> = new MatTableDataSource([]);
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
   displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Status'];
@@ -44,6 +45,7 @@ export class ManageAgentsComponent implements OnInit {
   ngOnInit() {
     // Initiate data table with agents details and set pagination and sorting
     this.agentService.getAgents().subscribe((agents) => {
+      this.allAgents = new MatTableDataSource(agents);
       this.filteredAgents = new MatTableDataSource(agents);
       this.pageLength = agents.length;
       this.filteredAgents.sort = this.sort;
@@ -54,7 +56,7 @@ export class ManageAgentsComponent implements OnInit {
   // Filter agents by agent code, name, place and mobile number
   search() {
     let searchTerm: string = this.searchBox.nativeElement.value.trim().toLowerCase();
-    if (searchTerm) {
+    if (searchTerm && this.allAgents.data.length) {
       this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
         return (agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
           agent['name'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
@@ -74,9 +76,10 @@ export class ManageAgentsComponent implements OnInit {
         this.agentService.toggleActivation(agentCode, this.statusChangeMapper[status])
           .subscribe(
             (data: any) => {
-              this.agentService.getAgents().subscribe(
-                (agents) => this.filteredAgents.data = agents
-              );
+              this.agentService.getAgents().subscribe((agents) => {
+                this.allAgents.data = agents;
+                this.filteredAgents.data = agents;
+              });
               this.notifyService.showSuccess(`Agent(${agentCode}) is ${this.statusResultMapper[status]} successfully!`)
             }
           )

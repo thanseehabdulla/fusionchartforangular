@@ -1,4 +1,4 @@
-// page to manage admin/inspector details
+// Page to manage admin/inspector details
 
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -82,7 +82,7 @@ export class ManageEmployeesComponent implements OnInit {
 
   // Filter employees by employee code
   search(searchTerm: string) {
-    if(searchTerm.trim().toLowerCase()) {
+    if(searchTerm.trim().toLowerCase() && this.allEmployees.data.length) {
       this.filteredEmployees.filterPredicate = (employee: Employee, searchTerm: string) => {
         return employee['pki_user_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1;
       };

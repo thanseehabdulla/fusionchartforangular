@@ -1,4 +1,4 @@
-// page to assign/change role to an employee
+// Page to assign/change role to an employee
 
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { NotifyService } from 'src/app/shared/services/notify.service';

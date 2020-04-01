@@ -1,4 +1,4 @@
-// page to manage all users
+// Page to manage all users
 
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
