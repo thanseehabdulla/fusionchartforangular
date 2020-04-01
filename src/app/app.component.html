@@ -1,2 +1,27 @@
+<h1>
+    {{title}}
+</h1>
 
-<router-outlet></router-outlet>
+<div class="chart">
+<fusioncharts
+[width]="width"
+[height]="height"
+[type]="type"
+[dataFormat]="dataFormat"
+[dataSource]="dataSource"
+[events]="events"
+(click)="update()"
+>
+</fusioncharts>
+
+
+<fusioncharts
+*ngIf="chart2"
+[width]="width"
+[height]="height"
+[type]="type2"
+[dataFormat]="dataFormat"
+[dataSource]="dataSource2"
+>
+</fusioncharts>
+</div>
