@@ -49,6 +49,6 @@
 </mat-paginator>
 
 <!-- Data is not available -->
-<div *ngIf="!filteredEmployees">
-    <h4>No admins data available</h4>
+<div *ngIf="!filteredEmployees.data.length">
+    <h4>No data available!</h4>
 </div>

@@ -7,13 +7,14 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../../shared/material/material.module";
+import { UserComponent } from './user.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent, 
     ForgotPasswordComponent, 
-    ChangePasswordComponent,
+    ChangePasswordComponent, UserComponent,
   ],
   imports: [
     UserRoutingModule,

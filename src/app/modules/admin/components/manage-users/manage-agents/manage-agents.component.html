@@ -1,6 +1,6 @@
 <!-- Search bar -->
 <mat-form-field>
-    <input #searchBox matInput type="text" placeholder="Search here" (keyup)="search($event.target.value)">
+    <input #searchBox matInput type="text" placeholder="Search here" (keyup)="search()">
 </mat-form-field>
 
 <!-- Agent Table -->
@@ -28,6 +28,6 @@
 </mat-paginator>
 
 <!-- Data is not available -->
-<div *ngIf="!filteredAgents">
-    <h4>No agents data available</h4>
+<div *ngIf="!filteredAgents.data.length">
+    <h4>No data available!</h4>
 </div>

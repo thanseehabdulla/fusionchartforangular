@@ -1,4 +1,4 @@
-// page to assign/change role to an employee
+// Page to assign/change role to an employee
 
 import { MyErrorStateMatcher } from 'src/app/shared/validators/ErrorStateManager';
 import { NotifyService } from 'src/app/shared/services/notify.service';
@@ -76,12 +76,14 @@ export class ManageEmployeesDailogComponent implements OnInit {
   // Update role of an employee
   onUpdateRole() {
     if (this.employeeInfo.role_id !== this.employeeUpdateForm.get('role').value.trim()) {
+      // Update existing role of an employee
       if (this.isEdit === true) {
         this.employeeService.changeRole(
           this.employeeUpdateForm.get('employeeCode').value.trim(),
           +this.employeeUpdateForm.get('role').value.trim())
           .subscribe((data: any) => this.onCloseDialog(true));
       }
+      // Assign new role to an employee
       else {
         this.employeeService.assignRole(
           this.employeeUpdateForm.get('employeeCode').value.trim(), 

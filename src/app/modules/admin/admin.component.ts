@@ -1,16 +1,13 @@
-// page to display side nav
-
-import { User } from './../../../../shared/models/user';
-import { AuthService } from './../../../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
-  selector: 'app-side-nav',
-  templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss']
 })
-
-export class SideNavComponent implements OnInit {
+export class AdminComponent implements OnInit {
   currentUser: User;
   sideMenuItems = [
     { title: "Manage Users", ref: "/admin/users" },

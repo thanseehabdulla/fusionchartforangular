@@ -1,4 +1,4 @@
-//page to display publication master list data
+//Page to display publication master list data
 
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";

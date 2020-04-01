@@ -1,4 +1,4 @@
-//page to diaplay location tracking report
+//Page to diaplay location tracking report
 
 import { LocationTrackingService } from './../../services/location-tracking.service';
 import { Component, OnInit, ViewChild } from "@angular/core";

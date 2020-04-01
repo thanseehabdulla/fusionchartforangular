@@ -1,4 +1,4 @@
-// page to manage all users
+// Page to manage all users
 
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -9,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-users.component.scss']
 })
 export class ManageUsersComponent implements OnInit {
-  constructor(private router: Router) { 
-   }
+  constructor(private router: Router) {
+  }
   ngOnInit() {
   }
 }
