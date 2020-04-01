@@ -7,7 +7,7 @@
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
-        <div *ngIf="isEditIndentIncrease" class="align-items">
+        <div *ngIf="isEditIndentIncrease || !indentIncreasePercentage" class="align-items">
             <div>
                 <mat-form-field class="input-margin" appearance="outline">
                     <mat-label>Indent Update Percentage :</mat-label>
@@ -33,7 +33,7 @@
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
-        <div *ngIf="isEditIndentDecrease" class="align-items">
+        <div *ngIf="isEditIndentDecrease ||  !indentDecreasePercentage" class="align-items">
             <div>
                 <mat-form-field class="input-margin" appearance="outline">
                     <mat-label>Indent Update Percentage :</mat-label>
