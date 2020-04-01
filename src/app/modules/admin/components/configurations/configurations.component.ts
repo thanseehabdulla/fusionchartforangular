@@ -43,10 +43,12 @@ export class ConfigurationsComponent implements OnInit {
             return x;
         });
         if (indentIncreasePercentage) {
-          this.indentIncreasePercentage = indentIncreasePercentage[Object.keys(indentIncreasePercentage)[0]].indent;
+          this.indentIncreasePercentage = indentIncreasePercentage[Object.keys(indentIncreasePercentage)[0]]?
+          indentIncreasePercentage[Object.keys(indentIncreasePercentage)[0]].indent: 0;
         }
         if (indentDecreasePercentage) {
-          this.indentDecreasePercentage = indentDecreasePercentage[Object.keys(indentDecreasePercentage)[0]].indent;
+          this.indentDecreasePercentage = indentDecreasePercentage[Object.keys(indentDecreasePercentage)[0]]?
+          indentDecreasePercentage[Object.keys(indentDecreasePercentage)[0]].indent: 0;
         }
       });
   }
