@@ -56,7 +56,7 @@ export class ManageAgentsComponent implements OnInit {
   // Filter agents by agent code, name, place and mobile number
   search() {
     let searchTerm: string = this.searchBox.nativeElement.value.trim().toLowerCase();
-    if (searchTerm && this.allAgents.data.length) {
+    if (this.allAgents.data.length) {
       this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
         return (agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
           agent['name'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
