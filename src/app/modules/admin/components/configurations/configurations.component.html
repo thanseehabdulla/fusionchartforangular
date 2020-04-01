@@ -1,5 +1,5 @@
 <ul>
-    <li>
+    <li *ngIf="indentIncreasePercentage">
         <mat-label class="label-heading">
             Indent increase percentage is : {{indentIncreasePercentage}}</mat-label>
         <button mat-icon-button (click)="editPercentage('indentIncrease')">
@@ -22,7 +22,7 @@
         </div>
 
     </li>
-    <li>
+    <li *ngIf="indentDecreasePercentage">
         <mat-label class="label-heading">
             Indent decrease percentage is : {{indentDecreasePercentage}}</mat-label>
         <button mat-icon-button (click)="editPercentage('indentDecrease')">
