@@ -2,7 +2,7 @@
 
 import { NotifyService } from './../../../../../shared/services/notify.service';
 import { HelperService } from 'src/app/shared/services/helper.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Agent } from 'src/app/shared/models/agent';
 import { ManageAgentsService } from '../../../services/manage-agents.service';
@@ -14,10 +14,13 @@ import { ManageAgentsService } from '../../../services/manage-agents.service';
 })
 export class ManageAgentsComponent implements OnInit {
 
-  filteredAgents: MatTableDataSource<Agent>;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
+  filteredAgents: MatTableDataSource<Agent> = new MatTableDataSource([]);
   columns: string[] = ['pki_agent_code', 'name', 'place', 'mobile', 'status'];
   displayColumns: string[] = ['Agent Code', 'Agent Name', 'Place', 'Mobile Number', 'Status'];
-  pageLength: number;
+  pageLength: number = 0;
 
   statusChangeMapper = {
     'A': 'I',
@@ -31,9 +34,6 @@ export class ManageAgentsComponent implements OnInit {
     'I': 'activated',
     'A': 'deactivated'
   }
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private agentService: ManageAgentsService,
@@ -52,15 +52,18 @@ export class ManageAgentsComponent implements OnInit {
   }
 
   // Filter agents by agent code, name, place and mobile number
-  search(searchTerm: string) {
-    this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
-      return agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1 ||
-        agent['name'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1 ||
-        agent['place'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1 ||
-        agent['mobile'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1;
-    };
-    this.filteredAgents.filter = searchTerm;
-    this.filteredAgents.paginator.firstPage();
+  search() {
+    let searchTerm: string = this.searchBox.nativeElement.value.trim().toLowerCase();
+    if (searchTerm) {
+      this.filteredAgents.filterPredicate = (agent: Agent, searchTerm: string) => {
+        return (agent['pki_agent_code'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
+          agent['name'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
+          agent['place'].trim().toLowerCase().indexOf(searchTerm) > -1 ||
+          agent['mobile'].trim().toLowerCase().indexOf(searchTerm) > -1);
+      };
+      this.filteredAgents.filter = searchTerm;
+      this.filteredAgents.paginator.firstPage();
+    }
   }
 
   // Activate or deactivate an agent

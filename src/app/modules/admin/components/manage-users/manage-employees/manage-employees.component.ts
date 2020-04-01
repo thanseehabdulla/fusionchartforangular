@@ -17,9 +17,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./manage-employees.component.scss']
 })
 export class ManageEmployeesComponent implements OnInit {
-
-  allEmployees: MatTableDataSource<Employee>;
-  filteredEmployees: MatTableDataSource<Employee>;
+  
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  allEmployees: MatTableDataSource<Employee> = new MatTableDataSource([]);;
+  filteredEmployees: MatTableDataSource<Employee> = new MatTableDataSource([]);;
   pageLength: number;
   columns: string[] = ['pki_user_code', 'role_id', 'status', 'action'];
   displayColumns: string[] = ['Employee Code', 'Role', 'Status', 'Edit Role'];
@@ -48,8 +50,6 @@ export class ManageEmployeesComponent implements OnInit {
     2: 'Inspector'
   }
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private employeeService: ManageEmployeesService,
@@ -82,11 +82,13 @@ export class ManageEmployeesComponent implements OnInit {
 
   // Filter employees by employee code
   search(searchTerm: string) {
-    this.filteredEmployees.filterPredicate = (employee: Employee, searchTerm: string) => {
-      return employee['pki_user_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1;
-    };
-    this.filteredEmployees.filter = searchTerm;
-    this.filteredEmployees.paginator.firstPage();
+    if(searchTerm.trim().toLowerCase()) {
+      this.filteredEmployees.filterPredicate = (employee: Employee, searchTerm: string) => {
+        return employee['pki_user_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1;
+      };
+      this.filteredEmployees.filter = searchTerm;
+      this.filteredEmployees.paginator.firstPage();
+    }
   }
 
   // Filter employees by role
