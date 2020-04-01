@@ -30,7 +30,7 @@ export const apis= {
         map_publication: baseUrl+ '/publication/map'       
     },
     inspector_location: {
-        report: baseUrl+ '/report',
+        report: baseUrl+ '/location',
     },
     configurations: {
         get_indents: baseUrl+ '/indent',

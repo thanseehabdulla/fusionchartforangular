@@ -1,6 +1,7 @@
-<mat-form-field class="searchBar">
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search here">
-</mat-form-field>
+<div class="searchBar searchbox">
+    <input class="search" matInput (keyup)="applyFilter($event)" placeholder="Search here">
+    <mat-icon class="searp">search</mat-icon>
+</div>
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="tableDataSource" matSort>

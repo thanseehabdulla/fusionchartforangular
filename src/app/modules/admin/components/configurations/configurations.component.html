@@ -1,17 +1,17 @@
-<div>
+<div mat-card>
     <ul>
         <li>
             <div *ngIf="indentIncreasePercentage">
                 <mat-label class="label-heading">
                     Indent increase percentage is : {{indentIncreasePercentage}}
                 </mat-label>
-                <button mat-icon-button (click)="isEditIndentIncrease = true">
+                <button (click)="isEditIndentIncrease = true">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
             <div *ngIf="isEditIndentIncrease || !indentIncreasePercentage" class="align-items">
                 <div>
-                    <mat-form-field class="input-margin" appearance="outline">
+                    <mat-form-field class="input-margin" floatLabel="always" appearance="outline">
                         <mat-label>Indent Increase Percentage :</mat-label>
                         <input #indentIncreasePercentageField matInput type="number"
                             [ngModel]="indentIncreasePercentage" required>
@@ -31,13 +31,13 @@
                 <mat-label class="label-heading">
                     Indent decrease percentage is : {{indentDecreasePercentage}}
                 </mat-label>
-                <button mat-icon-button (click)="isEditIndentDecrease = true">
+                <button (click)="isEditIndentDecrease = true">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
             <div *ngIf="isEditIndentDecrease ||  !indentDecreasePercentage" class="align-items">
                 <div>
-                    <mat-form-field class="input-margin" appearance="outline">
+                    <mat-form-field class="input-margin" floatLabel="always" appearance="outline">
                         <mat-label>Indent Decrease Percentage :</mat-label>
                         <input #indentDecreasePercentageField matInput type="number"
                             [ngModel]="indentDecreasePercentage" required>
