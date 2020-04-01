@@ -27,7 +27,6 @@ export class ConfigurationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setDiv();
     this.getIndents();
   }
 
@@ -50,12 +49,6 @@ export class ConfigurationsComponent implements OnInit {
           this.indentDecreasePercentage = indentDecreasePercentage[Object.keys(indentDecreasePercentage)[0]].indent;
         }
       });
-  }
-
-  //set all li to hide
-  setDiv() {
-    document.getElementById('indentIncrease').style.display = 'none';
-    document.getElementById('indentDecrease').style.display = 'none';
   }
 
   //update % value
