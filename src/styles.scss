@@ -1,0 +1,187 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    // font-family:'tajawal'!important;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.saveButton, button.mat-primary{
+    background-color: #1976D2 !important;
+    color: white !important;
+    border:1px solid#1976D2 !important;
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #1976D2 !important;
+}
+
+.cancelButton {
+    background-color: #FEFEFE;
+    color: #1976D2 !important;
+    border:1px solid#1976D2 !important;
+}
+
+.cancelButton:hover, .saveButton:hover {
+    background-color: #0c2c4c;
+    color: white !important;
+}
+
+.deleteButton {
+    background-color: #E63D39;
+    color: white !important;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-select-overide{
+    border: 1px solid #80808038;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 8px !important;
+}
+
+.mat-input-element:disabled {
+    color: #333 !important;
+}
+
+caption{
+    background: #1976D2;
+    color: white;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 10px;
+}
+
+mat-table, table{
+    box-shadow: 1px 1px grey !important;
+}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: black !important;
+}
+
+mat-tab-header{
+    box-shadow: 0px 2px #F2F2F2;
+}
+
+th, mat-header-row{
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    color: #333 !important;
+    background: #8080800f !important;
+    // border: 1px solid #212529;
+    box-shadow: 0.5px 0.5px grey;
+    
+    mat-header-cell, .mat-sort-header-container{
+        font-size: 14px !important;
+        color: #333 !important;
+        background-color: smokewhite !important;
+        padding-left: 20px;
+    }
+}
+mat-cell{
+    margin-left: 20px !important;
+}
+
+td{
+    color: #212529 !important;
+    text-transform: capitalize;
+    padding-left: 20px !important;
+}
+
+.searchbox input:focus {
+    outline: none; /*by default,input shows an outline on focus */
+}
+.searchbox input{
+    z-index: 0;
+    margin-top: 8%;
+    width: 250%;
+    height: 40px;
+    background:#f1f3f4;
+    border-radius: 25px;
+    border: 2px solid #f1f3f4;
+}
+form{
+    display:inline-block;
+}
+#closeid{
+    display: none;
+}
+.fa-search{
+    position: absolute;
+    top:55%;
+    left:5%;
+    color:#8e99a4;
+}
+.close{
+    position: absolute;
+    top:50%;
+    right:-160%;
+    color:#8e99a4;
+    border: none;
+    padding: 0;
+}
+.search{
+    color:#8e99a4;
+    font-weight: 400; 
+    padding-left: 50px;
+    font-size: 18px;
+    z-index: 3;
+    
+}
+.fa-times{
+    position: absolute;
+    top:30%;
+    right:5%;  
+}
+
+.sear{
+    position: absolute;
+    top: 42px;
+    left: 160px;
+}
+
+.searp{
+    position: absolute;
+    top: 91px;
+    left: 167px;
+}
+
+.searpm{
+    position: absolute;
+    top: 91px;
+    left: 167px;
+    color:black !important;
+    font-size: 24px !important;
+}
+
+.searcha{
+    margin:10px !important;
+}
+
+.seara{
+    position: absolute;
+    right: 17px;
+    left: unset;
+    top: 20px;
+}
+
+ul{
+    list-style-type:""
+}
