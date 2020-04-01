@@ -17,7 +17,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./manage-employees.component.scss']
 })
 export class ManageEmployeesComponent implements OnInit {
-  
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   allEmployees: MatTableDataSource<Employee> = new MatTableDataSource([]);;
@@ -50,7 +50,6 @@ export class ManageEmployeesComponent implements OnInit {
     2: 'Inspector'
   }
 
-
   constructor(
     private employeeService: ManageEmployeesService,
     private helperService: HelperService,
@@ -82,7 +81,7 @@ export class ManageEmployeesComponent implements OnInit {
 
   // Filter employees by employee code
   search(searchTerm: string) {
-    if(this.allEmployees.data.length) {
+    if (this.allEmployees.data.length) {
       this.filteredEmployees.filterPredicate = (employee: Employee, searchTerm: string) => {
         return employee['pki_user_code'].trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) > -1;
       };
@@ -93,13 +92,15 @@ export class ManageEmployeesComponent implements OnInit {
 
   // Filter employees by role
   onSelectRole(roleId: number) {
-    this.filteredEmployees.data = this.allEmployees.data.filter((employee) => {
-      if (roleId !== 0)
-        return employee.role_id === roleId
-      else
-        return employee
-    });
-    this.pageLength = this.filteredEmployees.data.length;
+    if (this.allEmployees.data.length) {
+      this.filteredEmployees.data = this.allEmployees.data.filter((employee) => {
+        if (roleId !== 0)
+          return employee.role_id === roleId
+        else
+          return employee
+      });
+      this.pageLength = this.filteredEmployees.data.length;
+    }
   }
 
   // Activate or deactivate an employee
